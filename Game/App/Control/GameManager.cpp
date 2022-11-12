@@ -8,6 +8,7 @@ namespace My3dApp
         , screenHeight(0)
         , fullScreen(false)
     {
+        Init();
     }
 
     bool GameManager::ProcessInput()
@@ -72,7 +73,7 @@ namespace My3dApp
         * 1/60 = 1.66666...
         * 16000マイクロ秒 = 16ミリ秒 = 0.016秒
         */
-        float waitFrameTime = 15500;
+        float waitFrameTime = 15900;
 
         /** ループ本体*/
         while (gameLoop)
@@ -91,6 +92,8 @@ namespace My3dApp
 
             /** 画面の初期化*/
             ClearDrawScreen();
+
+            DrawFormatString(100, 100, GetColor(255, 255, 255), "fps:%f", deltaTime);
 
             /** 裏画面の内容を表画面に反映させる*/
             ScreenFlip();

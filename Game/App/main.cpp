@@ -1,16 +1,18 @@
+#pragma warning(disable:28251)
 #include <windows.h>
 #include "Dxlib.h"
 #include "Control/GameManager.h"
 
-using namespace My3dApp;
-
 int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 {
-    /** ゲームマネージャの初期化*/
-    GameInstance.Init();
+    /** ゲームマネージャのインスタンス生成*/
+    My3dApp::GameManager* gameMngr = new My3dApp::GameManager();
 
-    /** ゲーム*/
-    GameInstance.Loop();
+    /** ゲームループ*/
+    gameMngr->Loop();
+
+    /** ゲームマネージャのインスタンス削除*/
+    delete gameMngr;
 
     return 0;
 }

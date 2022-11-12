@@ -8,13 +8,6 @@ namespace My3dApp
     class GameManager final
     {
     private:
-        /**
-        * コンストラクタ
-        *
-        * シングルトン
-        */
-        GameManager();
-
         /** ループを抜ける際に使う入力処理関数*/
         bool ProcessInput();
 
@@ -28,16 +21,8 @@ namespace My3dApp
         bool fullScreen;
 
     public:
-        /**
-        * ゲームマネージャのインスタンス取得
-        *
-        * @return ゲームマネージャのインスタンス
-        */
-        static GameManager& Instance()
-        {
-            static GameManager gameSystem;
-            return gameSystem;
-        }
+        /** コンストラクタ*/
+        GameManager();
 
         /** デストラクタ*/
         ~GameManager() {};
@@ -49,6 +34,4 @@ namespace My3dApp
         void Loop();
     };
 
-    /** ゲームマネージャインスタンスのマクロ作成*/
-    #define GameInstance GameManager::Instance()
 }/** namespace My3dAppp*/
