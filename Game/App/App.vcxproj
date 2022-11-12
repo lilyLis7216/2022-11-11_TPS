@@ -147,9 +147,15 @@
   <ItemGroup>
     <ClCompile Include="Control\GameManager.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Sequence\SceneBase.cpp" />
+    <ClCompile Include="Sequence\StageSelect.cpp" />
+    <ClCompile Include="Sequence\Title.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Control\GameManager.h" />
+    <ClInclude Include="Sequence\SceneBase.h" />
+    <ClInclude Include="Sequence\StageSelect.h" />
+    <ClInclude Include="Sequence\Title.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

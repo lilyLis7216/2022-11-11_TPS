@@ -16,6 +16,9 @@
     <Filter Include="ソース ファイル\Control">
       <UniqueIdentifier>{f24873ad-5d46-4bdf-841b-761e54e62ae6}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ソース ファイル\Sequence">
+      <UniqueIdentifier>{eff77851-80c6-4b90-a16f-1651145dc052}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -24,10 +27,28 @@
     <ClCompile Include="Control\GameManager.cpp">
       <Filter>ソース ファイル\Control</Filter>
     </ClCompile>
+    <ClCompile Include="Sequence\SceneBase.cpp">
+      <Filter>ソース ファイル\Sequence</Filter>
+    </ClCompile>
+    <ClCompile Include="Sequence\StageSelect.cpp">
+      <Filter>ソース ファイル\Sequence</Filter>
+    </ClCompile>
+    <ClCompile Include="Sequence\Title.cpp">
+      <Filter>ソース ファイル\Sequence</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Control\GameManager.h">
       <Filter>ソース ファイル\Control</Filter>
+    </ClInclude>
+    <ClInclude Include="Sequence\SceneBase.h">
+      <Filter>ソース ファイル\Sequence</Filter>
+    </ClInclude>
+    <ClInclude Include="Sequence\StageSelect.h">
+      <Filter>ソース ファイル\Sequence</Filter>
+    </ClInclude>
+    <ClInclude Include="Sequence\Title.h">
+      <Filter>ソース ファイル\Sequence</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
