@@ -147,12 +147,17 @@
   <ItemGroup>
     <ClCompile Include="Control\GameManager.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Sequence\Play.cpp" />
+    <ClCompile Include="Sequence\Result.cpp" />
     <ClCompile Include="Sequence\SceneBase.cpp" />
     <ClCompile Include="Sequence\StageSelect.cpp" />
     <ClCompile Include="Sequence\Title.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Control\GameManager.h" />
+    <ClInclude Include="GameObject\GameObjectTag.h" />
+    <ClInclude Include="Sequence\Play.h" />
+    <ClInclude Include="Sequence\Result.h" />
     <ClInclude Include="Sequence\SceneBase.h" />
     <ClInclude Include="Sequence\StageSelect.h" />
     <ClInclude Include="Sequence\Title.h" />
