@@ -22,6 +22,9 @@ namespace My3dApp
         /** 現在のシーンの種類*/
         SceneType nowSceneType;
 
+        /** シーンの表記用テキスト*/
+        const char* text;
+
     public:
         /**
         * コンストラクタ
@@ -42,6 +45,16 @@ namespace My3dApp
 
         /** 描画処理（純粋仮想関数）*/
         virtual void Draw() = 0;
+
+        /**
+        * 以下デバッグ用関数
+        */
+
+        /** 現在のシーンの確認関数*/
+        void CheckNowScene();
+
+        /** 入力確認関数*/
+        void InputCheck();
     };
 
 }/** namespace My3dApp*/
