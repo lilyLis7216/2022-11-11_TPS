@@ -5,14 +5,17 @@
 
 int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 {
-    /** ゲームマネージャのインスタンス生成*/
-    My3dApp::GameManager* gameMngr = new My3dApp::GameManager();
+    /** ゲームマネージャ*/
+    My3dApp::GameManager* gameManager;
+
+    /** ゲームマネージャの生成*/
+    gameManager = new My3dApp::GameManager();
 
     /** ゲームループ*/
-    gameMngr->Loop();
+    gameManager->Loop();
 
-    /** ゲームマネージャのインスタンス削除*/
-    delete gameMngr;
+    /** ゲームマネージャの削除*/
+    delete gameManager;
 
     return 0;
 }
