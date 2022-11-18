@@ -3,6 +3,8 @@
 #include "../Sequence/SceneBase.h"
 #include "../Sequence/Title.h"
 #include "../Sequence/StageSelect.h"
+#include "../Sequence/Play.h"
+#include "../Sequence/Result.h"
 
 namespace My3dApp
 {
@@ -50,10 +52,13 @@ namespace My3dApp
             retScene = new StageSelect();
             break;
         case SceneType::Scene_Play:
+            retScene = new Play();
             break;
         case SceneType::Scene_Result:
+            retScene = new Result();
             break;
         case SceneType::Scene_Exit:
+            retScene = nullptr;
             break;
         default:
             break;
@@ -171,6 +176,12 @@ namespace My3dApp
 
             /** 現在のカウントを保存する*/
             prevCount = nowCount;
+
+            /** シーンがなければ強制終了*/
+            if (!scene)
+            {
+                break;
+            }
         }
 
         /** シーンの解放*/
