@@ -1,7 +1,7 @@
 #pragma once
 #include "SceneBase.h"
 
-namespace Sequence
+namespace My3dApp
 {
     class StageSelect : public SceneBase
     {
@@ -13,4 +13,4 @@ namespace Sequence
         void Draw() override;
     };
 
-}/** namespace Sequence*/
+}/** namespace My3dApp*/

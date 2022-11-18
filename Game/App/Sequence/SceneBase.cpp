@@ -1,6 +1,6 @@
 #include "SceneBase.h"
 
-namespace Sequence
+namespace My3dApp
 {
     SceneBase::SceneBase(SceneType sceneType)
         : nowSceneType(sceneType)
@@ -13,4 +13,4 @@ namespace Sequence
         /** èàóùÇ»Çµ*/
     }
 
-}/** namespace Sequence*/
+}/** namespace My3dApp*/

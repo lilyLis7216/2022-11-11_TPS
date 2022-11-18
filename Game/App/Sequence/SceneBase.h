@@ -1,6 +1,6 @@
 #pragma once
 
-namespace Sequence
+namespace My3dApp
 {
     /** ƒV[ƒ“‚Ìí—Ş*/
     enum class SceneType
@@ -44,4 +44,4 @@ namespace Sequence
         virtual void Draw() = 0;
     };
 
-}/** namespace Sequence*/
+}/** namespace My3dApp*/

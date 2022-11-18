@@ -1,7 +1,7 @@
 #include "Title.h"
 #include "DxLib.h"
 
-namespace Sequence
+namespace My3dApp
 {
     Title::Title()
         : SceneBase(SceneType::Scene_Title)
@@ -30,4 +30,4 @@ namespace Sequence
     {
         DrawFormatString(100, 200, GetColor(255, 255, 255), "ƒ^ƒCƒgƒ‹");
     }
-}/** namespace Sequence*/
+}/** namespace My3dApp*/

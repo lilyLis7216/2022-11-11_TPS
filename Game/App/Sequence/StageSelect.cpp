@@ -1,7 +1,7 @@
 #include "StageSelect.h"
 #include "DxLib.h"
 
-namespace Sequence
+namespace My3dApp
 {
     StageSelect::StageSelect()
         : SceneBase(SceneType::Scene_StageSelect)
@@ -25,4 +25,4 @@ namespace Sequence
     {
         DrawFormatString(100, 200, GetColor(255, 255, 255), "ステージセレクト");
     }
-}/** namespace Sequence*/
+}/** namespace My3dApp*/

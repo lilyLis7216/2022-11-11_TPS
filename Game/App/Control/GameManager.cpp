@@ -4,11 +4,8 @@
 #include "../Sequence/Title.h"
 #include "../Sequence/StageSelect.h"
 
-
 namespace My3dApp
 {
-    Sequence::SceneBase* CreateScene(Sequence::SceneType now);
-
     GameManager::GameManager()
         : screenWidth(0)
         , screenHeight(0)
@@ -34,6 +31,35 @@ namespace My3dApp
         }
 
         return true;
+    }
+
+    /**
+    * 新しくシーンを生成する関数
+    * 後ほど修正予定
+    */
+    SceneBase* CreateScene(SceneType now)
+    {
+        /** 返すシーン*/
+        SceneBase* retScene = nullptr;
+        switch (now)
+        {
+        case SceneType::Scene_Title:
+            retScene = new Title();
+            break;
+        case SceneType::Scene_StageSelect:
+            retScene = new StageSelect();
+            break;
+        case SceneType::Scene_Play:
+            break;
+        case SceneType::Scene_Result:
+            break;
+        case SceneType::Scene_Exit:
+            break;
+        default:
+            break;
+        }
+
+        return retScene;
     }
 
     void GameManager::Init()
@@ -82,11 +108,13 @@ namespace My3dApp
         float waitFrameTime = 15900;
 
         /** シーンの生成*/
-        Sequence::SceneBase* scene = new Sequence::Title();
+        SceneBase* scene = new Title();
 
-        Sequence::SceneType nowSceneType = Sequence::SceneType::Scene_Title;
+        /** 現在のシーンタイプ*/
+        SceneType nowSceneType = SceneType::Scene_Title;
 
-        Sequence::SceneType prevSceneType = nowSceneType;
+        /** 前のシーンタイプ*/
+        SceneType prevSceneType = nowSceneType;
 
         /** ループ本体*/
         while (gameLoop)
@@ -103,66 +131,53 @@ namespace My3dApp
             /** ループ継続の確認*/
             gameLoop = ProcessInput();
 
+            /** シーンの更新と現在のシーンタイプの保存*/
             nowSceneType = scene->Update();
 
             /** 画面の初期化*/
             ClearDrawScreen();
 
+            /** シーンの描画*/
             scene->Draw();
 
+            /** fps確認用（後で消す）*/
             DrawFormatString(100, 100, GetColor(255, 255, 255), "fps:%f", deltaTime);
 
             /** 裏画面の内容を表画面に反映させる*/
             ScreenFlip();
 
+            /** 現在のシーンと前のシーンが異なったら*/
             if (nowSceneType != prevSceneType)
             {
+                /** シーンがあれば*/
                 if (scene)
                 {
+                    /** シーンを解放*/
                     delete scene;
+
+                    /** シーンをnullptrに設定する*/
                     scene = nullptr;
                 }
 
+                /** 現在のシーンを新しく作ってシーンに入れる*/
                 scene = CreateScene(nowSceneType);
             }
 
             /** 60fps制御用ループ*/
             while (GetNowHiPerformanceCount() - nowCount < waitFrameTime);
 
+            /** 現在のシーンタイプを保存する*/
             prevSceneType = nowSceneType;
 
-            /** ループが終わる直前に前フレームカウントの更新をする*/
+            /** 現在のカウントを保存する*/
             prevCount = nowCount;
         }
 
+        /** シーンの解放*/
         delete scene;
 
         /** DxLibの使用終了処理*/
         DxLib_End();
-    }
-
-    Sequence::SceneBase* CreateScene(Sequence::SceneType now)
-    {
-        Sequence::SceneBase* retScene = nullptr;
-        switch (now)
-        {
-        case Sequence::SceneType::Scene_Title:
-            retScene = new Sequence::Title();
-            break;
-        case Sequence::SceneType::Scene_StageSelect:
-            retScene = new Sequence::StageSelect();
-            break;
-        case Sequence::SceneType::Scene_Play:
-            break;
-        case Sequence::SceneType::Scene_Result:
-            break;
-        case Sequence::SceneType::Scene_Exit:
-            break;
-        default:
-            break;
-        }
-
-        return retScene;
     }
 
 }/** namespace My3dApp*/
