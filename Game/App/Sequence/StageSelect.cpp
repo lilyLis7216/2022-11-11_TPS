@@ -6,23 +6,25 @@ namespace My3dApp
     StageSelect::StageSelect()
         : SceneBase(SceneType::Scene_StageSelect)
     {
+        text = "2.StageSelect";
     }
+
     StageSelect::~StageSelect()
     {
     }
+
     SceneType StageSelect::Update()
     {
         nowSceneType = SceneType::Scene_StageSelect;
 
-        if (CheckHitKey(KEY_INPUT_X))
-        {
-            nowSceneType = SceneType::Scene_Title;
-        }
+        InputCheck();
 
         return nowSceneType;
     }
+
     void StageSelect::Draw()
     {
-        DrawFormatString(100, 200, GetColor(255, 255, 255), "ステージセレクト");
+        CheckNowScene();
     }
+
 }/** namespace My3dApp*/

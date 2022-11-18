@@ -6,7 +6,7 @@ namespace My3dApp
     Title::Title()
         : SceneBase(SceneType::Scene_Title)
     {
-        /** èàóùÇ»Çµ*/
+        text = "1.Title";
     }
 
     Title::~Title()
@@ -18,16 +18,14 @@ namespace My3dApp
     {
         nowSceneType = SceneType::Scene_Title;
 
-        if (CheckHitKey(KEY_INPUT_Z))
-        {
-            nowSceneType = SceneType::Scene_StageSelect;
-        }
+        InputCheck();
 
         return nowSceneType;
     }
 
     void Title::Draw()
     {
-        DrawFormatString(100, 200, GetColor(255, 255, 255), "É^ÉCÉgÉã");
+        CheckNowScene();
     }
+
 }/** namespace My3dApp*/

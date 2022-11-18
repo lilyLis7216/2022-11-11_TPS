@@ -5,15 +5,21 @@ namespace My3dApp
 {
     /**
     * タイトルクラス
-    * シーンベースを継承している
+    * SceneBaseを継承している
     */
     class Title : public SceneBase
     {
     public:
+        /** コンストラクタ*/
         Title();
+
+        /** デストラクタ*/
         ~Title();
 
+        /** タイトルシーンの更新*/
         SceneType Update() override;
+
+        /** タイトルシーンの描画*/
         void Draw() override;
     };
 
