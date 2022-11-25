@@ -13,60 +13,72 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
-    <Filter Include="ソース ファイル\Control">
-      <UniqueIdentifier>{f24873ad-5d46-4bdf-841b-761e54e62ae6}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ソース ファイル\Sequence">
-      <UniqueIdentifier>{eff77851-80c6-4b90-a16f-1651145dc052}</UniqueIdentifier>
-    </Filter>
     <Filter Include="ソース ファイル\GameObject">
       <UniqueIdentifier>{0fa33cb7-beb4-4e08-ad8d-afeb51be6d13}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Scene">
+      <UniqueIdentifier>{addfccca-a79f-45d7-9784-32facd955a9a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Manager">
+      <UniqueIdentifier>{1c673baf-7662-4508-92ce-de4e74dd6d0c}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="Control\GameManager.cpp">
-      <Filter>ソース ファイル\Control</Filter>
+    <ClCompile Include="Scene\Play.cpp">
+      <Filter>ソース ファイル\Scene</Filter>
     </ClCompile>
-    <ClCompile Include="Sequence\SceneBase.cpp">
-      <Filter>ソース ファイル\Sequence</Filter>
+    <ClCompile Include="Scene\Result.cpp">
+      <Filter>ソース ファイル\Scene</Filter>
     </ClCompile>
-    <ClCompile Include="Sequence\StageSelect.cpp">
-      <Filter>ソース ファイル\Sequence</Filter>
+    <ClCompile Include="Scene\SceneBase.cpp">
+      <Filter>ソース ファイル\Scene</Filter>
     </ClCompile>
-    <ClCompile Include="Sequence\Title.cpp">
-      <Filter>ソース ファイル\Sequence</Filter>
+    <ClCompile Include="Scene\StageSelect.cpp">
+      <Filter>ソース ファイル\Scene</Filter>
     </ClCompile>
-    <ClCompile Include="Sequence\Play.cpp">
-      <Filter>ソース ファイル\Sequence</Filter>
+    <ClCompile Include="Scene\Title.cpp">
+      <Filter>ソース ファイル\Scene</Filter>
     </ClCompile>
-    <ClCompile Include="Sequence\Result.cpp">
-      <Filter>ソース ファイル\Sequence</Filter>
+    <ClCompile Include="GameObject\GameObject.cpp">
+      <Filter>ソース ファイル\GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="Manager\AssetManager.cpp">
+      <Filter>ソース ファイル\Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="Manager\GameManager.cpp">
+      <Filter>ソース ファイル\Manager</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Control\GameManager.h">
-      <Filter>ソース ファイル\Control</Filter>
+    <ClInclude Include="Scene\Play.h">
+      <Filter>ソース ファイル\Scene</Filter>
     </ClInclude>
-    <ClInclude Include="Sequence\SceneBase.h">
-      <Filter>ソース ファイル\Sequence</Filter>
+    <ClInclude Include="Scene\Result.h">
+      <Filter>ソース ファイル\Scene</Filter>
     </ClInclude>
-    <ClInclude Include="Sequence\StageSelect.h">
-      <Filter>ソース ファイル\Sequence</Filter>
+    <ClInclude Include="Scene\SceneBase.h">
+      <Filter>ソース ファイル\Scene</Filter>
     </ClInclude>
-    <ClInclude Include="Sequence\Title.h">
-      <Filter>ソース ファイル\Sequence</Filter>
+    <ClInclude Include="Scene\StageSelect.h">
+      <Filter>ソース ファイル\Scene</Filter>
     </ClInclude>
-    <ClInclude Include="GameObject\GameObjectTag.h">
+    <ClInclude Include="Scene\Title.h">
+      <Filter>ソース ファイル\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObject\GameObject.h">
       <Filter>ソース ファイル\GameObject</Filter>
     </ClInclude>
-    <ClInclude Include="Sequence\Play.h">
-      <Filter>ソース ファイル\Sequence</Filter>
+    <ClInclude Include="GameObject\ObjectTag.h">
+      <Filter>ソース ファイル\GameObject</Filter>
     </ClInclude>
-    <ClInclude Include="Sequence\Result.h">
-      <Filter>ソース ファイル\Sequence</Filter>
+    <ClInclude Include="Manager\AssetManager.h">
+      <Filter>ソース ファイル\Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="Manager\GameManager.h">
+      <Filter>ソース ファイル\Manager</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
