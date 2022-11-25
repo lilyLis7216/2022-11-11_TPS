@@ -1,46 +1,59 @@
 #include "SceneBase.h"
 #include "DxLib.h"
+#include "Title.h"
+#include "StageSelect.h"
+#include "Play.h"
+#include "Result.h"
 
 namespace My3dApp
 {
-    SceneBase::SceneBase(SceneType sceneType)
-        : nowSceneType(sceneType)
-        , text(nullptr)
+    /**
+    * コンストラクタ
+    */
+    SceneBase::SceneBase()
+        : text(nullptr)
     {
         /** 処理なし*/
     }
 
+    /**
+    * 仮想デストラクタ
+    */
     SceneBase::~SceneBase()
     {
         /** 処理なし*/
     }
 
+    /**
+    * シーン確認用
+    */
     void SceneBase::CheckNowScene()
     {
         DrawFormatString(100, 200, GetColor(255, 255, 255), "%s", text);
     }
 
-    void SceneBase::InputCheck()
+    SceneBase* SceneBase::ChangeScene()
     {
         if (CheckHitKey(KEY_INPUT_1))
         {
-            nowSceneType = SceneType::Scene_Title;
+            return new Title();
         }
 
         if (CheckHitKey(KEY_INPUT_2))
         {
-            nowSceneType = SceneType::Scene_StageSelect;
+            return new StageSelect();
         }
 
         if (CheckHitKey(KEY_INPUT_3))
         {
-            nowSceneType = SceneType::Scene_Play;
+            return new Play();
         }
 
         if (CheckHitKey(KEY_INPUT_4))
         {
-            nowSceneType = SceneType::Scene_Result;
+            return new Result();
         }
+        return this;
     }
 
 }/** namespace My3dApp*/

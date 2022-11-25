@@ -4,22 +4,22 @@
 namespace My3dApp
 {
     /**
-    * タイトルクラス
+    * ステージセレクトクラス
     * SceneBaseを継承している
     */
-    class Title : public SceneBase
+    class StageSelect : public SceneBase
     {
     public:
         /** コンストラクタ*/
-        Title();
+        StageSelect();
 
         /** デストラクタ*/
-        ~Title();
+        ~StageSelect();
 
-        /** タイトルシーンの更新*/
-        SceneType Update() override;
+        /** ステージセレクトの更新*/
+        SceneBase* Update() override;
 
-        /** タイトルシーンの描画*/
+        /** ステージセレクトの描画*/
         void Draw() override;
     };
 

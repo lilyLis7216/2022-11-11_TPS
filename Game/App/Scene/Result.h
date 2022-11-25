@@ -16,10 +16,10 @@ namespace My3dApp
         /** デストラクタ*/
         ~Result();
 
-        /** リザルトシーンの更新*/
-        SceneType Update() override;
+        /** リザルトの更新*/
+        SceneBase* Update() override;
 
-        /** リザルトシーンの描画*/
+        /** リザルトの描画*/
         void Draw() override;
     };
 

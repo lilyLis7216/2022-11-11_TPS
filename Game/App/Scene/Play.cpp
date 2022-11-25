@@ -4,7 +4,6 @@
 namespace My3dApp
 {
     Play::Play()
-        :SceneBase(SceneType::Scene_Play)
     {
         text = "3.Play";
     }
@@ -14,13 +13,11 @@ namespace My3dApp
         /** èàóùÇ»Çµ*/
     }
 
-    SceneType Play::Update()
+    SceneBase* Play::Update()
     {
-        nowSceneType = SceneType::Scene_Play;
-
-        InputCheck();
-
-        return nowSceneType;
+        ChangeScene();
+        /** âΩÇ‡Ç»ÇØÇÍÇŒé©êgÇï‘Ç∑*/
+        return this;
     }
 
     void Play::Draw()

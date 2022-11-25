@@ -4,7 +4,6 @@
 namespace My3dApp
 {
     Result::Result()
-        :SceneBase(SceneType::Scene_Result)
     {
         text = "4.Result";
     }
@@ -13,13 +12,11 @@ namespace My3dApp
     {
     }
 
-    SceneType Result::Update()
+    SceneBase* Result::Update()
     {
-        nowSceneType = SceneType::Scene_Result;
-
-        InputCheck();
-
-        return nowSceneType;
+        ChangeScene();
+        /** âΩÇ‡Ç»ÇØÇÍÇŒé©êgÇï‘Ç∑*/
+        return this;
     }
 
     void Result::Draw()

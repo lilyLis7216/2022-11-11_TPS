@@ -4,7 +4,6 @@
 namespace My3dApp
 {
     StageSelect::StageSelect()
-        : SceneBase(SceneType::Scene_StageSelect)
     {
         text = "2.StageSelect";
     }
@@ -13,13 +12,11 @@ namespace My3dApp
     {
     }
 
-    SceneType StageSelect::Update()
+    SceneBase* StageSelect::Update()
     {
-        nowSceneType = SceneType::Scene_StageSelect;
-
-        InputCheck();
-
-        return nowSceneType;
+        ChangeScene();
+        /** âΩÇ‡Ç»ÇØÇÍÇŒé©êgÇï‘Ç∑*/
+        return this;
     }
 
     void StageSelect::Draw()

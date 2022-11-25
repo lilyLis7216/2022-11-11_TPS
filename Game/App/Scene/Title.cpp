@@ -4,7 +4,6 @@
 namespace My3dApp
 {
     Title::Title()
-        : SceneBase(SceneType::Scene_Title)
     {
         text = "1.Title";
     }
@@ -14,13 +13,11 @@ namespace My3dApp
         /** ˆ—‚È‚µ*/
     }
 
-    SceneType Title::Update()
+    SceneBase* Title::Update()
     {
-        nowSceneType = SceneType::Scene_Title;
-
-        InputCheck();
-
-        return nowSceneType;
+        ChangeScene();
+        /** ‰½‚à‚È‚¯‚ê‚Î©g‚ğ•Ô‚·*/
+        return this;
     }
 
     void Title::Draw()

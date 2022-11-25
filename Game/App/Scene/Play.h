@@ -16,10 +16,11 @@ namespace My3dApp
         /** デストラクタ*/
         ~Play();
 
-        /** プレイシーンの更新*/
-        SceneType Update() override;
+        /** プレイの更新*/
+        SceneBase* Update() override;
 
-        /** プレイシーンの描画*/
+        /** プレイの描画*/
         void Draw() override;
     };
-}
+
+}/** namespace My3dApp*/
