@@ -1,19 +1,46 @@
 #include "GameManager.h"
 #include "../Dxlib_h/DxLib.h"
-#include "../Sequence/SceneBase.h"
-#include "../Sequence/Title.h"
-#include "../Sequence/StageSelect.h"
-#include "../Sequence/Play.h"
-#include "../Sequence/Result.h"
+#include "../Scene/SceneBase.h"
+#include "../Scene/Title.h"
+#include "../Scene/StageSelect.h"
+#include "../Scene/Play.h"
+#include "../Scene/Result.h"
 
 namespace My3dApp
 {
+    /** インスタンスへのポインタ*/
+    GameManager* GameManager::instance = nullptr;
+
+    SceneBase* GameManager::nowScene = nullptr;
+
     GameManager::GameManager()
         : screenWidth(0)
         , screenHeight(0)
         , fullScreen(false)
     {
         Init();
+    }
+
+    GameManager::~GameManager()
+    {
+        /** 処理なし*/
+    }
+
+    void GameManager::CreateInstance()
+    {
+        if (!instance)
+        {
+            instance = new GameManager();
+        }
+    }
+
+    void GameManager::DeleteInstance()
+    {
+        if (instance)
+        {
+            delete instance;
+            instance = nullptr;
+        }
     }
 
     bool GameManager::ProcessInput()
@@ -33,38 +60,6 @@ namespace My3dApp
         }
 
         return true;
-    }
-
-    /**
-    * 新しくシーンを生成する関数
-    * 後ほど修正予定
-    */
-    SceneBase* CreateScene(SceneType now)
-    {
-        /** 返すシーン*/
-        SceneBase* retScene = nullptr;
-        switch (now)
-        {
-        case SceneType::Scene_Title:
-            retScene = new Title();
-            break;
-        case SceneType::Scene_StageSelect:
-            retScene = new StageSelect();
-            break;
-        case SceneType::Scene_Play:
-            retScene = new Play();
-            break;
-        case SceneType::Scene_Result:
-            retScene = new Result();
-            break;
-        case SceneType::Scene_Exit:
-            retScene = nullptr;
-            break;
-        default:
-            break;
-        }
-
-        return retScene;
     }
 
     void GameManager::Init()
@@ -112,15 +107,6 @@ namespace My3dApp
         */
         float waitFrameTime = 15900;
 
-        /** シーンの生成*/
-        SceneBase* scene = new Title();
-
-        /** 現在のシーンタイプ*/
-        SceneType nowSceneType = SceneType::Scene_Title;
-
-        /** 前のシーンタイプ*/
-        SceneType prevSceneType = nowSceneType;
-
         /** ループ本体*/
         while (gameLoop)
         {
@@ -136,14 +122,16 @@ namespace My3dApp
             /** ループ継続の確認*/
             gameLoop = ProcessInput();
 
-            /** シーンの更新と現在のシーンタイプの保存*/
-            nowSceneType = scene->Update();
+            SceneBase* tmpScene;
+
+            /** シーンの更新と現在のシーンの保存*/
+            tmpScene = nowScene->Update();
 
             /** 画面の初期化*/
             ClearDrawScreen();
 
             /** シーンの描画*/
-            scene->Draw();
+            nowScene->Draw();
 
             /** fps確認用（後で消す）*/
             DrawFormatString(100, 100, GetColor(255, 255, 255), "fps:%f", deltaTime);
@@ -151,41 +139,24 @@ namespace My3dApp
             /** 裏画面の内容を表画面に反映させる*/
             ScreenFlip();
 
-            /** 現在のシーンと前のシーンが異なったら*/
-            if (nowSceneType != prevSceneType)
+            /** 更新前のシーンと更新後のシーンが異なったら*/
+            if (nowScene != tmpScene)
             {
-                /** シーンがあれば*/
-                if (scene)
-                {
-                    /** シーンを解放*/
-                    delete scene;
+                /** シーンを解放*/
+                delete nowScene;
 
-                    /** シーンをnullptrに設定する*/
-                    scene = nullptr;
-                }
-
-                /** 現在のシーンを新しく作ってシーンに入れる*/
-                scene = CreateScene(nowSceneType);
+                /** 新しいシーンを入れる*/
+                nowScene = tmpScene;
             }
 
             /** 60fps制御用ループ*/
             while (GetNowHiPerformanceCount() - nowCount < waitFrameTime);
 
-            /** 現在のシーンタイプを保存する*/
-            prevSceneType = nowSceneType;
-
             /** 現在のカウントを保存する*/
             prevCount = nowCount;
-
-            /** シーンがなければ強制終了*/
-            if (!scene)
-            {
-                break;
-            }
         }
 
         /** シーンの解放*/
-        delete scene;
 
         /** DxLibの使用終了処理*/
         DxLib_End();
