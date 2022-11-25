@@ -1,21 +1,21 @@
 #pragma warning(disable:28251)
 #include <windows.h>
 #include "Dxlib.h"
-#include "Control/GameManager.h"
+#include "Manager/GameManager.h"
+#include "Scene/Title.h"
 
 int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 {
-    /** ゲームマネージャ*/
-    My3dApp::GameManager* gameManager;
-
     /** ゲームマネージャの生成*/
-    gameManager = new My3dApp::GameManager();
+    My3dApp::GameManager::CreateInstance();
+
+    My3dApp::GameManager::SetFirstScene(new My3dApp::Title());
 
     /** ゲームループ*/
-    gameManager->Loop();
+    My3dApp::GameManager::Loop();
 
     /** ゲームマネージャの削除*/
-    delete gameManager;
+    My3dApp::GameManager::DeleteInstance();
 
     return 0;
 }
