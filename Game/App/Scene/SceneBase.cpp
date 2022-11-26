@@ -25,35 +25,39 @@ namespace My3dApp
     }
 
     /**
+    * シーンの切り替え入力
+    */
+    SceneBase* SceneBase::CheckRetScene(int sceneNum)
+    {
+        if (CheckHitKey(KEY_INPUT_1) && sceneNum != 1)
+        {
+            return new Title();
+        }
+
+        if (CheckHitKey(KEY_INPUT_2) && sceneNum != 2)
+        {
+            return new StageSelect();
+        }
+
+        if (CheckHitKey(KEY_INPUT_3) && sceneNum != 3)
+        {
+            return new Play();
+        }
+
+        if (CheckHitKey(KEY_INPUT_4) && sceneNum != 4)
+        {
+            return new Result();
+        }
+
+        return this;
+    }
+
+    /**
     * シーン確認用
     */
     void SceneBase::CheckNowScene()
     {
         DrawFormatString(100, 200, GetColor(255, 255, 255), "%s", text);
-    }
-
-    SceneBase* SceneBase::ChangeScene()
-    {
-        if (CheckHitKey(KEY_INPUT_1))
-        {
-            return new Title();
-        }
-
-        if (CheckHitKey(KEY_INPUT_2))
-        {
-            return new StageSelect();
-        }
-
-        if (CheckHitKey(KEY_INPUT_3))
-        {
-            return new Play();
-        }
-
-        if (CheckHitKey(KEY_INPUT_4))
-        {
-            return new Result();
-        }
-        return this;
     }
 
 }/** namespace My3dApp*/

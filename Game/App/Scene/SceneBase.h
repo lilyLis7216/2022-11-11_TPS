@@ -25,14 +25,15 @@ namespace My3dApp
         /** シーンの描画（純粋仮想関数）*/
         virtual void Draw() = 0;
 
+        /** シーンの切り替え入力*/
+        SceneBase* CheckRetScene(int sceneNum);
+
         /**
         * 以下デバッグ用関数
         */
 
         /** 現在のシーンの確認関数*/
         void CheckNowScene();
-
-        SceneBase* ChangeScene();
 
     };
 

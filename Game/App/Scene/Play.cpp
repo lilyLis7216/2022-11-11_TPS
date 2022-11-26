@@ -15,9 +15,11 @@ namespace My3dApp
 
     SceneBase* Play::Update()
     {
-        ChangeScene();
-        /** âΩÇ‡Ç»ÇØÇÍÇŒé©êgÇï‘Ç∑*/
-        return this;
+        SceneBase* retScene = this;
+
+        retScene = CheckRetScene(3);
+
+        return retScene;
     }
 
     void Play::Draw()

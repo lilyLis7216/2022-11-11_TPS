@@ -14,9 +14,11 @@ namespace My3dApp
 
     SceneBase* StageSelect::Update()
     {
-        ChangeScene();
-        /** âΩÇ‡Ç»ÇØÇÍÇŒé©êgÇï‘Ç∑*/
-        return this;
+        SceneBase* retScene = this;
+
+        retScene = CheckRetScene(2);
+
+        return retScene;
     }
 
     void StageSelect::Draw()

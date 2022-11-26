@@ -15,9 +15,11 @@ namespace My3dApp
 
     SceneBase* Title::Update()
     {
-        ChangeScene();
-        /** ‰½‚à‚È‚¯‚ê‚Î©g‚ğ•Ô‚·*/
-        return this;
+        SceneBase* retScene = this;
+
+        retScene = CheckRetScene(1);
+
+        return retScene;
     }
 
     void Title::Draw()
