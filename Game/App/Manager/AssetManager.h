@@ -21,14 +21,17 @@ namespace My3dApp
         /** インスタンスへのポインタ*/
         static AssetManager* instance;
 
-        /** メッシュの原本*/
-        unordered_map<string, int>originalMeshMap;
-
-        /** アニメーションの原本*/
-        unordered_map<string, int>originalAnimationMap;
+        /** メッシュのマップ（原本）*/
+        unordered_map<string, int>meshMap;
 
         /** 複製したメッシュ*/
         vector<int> duplicateMesh;
+
+        /** アニメーションのマップ*/
+        unordered_map<string, int>animationMap;
+
+        /** SEのマップ*/
+        unordered_map<string, int>soundEffectMap;
 
     public:
         /** インスタンスの生成*/
@@ -37,10 +40,28 @@ namespace My3dApp
         /** インスタンスの削除*/
         static void DeleteInstance();
 
-        static void ProcureMesh();
+        /** SEの追加*/
+        static void AddSoundEffect(string fileName, string key);
 
-        static void ReleaseMesh();
+        /** SEの再生*/
+        static void PlaySoundEffect(string key);
 
+        /** SEの停止*/
+        static void StopSoundEffect(string key);
+
+        /** 全てのSEの停止*/
+        static void StopAllSE();
+
+        /** メッシュの取得*/
+        static int ProcureMesh(string fileName);
+
+        /** メッシュの解放*/
+        static void ReleaseMesh(int meshID);
+
+        /** アニメーションの取得*/
+        static int ProcureAnimation(string fileName);
+
+        /** 全てのアセットの解放*/
         static void ReleaseAll();
     };
 }/** namespace My3dApp*/
