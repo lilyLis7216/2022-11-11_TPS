@@ -83,7 +83,7 @@ namespace My3dApp
         * Œã‚ÅC³‚·‚é
         * ˆê’UƒSƒŠ‰Ÿ‚µ
         */
-        StopSoundEffect("title");
+        //StopSoundEffect("title");
     }
 
     /**
