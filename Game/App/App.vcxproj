@@ -146,6 +146,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="GameObject\GameObject.cpp" />
+    <ClCompile Include="GameObject\Player.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Manager\AssetManager.cpp" />
     <ClCompile Include="Manager\GameManager.cpp" />
@@ -158,6 +159,7 @@
   <ItemGroup>
     <ClInclude Include="GameObject\GameObject.h" />
     <ClInclude Include="GameObject\ObjectTag.h" />
+    <ClInclude Include="GameObject\Player.h" />
     <ClInclude Include="Manager\AssetManager.h" />
     <ClInclude Include="Manager\GameManager.h" />
     <ClInclude Include="Scene\Play.h" />
