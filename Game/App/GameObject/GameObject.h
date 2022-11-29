@@ -6,7 +6,7 @@ namespace My3dApp
 {
     class GameObject
     {
-    private:
+    protected:
         /** タグ（オブジェクトの種類）*/
         ObjectTag tag;
 
@@ -43,7 +43,7 @@ namespace My3dApp
         */
         virtual void Update(float deltaTime) = 0;
 
-        /** 描画処理（純粋仮想関数）*/
+        /** 描画処理（仮想関数）*/
         virtual void Draw();
     };
 
