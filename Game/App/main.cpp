@@ -9,6 +9,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
     /** ゲームマネージャの生成*/
     My3dApp::GameManager::CreateInstance();
 
+    /** 最初のシーンをセット*/
     My3dApp::GameManager::SetFirstScene(new My3dApp::Title());
 
     /** ゲームループ*/
