@@ -150,6 +150,7 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Manager\AssetManager.cpp" />
     <ClCompile Include="Manager\GameManager.cpp" />
+    <ClCompile Include="MyLib\Calc3D.cpp" />
     <ClCompile Include="Scene\Play.cpp" />
     <ClCompile Include="Scene\Result.cpp" />
     <ClCompile Include="Scene\SceneBase.cpp" />
@@ -162,6 +163,7 @@
     <ClInclude Include="GameObject\Player.h" />
     <ClInclude Include="Manager\AssetManager.h" />
     <ClInclude Include="Manager\GameManager.h" />
+    <ClInclude Include="MyLib\Calc3D.h" />
     <ClInclude Include="Scene\Play.h" />
     <ClInclude Include="Scene\Result.h" />
     <ClInclude Include="Scene\SceneBase.h" />
