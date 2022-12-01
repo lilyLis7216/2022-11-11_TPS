@@ -53,13 +53,13 @@ namespace My3dApp
         static void StopAllSE();
 
         /** メッシュの取得*/
-        static int ProcureMesh(string fileName);
+        static int GetMesh(string fileName);
 
         /** メッシュの解放*/
         static void ReleaseMesh(int meshID);
 
         /** アニメーションの取得*/
-        static int ProcureAnimation(string fileName);
+        static int GetAnimation(string fileName);
 
         /** 全てのアセットの解放*/
         static void ReleaseAll();

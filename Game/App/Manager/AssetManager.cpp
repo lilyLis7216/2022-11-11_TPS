@@ -92,7 +92,7 @@ namespace My3dApp
     * @param[in] fileName 取得したいメッシュのファイル名
     * @return int メッシュのハンドル
     */
-    int AssetManager::ProcureMesh(string fileName)
+    int AssetManager::GetMesh(string fileName)
     {
         int meshID = 0;
 
@@ -144,7 +144,7 @@ namespace My3dApp
         instance->duplicateMesh.pop_back();
     }
 
-    int AssetManager::ProcureAnimation(string fileName)
+    int AssetManager::GetAnimation(string fileName)
     {
         int animID = 0;
 
