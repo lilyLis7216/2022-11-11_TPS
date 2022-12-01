@@ -17,6 +17,9 @@ namespace My3dApp
         /** 速度*/
         VECTOR speed;
 
+        /** パッドの入力状態*/
+        int padInputState;
+
         /** スティックのx座標*/
         int stickX;
 
@@ -27,7 +30,7 @@ namespace My3dApp
         void InputCheck();
 
         /** 移動*/
-        void Move();
+        void Move(float deltaTime);
 
     public:
         /** コンストラクタ*/
