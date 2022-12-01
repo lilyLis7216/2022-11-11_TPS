@@ -87,6 +87,18 @@ namespace My3dApp
 
         /** マウスカーソルを表示しない*/
         SetMouseDispFlag(false);
+
+        /** Zバッファを有効にする*/
+        SetUseZBuffer3D(true);
+
+        /** Zバッファへの書き込みを有効にする*/
+        SetWriteZBuffer3D(true);
+
+        /** */
+        SetCameraNearFar(10.0f, 30000.0f);
+
+        /** */
+        SetCameraPositionAndTarget_UpVecY(VGet(0, 80, -200), VGet(0.0f, 80.0f, 0.0f));
     }
 
     void GameManager::Loop()
