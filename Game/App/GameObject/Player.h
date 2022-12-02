@@ -17,6 +17,12 @@ namespace My3dApp
         /** 速度*/
         VECTOR speed;
 
+        /** アニメーションの種類ID*/
+        int animTypeID;
+
+        /** 回転中か*/
+        bool isRotate;
+
         /** パッドの入力状態*/
         int padInputState;
 
