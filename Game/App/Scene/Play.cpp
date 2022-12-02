@@ -1,6 +1,7 @@
 #include "Play.h"
 #include "DxLib.h"
 #include "../GameObject/Player.h"
+#include "../Library/DebugGrid.h"
 
 namespace My3dApp
 {
@@ -29,6 +30,8 @@ namespace My3dApp
     void Play::Draw()
     {
         CheckNowScene();
+
+        DrawGrid(3000, 30);
 
         player->Draw();
     }
