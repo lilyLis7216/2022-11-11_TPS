@@ -9,6 +9,9 @@ namespace My3dApp
     */
     class Play : public SceneBase
     {
+    private:
+        class Player* player;
+
     public:
         /** コンストラクタ*/
         Play();
@@ -17,7 +20,7 @@ namespace My3dApp
         ~Play();
 
         /** プレイの更新*/
-        SceneBase* Update() override;
+        SceneBase* Update(float deltaTime) override;
 
         /** プレイの描画*/
         void Draw() override;

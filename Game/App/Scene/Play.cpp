@@ -1,21 +1,25 @@
 #include "Play.h"
 #include "DxLib.h"
+#include "../GameObject/Player.h"
 
 namespace My3dApp
 {
     Play::Play()
     {
         text = "3.Play";
+        player = new Player();
     }
 
     Play::~Play()
     {
-        /** ˆ—‚È‚µ*/
+        delete player;
     }
 
-    SceneBase* Play::Update()
+    SceneBase* Play::Update(float deltaTime)
     {
         SceneBase* retScene = this;
+        
+        player->Update(deltaTime);
 
         retScene = CheckRetScene(3);
 
@@ -25,6 +29,8 @@ namespace My3dApp
     void Play::Draw()
     {
         CheckNowScene();
+
+        player->Draw();
     }
 
 }/** namespace My3dApp*/
