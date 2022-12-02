@@ -147,10 +147,10 @@
   <ItemGroup>
     <ClCompile Include="GameObject\GameObject.cpp" />
     <ClCompile Include="GameObject\Player.cpp" />
+    <ClCompile Include="Library\Calc3D.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Manager\AssetManager.cpp" />
     <ClCompile Include="Manager\GameManager.cpp" />
-    <ClCompile Include="MyLib\Calc3D.cpp" />
     <ClCompile Include="Scene\Play.cpp" />
     <ClCompile Include="Scene\Result.cpp" />
     <ClCompile Include="Scene\SceneBase.cpp" />
@@ -161,9 +161,9 @@
     <ClInclude Include="GameObject\GameObject.h" />
     <ClInclude Include="GameObject\ObjectTag.h" />
     <ClInclude Include="GameObject\Player.h" />
+    <ClInclude Include="Library\Calc3D.h" />
     <ClInclude Include="Manager\AssetManager.h" />
     <ClInclude Include="Manager\GameManager.h" />
-    <ClInclude Include="MyLib\Calc3D.h" />
     <ClInclude Include="Scene\Play.h" />
     <ClInclude Include="Scene\Result.h" />
     <ClInclude Include="Scene\SceneBase.h" />

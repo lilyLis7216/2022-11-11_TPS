@@ -22,8 +22,8 @@
     <Filter Include="ソース ファイル\Manager">
       <UniqueIdentifier>{1c673baf-7662-4508-92ce-de4e74dd6d0c}</UniqueIdentifier>
     </Filter>
-    <Filter Include="ソース ファイル\MyLib">
-      <UniqueIdentifier>{78560b61-a1e9-4af5-85c6-987d99c89c53}</UniqueIdentifier>
+    <Filter Include="ソース ファイル\Library">
+      <UniqueIdentifier>{dacbfa0b-0d7b-4b61-a450-fef475ebf9e4}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -57,8 +57,8 @@
     <ClCompile Include="GameObject\Player.cpp">
       <Filter>ソース ファイル\GameObject</Filter>
     </ClCompile>
-    <ClCompile Include="MyLib\Calc3D.cpp">
-      <Filter>ソース ファイル\MyLib</Filter>
+    <ClCompile Include="Library\Calc3D.cpp">
+      <Filter>ソース ファイル\Library</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -92,8 +92,8 @@
     <ClInclude Include="GameObject\Player.h">
       <Filter>ソース ファイル\GameObject</Filter>
     </ClInclude>
-    <ClInclude Include="MyLib\Calc3D.h">
-      <Filter>ソース ファイル\MyLib</Filter>
+    <ClInclude Include="Library\Calc3D.h">
+      <Filter>ソース ファイル\Library</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

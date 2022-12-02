@@ -1,6 +1,6 @@
 #include "Player.h"
 #include "../Manager/AssetManager.h"
-#include "../MyLib/Calc3D.h"
+#include "../Library/Calc3D.h"
 
 namespace My3dApp
 {
