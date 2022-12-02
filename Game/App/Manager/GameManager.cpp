@@ -137,7 +137,7 @@ namespace My3dApp
             SceneBase* tmpScene;
 
             /** シーンの更新と現在のシーンの保存*/
-            tmpScene = nowScene->Update();
+            tmpScene = nowScene->Update(deltaTime);
 
             /** 画面の初期化*/
             ClearDrawScreen();
