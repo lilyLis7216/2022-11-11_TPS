@@ -60,6 +60,9 @@
     <ClCompile Include="Library\Calc3D.cpp">
       <Filter>ソース ファイル\Library</Filter>
     </ClCompile>
+    <ClCompile Include="Library\DebugGrid.cpp">
+      <Filter>ソース ファイル\Library</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Scene\Play.h">
@@ -93,6 +96,12 @@
       <Filter>ソース ファイル\GameObject</Filter>
     </ClInclude>
     <ClInclude Include="Library\Calc3D.h">
+      <Filter>ソース ファイル\Library</Filter>
+    </ClInclude>
+    <ClInclude Include="Library\CollisionType.h">
+      <Filter>ソース ファイル\Library</Filter>
+    </ClInclude>
+    <ClInclude Include="Library\DebugGrid.h">
       <Filter>ソース ファイル\Library</Filter>
     </ClInclude>
   </ItemGroup>
