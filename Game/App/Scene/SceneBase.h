@@ -20,7 +20,7 @@ namespace My3dApp
         virtual ~SceneBase();
 
         /** シーンの更新（純粋仮想関数）*/
-        virtual SceneBase* Update() = 0;
+        virtual SceneBase* Update(float deltaTime) = 0;
 
         /** シーンの描画（純粋仮想関数）*/
         virtual void Draw() = 0;

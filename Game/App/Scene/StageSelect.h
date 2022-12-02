@@ -17,7 +17,7 @@ namespace My3dApp
         ~StageSelect();
 
         /** ステージセレクトの更新*/
-        SceneBase* Update() override;
+        SceneBase* Update(float deltaTime) override;
 
         /** ステージセレクトの描画*/
         void Draw() override;

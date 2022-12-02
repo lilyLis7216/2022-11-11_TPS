@@ -12,7 +12,7 @@ namespace My3dApp
     {
     }
 
-    SceneBase* StageSelect::Update()
+    SceneBase* StageSelect::Update(float deltaTime)
     {
         SceneBase* retScene = this;
 

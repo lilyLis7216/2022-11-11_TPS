@@ -17,7 +17,7 @@ namespace My3dApp
         ~Result();
 
         /** リザルトの更新*/
-        SceneBase* Update() override;
+        SceneBase* Update(float deltaTime) override;
 
         /** リザルトの描画*/
         void Draw() override;

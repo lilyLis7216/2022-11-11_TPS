@@ -13,7 +13,7 @@ namespace My3dApp
         /** ˆ—‚È‚µ*/
     }
 
-    SceneBase* Title::Update()
+    SceneBase* Title::Update(float deltaTime)
     {
         SceneBase* retScene = this;
 

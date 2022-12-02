@@ -17,7 +17,7 @@ namespace My3dApp
         ~Title();
 
         /** タイトルの更新*/
-        SceneBase* Update() override;
+        SceneBase* Update(float deltaTime) override;
 
         /** タイトルの描画*/
         void Draw() override;
