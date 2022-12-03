@@ -81,7 +81,7 @@ namespace My3dApp
             input = true;
         }
 
-        if (stickX > 0 || padInputState & PAD_INPUT_LEFT)
+        if (stickX < 0 || padInputState & PAD_INPUT_LEFT)
         {
             inputVec += LEFT;
             input = true;
