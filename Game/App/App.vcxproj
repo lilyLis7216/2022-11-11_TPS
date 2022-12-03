@@ -147,7 +147,9 @@
   <ItemGroup>
     <ClCompile Include="GameObject\GameObject.cpp" />
     <ClCompile Include="GameObject\Player.cpp" />
+    <ClCompile Include="Library\AnimationController.cpp" />
     <ClCompile Include="Library\Calc3D.cpp" />
+    <ClCompile Include="Library\Collision.cpp" />
     <ClCompile Include="Library\DebugGrid.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Manager\AssetManager.cpp" />
@@ -162,7 +164,9 @@
     <ClInclude Include="GameObject\GameObject.h" />
     <ClInclude Include="GameObject\ObjectTag.h" />
     <ClInclude Include="GameObject\Player.h" />
+    <ClInclude Include="Library\AnimationController.h" />
     <ClInclude Include="Library\Calc3D.h" />
+    <ClInclude Include="Library\Collision.h" />
     <ClInclude Include="Library\CollisionType.h" />
     <ClInclude Include="Library\DebugGrid.h" />
     <ClInclude Include="Manager\AssetManager.h" />
