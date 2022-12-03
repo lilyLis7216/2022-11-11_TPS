@@ -10,4 +10,5 @@ namespace My3dApp
         Capsule,/**< カプセル*/
         Model,  /**< モデル（メッシュ）*/
     };
+
 }/** namespace My3dApp*/

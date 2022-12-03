@@ -1,4 +1,5 @@
 #pragma once
+
 #include "SceneBase.h"
 
 namespace My3dApp
