@@ -57,7 +57,7 @@ namespace My3dApp
     */
     void SceneBase::CheckNowScene()
     {
-        DrawFormatString(100, 200, GetColor(255, 255, 255), "%s", text);
+        DrawFormatString(10, 10, GetColor(255, 255, 255), "%s", text);
     }
 
 }/** namespace My3dApp*/
