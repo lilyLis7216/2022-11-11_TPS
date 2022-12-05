@@ -53,7 +53,7 @@ namespace My3dApp
         ~AnimationController();
 
         /** アニメーションの追加*/
-        int AddAnimation(std::string fileName, float fps, bool isLoop = true);
+        int AddAnimation(std::string fileName, float fps = 30.0f, bool isLoop = true);
 
         /** アニメーションの時間のセット*/
         void AddAnimationTime(float deltaTime);
