@@ -1,7 +1,7 @@
 #pragma once
 
 #include "GameObject.h"
-#include <DxLib.h>
+#include "DxLib.h"
 
 namespace My3dApp
 {
@@ -16,6 +16,9 @@ namespace My3dApp
 
         /** 速度*/
         VECTOR speed;
+
+        /** アニメーション管理用*/
+        class AnimationController* animCtrl;
 
         /** アニメーションの種類ID*/
         int animTypeID;
@@ -37,6 +40,9 @@ namespace My3dApp
 
         /** 移動*/
         void Move(float deltaTime);
+
+        /** 回転*/
+        void RotateCheck();
 
     public:
         /** コンストラクタ*/

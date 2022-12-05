@@ -1,11 +1,13 @@
 #include "Player.h"
 #include "../Manager/AssetManager.h"
 #include "../Library/Calc3D.h"
+#include "../Library/AnimationController.h"
 
 namespace My3dApp
 {
     Player::Player()
         : GameObject(ObjectTag::Player)
+        , animCtrl(nullptr)
         , animTypeID(0)
         , isRotate(false)
         , padInputState(0)
@@ -18,12 +20,31 @@ namespace My3dApp
 
         MV1SetScale(modelHandle, VGet(0.01f, 0.01f, 0.01f));
 
+        /** アニメーションコントローラの生成*/
+        animCtrl = new AnimationController(modelHandle);
+
+        /** 待機アニメーションの読み込み*/
+        animCtrl->AddAnimation("../Assets/model/player2/unityChanAnimIdle.mv1");
+
+        /** 走行アニメーションの読み込み*/
+        animCtrl->AddAnimation("../Assets/model/player2/unityChanAnimRun.mv1");
+
+        /** 攻撃アニメーションの読み込み*/
+        animCtrl->AddAnimation("../Assets/model/player2/unityChanAnimPunch.mv1");
+
+        /** 初期再生アニメーションの初期化*/
+        animCtrl->StartAnimation(animTypeID);
+
+        /** 座標の初期化*/
         pos = VGet(0, 0, 0);
 
+        /** 向きの初期化*/
         dir = VGet(1, 0, 0);
 
+        /**　*/
         aimDir = dir;
 
+        /** 速度の初期化*/
         speed = VGet(0, 0, 0);
     }
 
@@ -31,10 +52,17 @@ namespace My3dApp
     {
         /** モデルのアンロード*/
         AssetManager::ReleaseMesh(modelHandle);
+
+        /** アニメーションコントローラの削除*/
+        delete animCtrl;
     }
 
     void Player::Update(float deltaTime)
     {
+        animCtrl->AddAnimationTime(deltaTime);
+
+        RotateCheck();
+
         InputCheck();
 
         Move(deltaTime);
@@ -123,10 +151,24 @@ namespace My3dApp
             }
 
             speed = inputVec + (inputVec * deltaTime * 200.0f);
+
+            /** もし他のモーション中だったら走りモーションへ*/
+            if (animTypeID != 1)
+            {
+                animTypeID = 1;
+                animCtrl->StartAnimation(animTypeID);
+            }
         }
         else
         {
             speed *= 0.9f;
+
+            /** もしほかのモーション中だったら歩きモーションへ*/
+            if (animTypeID != 0)
+            {
+                animTypeID = 0;
+                animCtrl->StartAnimation(animTypeID);
+            }
         }
 
         pos += speed;
@@ -141,6 +183,38 @@ namespace My3dApp
         /** モデルに回転をセットする*/
         MV1SetRotationZYAxis(modelHandle, negativeVec, VGet(0.0f, 1.0f, 0.0f), 0.0f);
 
+    }
+
+    void Player::RotateCheck()
+    {
+        if (isRotate)
+        {
+            /** 回転が目標角度に十分近ければ回転終了*/
+            if (IsNearAngle(aimDir, dir))
+            {
+                dir = aimDir;
+                isRotate = false;
+            }
+            else
+            {
+                /** 回転させる*/
+                VECTOR interPolateDir = RotateForAimVecYAxis(dir, aimDir, 10.0f);
+
+                /** 回転が目標角度を超えていないか*/
+                VECTOR cross1 = VCross(dir, aimDir);
+                VECTOR cross2 = VCross(interPolateDir, aimDir);
+
+                /** 目標角度を超えたら終了*/
+                if (cross1.y * cross2.y < 0.0f)
+                {
+                    interPolateDir = aimDir;
+                    isRotate = false;
+                }
+
+                /** 目標ベクトルに10度だけ近づけた角度*/
+                dir = interPolateDir;
+            }
+        }
     }
 
 }/** namespace My3dApp*/
