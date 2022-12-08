@@ -134,6 +134,7 @@ namespace My3dApp
             /** ループ継続の確認*/
             gameLoop = ProcessInput();
 
+            /** 仮シーン*/
             SceneBase* tmpScene;
 
             /** シーンの更新と現在のシーンの保存*/
@@ -167,8 +168,6 @@ namespace My3dApp
             /** 現在のカウントを保存する*/
             prevCount = nowCount;
         }
-
-        /** シーンの解放*/
 
         /** DxLibの使用終了処理*/
         DxLib_End();
