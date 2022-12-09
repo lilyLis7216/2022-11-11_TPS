@@ -56,6 +56,8 @@ namespace My3dApp
 
         /** ƒvƒŒƒCƒ„[‚Ì•`‰æ*/
         void Draw() override;
-    };
 
+        /** “–‚½‚è”»’è*/
+        void OnCollisionEnter(const GameObject* other) override;
+    };
 }/** namespace My3dApp*/

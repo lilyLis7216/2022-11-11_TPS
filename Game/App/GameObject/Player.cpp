@@ -46,6 +46,14 @@ namespace My3dApp
 
         /** 速度の初期化*/
         speed = VGet(0, 0, 0);
+
+        collisionType = CollisionType::Sphere;
+
+        collisionSphere.localCenter = VGet(0, 50.0f, 0);
+
+        collisionSphere.radius = 30.0f;
+
+        collisionLine = LineSegment(VGet(0.0f, 20.0f, 0.0f), VGet(0.0f, -30.0f, 0.0f));
     }
 
     Player::~Player()
@@ -66,12 +74,46 @@ namespace My3dApp
         InputCheck();
 
         Move(deltaTime);
+
+        CollisionUpdate();
     }
 
     void Player::Draw()
     {
         /** 3Dモデルの描画*/
         MV1DrawModel(modelHandle);
+
+        DrawCollider();
+    }
+
+    void Player::OnCollisionEnter(const GameObject* other)
+    {
+        ObjectTag tag = other->GetTag();
+
+        /** マップとの衝突*/
+        if (tag == ObjectTag::Map)
+        {
+            int collModel = other->GetCollisionModel();
+
+            /** マップと自身の境界球との当たり判定*/
+            MV1_COLL_RESULT_POLY_DIM collInfo;
+
+            /** 当たっている場合*/
+            if (CollisionPair(collisionSphere, collModel, collInfo))
+            {
+                /** 押し戻し量*/
+                VECTOR pushBackVec = CalcSpherePushBackVecFromMesh(collisionSphere, collInfo);
+
+                /** 押し戻し*/
+                pos += pushBackVec;
+
+                /** 当たり判定情報の解放*/
+                MV1CollResultPolyDimTerminate(collInfo);
+
+                /** 当たり判定の更新*/
+                CollisionUpdate();
+            }
+        }
     }
 
     void Player::InputCheck()
@@ -216,5 +258,4 @@ namespace My3dApp
             }
         }
     }
-
 }/** namespace My3dApp*/
