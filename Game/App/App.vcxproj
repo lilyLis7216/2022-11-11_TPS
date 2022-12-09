@@ -145,6 +145,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="GameObject\Camera.cpp" />
     <ClCompile Include="GameObject\GameObject.cpp" />
     <ClCompile Include="GameObject\Map.cpp" />
     <ClCompile Include="GameObject\Player.cpp" />
@@ -163,6 +164,7 @@
     <ClCompile Include="Scene\Title.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="GameObject\Camera.h" />
     <ClInclude Include="GameObject\GameObject.h" />
     <ClInclude Include="GameObject\Map.h" />
     <ClInclude Include="GameObject\ObjectTag.h" />

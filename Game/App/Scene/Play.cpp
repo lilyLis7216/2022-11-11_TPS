@@ -2,6 +2,7 @@
 #include "DxLib.h"
 #include "../Manager/GameObjectManager.h"
 #include "../GameObject/Player.h"
+#include "../GameObject/Camera.h"
 #include "../GameObject/Map.h"
 #include "../Library/DebugGrid.h"
 
@@ -11,11 +12,13 @@ namespace My3dApp
     {
         text = "3.Play";
         GameObjectManager::Entry(new Player());
+        GameObjectManager::Entry(new Camera(500, -500));
         GameObjectManager::Entry(new Map(VGet(0, -255, 0)));
     }
 
     Play::~Play()
     {
+        GameObjectManager::ReleaseAllObject();
     }
 
     SceneBase* Play::Update(float deltaTime)
@@ -33,10 +36,10 @@ namespace My3dApp
 
     void Play::Draw()
     {
-        CheckNowScene();
-
         DrawGrid(3000, 30);
 
         GameObjectManager::Draw();
+
+        CheckNowScene();
     }
 }/** namespace My3dApp*/
