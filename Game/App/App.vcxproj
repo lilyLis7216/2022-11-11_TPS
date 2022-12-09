@@ -153,6 +153,7 @@
     <ClCompile Include="Library\Calc3D.cpp" />
     <ClCompile Include="Library\Collision.cpp" />
     <ClCompile Include="Library\DebugGrid.cpp" />
+    <ClCompile Include="Library\GamePad.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Manager\AssetManager.cpp" />
     <ClCompile Include="Manager\GameManager.cpp" />
@@ -174,6 +175,7 @@
     <ClInclude Include="Library\Collision.h" />
     <ClInclude Include="Library\CollisionType.h" />
     <ClInclude Include="Library\DebugGrid.h" />
+    <ClInclude Include="Library\GamePad.h" />
     <ClInclude Include="Manager\AssetManager.h" />
     <ClInclude Include="Manager\GameManager.h" />
     <ClInclude Include="Manager\GameObjectManager.h" />

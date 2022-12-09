@@ -5,6 +5,7 @@
 #include "../Scene/StageSelect.h"
 #include "../Scene/Play.h"
 #include "../Scene/Result.h"
+#include "../Library/GamePad.h"
 
 namespace My3dApp
 {
@@ -130,6 +131,8 @@ namespace My3dApp
 
             /** 差分を100万分の1にして保存する（マイクロ秒換算）*/
             deltaTime = (nowCount - prevCount) / 1000000.0f;
+
+            GamePad::Update();
 
             /** ループ継続の確認*/
             gameLoop = ProcessInput();

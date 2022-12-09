@@ -2,6 +2,7 @@
 #include "../Manager/AssetManager.h"
 #include "../Library/Calc3D.h"
 #include "../Library/AnimationController.h"
+#include "../Library/GamePad.h"
 
 namespace My3dApp
 {
@@ -71,7 +72,7 @@ namespace My3dApp
 
         RotateCheck();
 
-        InputCheck();
+        //InputCheck();
 
         Move(deltaTime);
 
@@ -140,17 +141,17 @@ namespace My3dApp
 
     void Player::Move(float deltaTime)
     {
-        /** 左方向*/
-        VECTOR LEFT = { -1, 0, 0 };
-
-        /** 右方向*/
-        VECTOR RIGHT = { 1, 0, 0 };
-
         /** 上方向*/
         VECTOR UP = { 0, 0, 1 };
 
         /** 下方向*/
         VECTOR DOWN = { 0, 0, -1 };
+
+        /** 左方向*/
+        VECTOR LEFT = { -1, 0, 0 };
+
+        /** 右方向*/
+        VECTOR RIGHT = { 1, 0, 0 };
 
         /** 移動用ベクトル*/
         VECTOR inputVec = VGet(0, 0, 0);
@@ -158,27 +159,27 @@ namespace My3dApp
         /** 入力があったかどうか*/
         bool input = false;
 
-        if (0 < stickX || padInputState & PAD_INPUT_RIGHT)
+        if (/*stickY < 0 || padInputState & PAD_INPUT_UP*/ GamePad::GetUp())
         {
-            inputVec += RIGHT;
+            inputVec += UP;
             input = true;
         }
 
-        if (stickX < 0 || padInputState & PAD_INPUT_LEFT)
-        {
-            inputVec += LEFT;
-            input = true;
-        }
-
-        if (0 < stickY || padInputState & PAD_INPUT_DOWN)
+        if (/*0 < stickY || padInputState & PAD_INPUT_DOWN*/ GamePad::GetDown())
         {
             inputVec += DOWN;
             input = true;
         }
 
-        if (stickY < 0 || padInputState & PAD_INPUT_UP)
+        if (/*stickX < 0 || padInputState & PAD_INPUT_LEFT*/ GamePad::GetLeft())
         {
-            inputVec += UP;
+            inputVec += LEFT;
+            input = true;
+        }
+
+        if (/*0 < stickX || padInputState & PAD_INPUT_RIGHT*/ GamePad::GetRight())
+        {
+            inputVec += RIGHT;
             input = true;
         }
 

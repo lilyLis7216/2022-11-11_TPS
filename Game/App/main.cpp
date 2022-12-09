@@ -4,12 +4,15 @@
 #include "Manager/AssetManager.h"
 #include "Manager/GameManager.h"
 #include "Manager/GameObjectManager.h"
+#include "Library/GamePad.h"
 #include "Scene/Title.h"
 
 int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 {
     /** アセットマネージャの生成*/
     My3dApp::AssetManager::CreateInstance();
+
+    My3dApp::GamePad::CreateInstance();
 
     /** ゲームマネージャの生成*/
     My3dApp::GameManager::CreateInstance();
@@ -28,6 +31,8 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 
     /** ゲームマネージャの削除*/
     My3dApp::GameManager::DeleteInstance();
+
+    My3dApp::GamePad::DeleteInstance();
 
     /** アセットマネージャの削除*/
     My3dApp::AssetManager::DeleteInstance();
