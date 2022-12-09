@@ -113,6 +113,18 @@ namespace My3dApp
                 /** 当たり判定の更新*/
                 CollisionUpdate();
             }
+
+            /** 背景と足元線分当たり判定*/
+            MV1_COLL_RESULT_POLY collInfoLine;
+
+            /** 当たっている場合*/
+            if (CollisionPair(collisionLine, collModel, collInfoLine))
+            {
+                /** 足元を衝突点に合わせる*/
+                pos = collInfoLine.HitPosition;
+
+                CollisionUpdate();
+            }
         }
     }
 
@@ -225,6 +237,8 @@ namespace My3dApp
         /** モデルに回転をセットする*/
         MV1SetRotationZYAxis(modelHandle, negativeVec, VGet(0.0f, 1.0f, 0.0f), 0.0f);
 
+        /** 当たり判定モデルの位置更新*/
+        CollisionUpdate();
     }
 
     void Player::RotateCheck()
