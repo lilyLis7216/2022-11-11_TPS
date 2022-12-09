@@ -123,6 +123,7 @@ namespace My3dApp
                 /** ‘«Œ³‚ğÕ“Ë“_‚É‡‚í‚¹‚é*/
                 pos = collInfoLine.HitPosition;
 
+                /** “–‚½‚è”»’è‚ÌXV*/
                 CollisionUpdate();
             }
         }
