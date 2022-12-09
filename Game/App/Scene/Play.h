@@ -10,9 +10,6 @@ namespace My3dApp
     */
     class Play : public SceneBase
     {
-    private:
-        class Player* player;
-
     public:
         /** コンストラクタ*/
         Play();
@@ -26,5 +23,4 @@ namespace My3dApp
         /** プレイの描画*/
         void Draw() override;
     };
-
 }/** namespace My3dApp*/
