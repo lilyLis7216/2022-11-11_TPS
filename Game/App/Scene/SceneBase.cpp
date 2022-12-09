@@ -59,5 +59,4 @@ namespace My3dApp
     {
         DrawFormatString(10, 10, GetColor(255, 255, 255), "%s", text);
     }
-
 }/** namespace My3dApp*/

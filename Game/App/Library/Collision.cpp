@@ -264,5 +264,4 @@ namespace My3dApp
         /** ‰Ÿ‚µ–ß‚µ—Ê‚ð•Ô‹p*/
         return newCenter - sphere.worldCenter;
     }
-
 }/** namespace My3dApp*/

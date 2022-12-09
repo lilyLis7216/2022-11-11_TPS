@@ -20,7 +20,7 @@ namespace My3dApp
         /** ループを抜ける際に使う入力処理関数*/
         static bool ProcessInput();
 
-        /** インスタンスへのポインタ*/
+        /** マネージャのインスタンス*/
         static GameManager* instance;
 
         /** シーン*/
@@ -48,5 +48,4 @@ namespace My3dApp
         /** ゲームループ関数*/
         static void Loop();
     };
-
 }/** namespace My3dAppp*/

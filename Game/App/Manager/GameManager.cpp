@@ -172,5 +172,4 @@ namespace My3dApp
         /** DxLib‚Ìg—pI—¹ˆ—*/
         DxLib_End();
     }
-
 }/** namespace My3dApp*/

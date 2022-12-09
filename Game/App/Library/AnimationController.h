@@ -68,5 +68,4 @@ namespace My3dApp
         bool IsPlaying();
 
     };
-
 }/** namespace My3dApp*/

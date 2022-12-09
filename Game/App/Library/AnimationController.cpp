@@ -144,5 +144,4 @@ namespace My3dApp
         , isLoopAnimation(false)
     {
     }
-
 }/** namespace My3dApp*/

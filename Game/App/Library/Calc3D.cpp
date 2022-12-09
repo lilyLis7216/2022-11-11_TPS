@@ -167,5 +167,4 @@ namespace My3dApp
 
         return rotVec;
     }
-
 }/** namespace My3dApp*/

@@ -33,5 +33,4 @@ namespace My3dApp
 
     /** nowVec‚©‚çaimVec‚ÉŒü‚©‚Á‚ÄdegreeSpeed‚Ì‘¬“x‚ÅYŽ²‰ñ“]‚³‚¹‚é*/
     VECTOR RotateForAimVecYAxis(const VECTOR& nowVec, const VECTOR& aimVec, float degreeSpeed);
-
 }/** namespace My3dApp*/

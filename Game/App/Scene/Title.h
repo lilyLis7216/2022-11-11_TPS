@@ -23,5 +23,4 @@ namespace My3dApp
         /** ƒ^ƒCƒgƒ‹‚Ì•`‰æ*/
         void Draw() override;
     };
-
 }/** namespace My3dApp*/

@@ -36,5 +36,4 @@ namespace My3dApp
         void CheckNowScene();
 
     };
-
 }/** namespace My3dApp*/

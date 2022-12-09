@@ -23,5 +23,4 @@ namespace My3dApp
         /** ステージセレクトの描画*/
         void Draw() override;
     };
-
 }/** namespace My3dApp*/

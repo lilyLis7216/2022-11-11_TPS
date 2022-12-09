@@ -105,5 +105,4 @@ namespace My3dApp
 
     /** ‹…‘Ì‚ÆƒƒbƒVƒ…‚Æ‚Ì”»’èŒã‚Ì‰Ÿ‚µ–ß‚µ—ÊŒvZ*/
     VECTOR CalcSpherePushBackVecFromMesh(const Sphere& sphere, const MV1_COLL_RESULT_POLY_DIM& collisionInfo);
-
 }/** namespace My3dApp*/

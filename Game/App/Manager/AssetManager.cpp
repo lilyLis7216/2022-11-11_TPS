@@ -199,5 +199,4 @@ namespace My3dApp
         instance->soundEffectMap.clear();
 
     }
-
 }/** namespace My3dApp*/
