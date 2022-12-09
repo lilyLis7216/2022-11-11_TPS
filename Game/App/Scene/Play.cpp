@@ -1,6 +1,8 @@
 #include "Play.h"
 #include "DxLib.h"
+#include "../Manager/GameObjectManager.h"
 #include "../GameObject/Player.h"
+#include "../GameObject/Map.h"
 #include "../Library/DebugGrid.h"
 
 namespace My3dApp
@@ -8,19 +10,21 @@ namespace My3dApp
     Play::Play()
     {
         text = "3.Play";
-        player = new Player();
+        GameObjectManager::Entry(new Player());
+        GameObjectManager::Entry(new Map(VGet(0, -255, 0)));
     }
 
     Play::~Play()
     {
-        delete player;
     }
 
     SceneBase* Play::Update(float deltaTime)
     {
         SceneBase* retScene = this;
-        
-        player->Update(deltaTime);
+
+        GameObjectManager::Update(deltaTime);
+
+        GameObjectManager::Collision();
 
         retScene = CheckRetScene(3);
 
@@ -33,7 +37,6 @@ namespace My3dApp
 
         DrawGrid(3000, 30);
 
-        player->Draw();
+        GameObjectManager::Draw();
     }
-
 }/** namespace My3dApp*/
