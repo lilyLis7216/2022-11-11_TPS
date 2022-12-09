@@ -69,6 +69,12 @@
     <ClCompile Include="Library\AnimationController.cpp">
       <Filter>ソース ファイル\Library</Filter>
     </ClCompile>
+    <ClCompile Include="GameObject\Map.cpp">
+      <Filter>ソース ファイル\GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="Manager\GameObjectManager.cpp">
+      <Filter>ソース ファイル\Manager</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Scene\Play.h">
@@ -115,6 +121,12 @@
     </ClInclude>
     <ClInclude Include="Library\AnimationController.h">
       <Filter>ソース ファイル\Library</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObject\Map.h">
+      <Filter>ソース ファイル\GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="Manager\GameObjectManager.h">
+      <Filter>ソース ファイル\Manager</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
