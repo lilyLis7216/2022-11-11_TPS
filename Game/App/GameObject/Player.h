@@ -35,9 +35,6 @@ namespace My3dApp
         /** スティックのy座標*/
         int stickY;
 
-        /** 入力確認*/
-        void InputCheck();
-
         /** 移動*/
         void Move(float deltaTime);
 

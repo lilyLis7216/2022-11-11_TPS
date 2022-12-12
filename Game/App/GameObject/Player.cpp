@@ -72,8 +72,6 @@ namespace My3dApp
 
         RotateCheck();
 
-        //InputCheck();
-
         Move(deltaTime);
 
         CollisionUpdate();
@@ -130,15 +128,6 @@ namespace My3dApp
         }
     }
 
-    void Player::InputCheck()
-    {
-        /** パッドの入力を取得*/
-        padInputState = GetJoypadInputState(DX_INPUT_KEY_PAD1);
-
-        /** アナログスティックの入力を取得*/
-        GetJoypadAnalogInput(&stickX, &stickY, DX_INPUT_KEY_PAD1);
-    }
-
     void Player::Move(float deltaTime)
     {
         /** 上方向*/
@@ -159,25 +148,25 @@ namespace My3dApp
         /** 入力があったかどうか*/
         bool input = false;
 
-        if (/*stickY < 0 || padInputState & PAD_INPUT_UP*/ GamePad::GetUp())
+        if (GamePad::GetInput(Button::UP) || 0 < GamePad::GetLeftStickY())
         {
             inputVec += UP;
             input = true;
         }
 
-        if (/*0 < stickY || padInputState & PAD_INPUT_DOWN*/ GamePad::GetDown())
+        if (GamePad::GetInput(Button::DOWN) || GamePad::GetLeftStickY() < 0)
         {
             inputVec += DOWN;
             input = true;
         }
 
-        if (/*stickX < 0 || padInputState & PAD_INPUT_LEFT*/ GamePad::GetLeft())
+        if (GamePad::GetInput(Button::LEFT) || GamePad::GetLeftStickX() < 0)
         {
             inputVec += LEFT;
             input = true;
         }
 
-        if (/*0 < stickX || padInputState & PAD_INPUT_RIGHT*/ GamePad::GetRight())
+        if (GamePad::GetInput(Button::RIGHT) || 0 < GamePad::GetLeftStickX())
         {
             inputVec += RIGHT;
             input = true;
