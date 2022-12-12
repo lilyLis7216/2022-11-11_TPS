@@ -2,12 +2,12 @@
 
 namespace My3dApp
 {
-    /** 当たり判定の形状の種類*/
+    // 当たり判定の形状の種類
     enum class CollisionType
     {
-        Line,   /**< 線分*/
-        Sphere, /**< 球*/
-        Capsule,/**< カプセル*/
-        Model,  /**< モデル（メッシュ）*/
+        Line,     // 線分
+        Sphere,   // 球体
+        Capsule,  // カプセル
+        Model,    // モデル（メッシュ）
     };
-}/** namespace My3dApp*/
+}// namespace My3dApp

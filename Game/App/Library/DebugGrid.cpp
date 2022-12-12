@@ -5,22 +5,22 @@ namespace My3dApp
 {
     void DrawGrid(float groundSize, int divideNum)
     {
-        /** */
+        // 始点
         VECTOR start = VGet(0, 0, 0);
 
-        /** */
+        // 終点
         VECTOR end = VGet(0, 0, 0);
 
-        /** 線の色*/
+        // 線の色
         int lineColor = GetColor(0, 128, 0);
 
-        /** グリッド線を引く範囲の半分の幅*/
+        // グリッド線を引く範囲の半分の幅
         float halfWidth = groundSize * 0.5f;
 
-        /** グリッド線を引く間隔*/
+        // グリッド線を引く間隔
         float addWidth = groundSize / (float)divideNum;
 
-        /** 縦線を引く*/
+        // 縦線を引く
         start.z = -halfWidth;
         end.z = +halfWidth;
         for (int ix = 0; ix < divideNum + 1; ix++)
@@ -30,7 +30,7 @@ namespace My3dApp
             DrawLine3D(start, end, lineColor);
         }
 
-        /** 横線*/
+        // 横線
         start.x = -halfWidth;
         end.x = +halfWidth;
         for (int iz = 0; iz < divideNum + 1; iz++)
@@ -40,4 +40,4 @@ namespace My3dApp
             DrawLine3D(start, end, lineColor);
         }
     }
-}/** namespace My3dApp*/
+}// namespace My3dApp

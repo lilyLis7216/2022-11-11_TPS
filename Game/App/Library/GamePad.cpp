@@ -20,8 +20,8 @@ namespace My3dApp
         (1 << 7),   // 右スティック押し込み
         (1 << 8),   // LBボタン
         (1 << 9),   // RBボタン
-        (1 << 10),  // 
-        (1 << 11),  // 
+        (1 << 10),  // 割り振りなし
+        (1 << 11),  // 割り振りなし
         (1 << 12),  // Aボタン
         (1 << 13),  // Bボタン
         (1 << 14),  // Xボタン
@@ -59,7 +59,7 @@ namespace My3dApp
     {
         GetJoypadXInputState(DX_INPUT_KEY_PAD1, &padState);
 
-        /** 全ボタンの入力確認*/
+        // 全ボタンの入力確認
         for (int i = 0; i < 16; i++)
         {
             if (padState.Buttons[i])

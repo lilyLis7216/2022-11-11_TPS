@@ -3,7 +3,7 @@
 
 namespace My3dApp
 {
-    /** ゲーム内のアクター・当たり判定の種類別タグ*/
+    // ゲーム内のアクター・当たり判定の種類別タグ
     enum class ObjectTag : unsigned char
     {
         Player,
@@ -23,4 +23,4 @@ namespace My3dApp
         ObjectTag::Map,
         ObjectTag::Camera,
     };
-}/** namespace My3dApp*/
+}// namespace My3dApp

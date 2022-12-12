@@ -4,25 +4,43 @@
 
 namespace My3dApp
 {
+    /// <summary>
+    /// マップ（派生クラス、継承元：ゲームオブジェクト）
+    /// </summary>
     class Map : public GameObject
     {
     public:
-        /** コンストラクタ*/
+        /// <summary>
+        /// コンストラクタ
+        /// </summary>
         Map();
 
-        /** コンストラクタ（座標指定）*/
+        /// <summary>
+        /// コンストラクタ
+        /// </summary>
+        /// <param name="pos">初期位置</param>
         Map(VECTOR pos);
 
-        /** デストラクタ*/
+        /// <summary>
+        /// デストラクタ
+        /// </summary>
         ~Map();
 
-        /** モデルの読み込み*/
+        /// <summary>
+        /// モデルの読み込み
+        /// </summary>
         void ModelLoad();
 
-        /** 更新*/
+        /// <summary>
+        /// マップの更新
+        /// </summary>
+        /// <param name="deltaTime">1フレームの経過時間</param>
         void Update(float deltaTime) override;
 
-        /** 描画*/
+        /// <summary>
+        /// マップの描画
+        /// </summary>
         void Draw() override;
+
     };
-}/** namespace My3dApp*/
+}// namespace My3dApp

@@ -7,104 +7,164 @@
 
 namespace My3dApp
 {
+    /// <summary>
+    /// ゲームオブジェクト（基底クラス）
+    /// </summary>
     class GameObject
     {
     protected:
-        /** タグ（オブジェクトの種類）*/
+        // タグ（オブジェクトの種類）
         ObjectTag tag;
 
-        /** モデル*/
+        // モデル
         int modelHandle;
 
-        /** 座標*/
+        // オブジェクトの座標
         VECTOR pos;
 
-        /** 座標の初期値*/
+        // 座標の初期位置
         VECTOR initPos = VGet(0, 0, 0);
 
-        /** 可視状態*/
+        // 可視状態
         bool visible;
 
-        /** 生死状態*/
+        // 生死状態
         bool alive;
 
-        /** 当たり判定の種類*/
+        // 当たり判定の種類
         CollisionType collisionType;
 
-        /** 線分当たり判定*/
+        // 線分当たり判定
         LineSegment collisionLine;
 
-        /** 球体当たり判定*/
+        // 球体当たり判定
         Sphere collisionSphere;
 
-        /** カプセル当たり判定*/
+        // カプセル当たり判定
         Capsule collisionCapsule;
 
-        /** モデル当たり判定*/
+        // モデル当たり判定
         int collisionModel;
 
-        /** 当たり判定の描画*/
+        // 当たり判定の描画
         void DrawCollider();
 
-        /** 当たり判定位置の更新*/
+        // 当たり判定位置の更新
         void CollisionUpdate();
 
     public:
-        /** コンストラクタ（タグのみ）*/
+        /// <summary>
+        /// コンストラクタ
+        /// </summary>
+        /// <param name="tag">オブジェクトのタグ</param>
         GameObject(ObjectTag tag);
 
-        /** コンストラクタ（タグ、位置指定）*/
+        /// <summary>
+        /// コンストラクタ
+        /// </summary>
+        /// <param name="tag">オブジェクトのタグ</param>
+        /// <param name="pos">初期位置</param>
         GameObject(ObjectTag tag, VECTOR pos);
 
-        /** 仮想デストラクタ*/
+        /// <summary>
+        /// 仮想デストラクタ
+        /// </summary>
         virtual ~GameObject();
 
-        /** 更新処理（純粋仮想関数）*/
+        /// <summary>
+        /// ゲームオブジェクトの更新（純粋仮想関数）
+        /// </summary>
+        /// <param name="deltaTime">1フレームの経過時間</param>
         virtual void Update(float deltaTime) = 0;
 
-        /** 描画処理（仮想関数）*/
+        /// <summary>
+        /// ゲームオブジェクトの描画（仮想関数）
+        /// </summary>
         virtual void Draw();
 
-        /** オブジェクトタグの取得*/
+        /// <summary>
+        /// オブジェクトのタグの取得
+        /// </summary>
+        /// <returns>オブジェクトが持っているタグ</returns>
         ObjectTag GetTag() const { return tag; }
 
-        /** 位置の取得*/
+        /// <summary>
+        /// 位置の取得
+        /// </summary>
+        /// <returns>オブジェクトの現在位置</returns>
         const VECTOR& GetPos() const { return pos; }
 
-        /** 位置の指定*/
+        /// <summary>
+        /// 位置の変更
+        /// </summary>
+        /// <param name="set">変更したい位置</param>
         void SetPos(const VECTOR set) { pos = set; }
 
-        /** 可視状態の取得*/
+        /// <summary>
+        /// 可視状態の取得
+        /// </summary>
+        /// <returns>可視ならtrue 不可視ならfalse</returns>
         bool GetVisible() const { return visible; }
 
-        /** 可視状態の指定*/
+        /// <summary>
+        /// 可視状態の変更
+        /// </summary>
+        /// <param name="visible">変更したい状態</param>
         void SetVisible(bool visible) { this->visible = visible; }
 
-        /** 生死状態の取得*/
+        /// <summary>
+        /// 生死状態の取得
+        /// </summary>
+        /// <returns>生きていたらtrue 死んでいたらfalse</returns>
         bool GetAlive() const { return alive; }
 
-        /** 生死状態の指定*/
+        /// <summary>
+        /// 生死状態の変更
+        /// </summary>
+        /// <param name="alive">変更したい状態</param>
         void SetAlive(bool alive) { this->alive = alive; }
 
-        /** 他のオブジェクトと衝突したときのリアクション*/
+        /// <summary>
+        /// 他のオブジェクトと衝突したときのリアクション
+        /// </summary>
+        /// <param name="other">自分とは異なるオブジェクト</param>
         virtual void OnCollisionEnter(const GameObject* other) {};
 
-        /** このオブジェクトとの当たり判定*/
+        /// <summary>
+        /// このオブジェクトとの当たり判定
+        /// </summary>
+        /// <param name="other">当たり判定を調べたいオブジェクト</param>
         virtual void Collision(GameObject* other) {};
 
-        /** 当たり判定種類の取得*/
+        /// <summary>
+        /// 当たり判定種類の取得
+        /// </summary>
+        /// <returns>オブジェクトが持っている当たり判定種類</returns>
         CollisionType GetCollisionType() const { return collisionType; }
 
-        /** 線分当たり判定の取得*/
+        /// <summary>
+        /// 線分当たり判定の取得
+        /// </summary>
+        /// <returns>線分の当たり判定</returns>
         LineSegment GetCollisionLine() const { return collisionLine; }
 
-        /** 球体当たり判定の取得*/
+        /// <summary>
+        /// 球体当たり判定の取得
+        /// </summary>
+        /// <returns>球体の当たり判定</returns>
         Sphere GetCollisionSphere() const { return collisionSphere; }
 
-        /** カプセル当たり判定の取得*/
+        /// <summary>
+        /// カプセル当たり判定の取得
+        /// </summary>
+        /// <returns>カプセルの当たり判定</returns>
         Capsule GetCollisionCapsule() const { return collisionCapsule; }
 
-        /** モデル当たり判定の取得*/
+        /// <summary>
+        /// モデル当たり判定の取得
+        /// </summary>
+        /// <returns>モデルの当たり判定</returns>
         int GetCollisionModel() const { return collisionModel; }
+
     };
-}/** namespace My3dApp*/
+}// namespace My3dApp

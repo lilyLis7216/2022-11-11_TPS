@@ -71,7 +71,7 @@ namespace My3dApp
         /// <summary>
         /// ボタンの入力状態の取得
         /// </summary>
-        /// <param name="buttonNumber">取得したいボタンの番号</param>
+        /// <param name="buttonNumber">取得したいボタン</param>
         /// <returns>入力されていたらtrue そうでなければfalse</returns>
         static bool GetInput(const int buttonNumber);
 

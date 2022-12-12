@@ -5,7 +5,6 @@
 
 namespace My3dApp
 {
-
     Map::Map()
         : GameObject(ObjectTag::Map)
     {
@@ -25,44 +24,38 @@ namespace My3dApp
 
     void Map::ModelLoad()
     {
-        /** 表示モデルの読み込み*/
+        // 表示用モデルの読み込み
         modelHandle = AssetManager::GetMesh("../Assets/model/map/maptest2.mv1");
 
-        /** 表示モデルのスケーリング*/
+        // 表示モデルのスケーリング
         MV1SetScale(modelHandle, VGet(1.0f, 1.0f, 1.0f));
 
-        /** 表示モデルの位置セット*/
+        // 表示モデルの位置セット
         MV1SetPosition(modelHandle, pos);
 
-        /** 当たり判定モデルの読み込み*/
+        // 当たり判定用モデルの読み込み
         collisionModel = AssetManager::GetMesh("../Assets/model/map/HitMesh2rot.mv1");
 
         MV1SetScale(collisionModel, VGet(1.0f, 1.0f, 1.0f));
 
-        /** 当たり判定モデルに不透明度を設定する*/
+        // 当たり判定モデルに不透明度を設定
         MV1SetOpacityRate(collisionModel, 0.3f);
 
-        /** 表示モデルと当たり判定モデルの位置を微調整*/
+        // 表示モデルと当たり判定モデルの位置を微調整
         MV1SetPosition(collisionModel, pos + VGet(-45, 200, -35));
 
-        /** モデルの当たり判定情報の再構築*/
+        // モデルの当たり判定情報の再構築
         MV1SetupCollInfo(collisionModel);
     }
 
-    /**
-    * マップの更新
-    */
     void Map::Update(float deltaTime)
     {
-        /** 処理なし*/
+        // 処理なし
     }
 
-    /**
-    * マップの描画
-    */
     void Map::Draw()
     {
         MV1DrawModel(modelHandle);
         DrawCollider();
     }
-}/** namespace My3dApp*/
+}// namespace My3dApp

@@ -5,7 +5,7 @@
 
 namespace My3dApp
 {
-    /** ƒJƒƒ‰‚Ì‚Î‚Ë’è”*/
+    // ƒJƒƒ‰‚Ì‚Î‚Ë‚Ì’è”
     const float cameraSpringStrength = 2.0f;
 
     Camera::Camera(float height, float z)
@@ -22,7 +22,7 @@ namespace My3dApp
 
     Camera::~Camera()
     {
-        /** ˆ—‚È‚µ*/
+        // ˆ—‚È‚µ
     }
 
     void Camera::Update(float deltaTime)
@@ -42,4 +42,4 @@ namespace My3dApp
             SetCameraPositionAndTarget_UpVecY(pos, lookPos);
         }
     }
-}/** namespace My3dApp*/
+}// namespace My3dApp

@@ -5,56 +5,63 @@
 
 namespace My3dApp
 {
+    /// <summary>
+    /// プレイヤー（派生クラス、継承元：ゲームオブジェクト）
+    /// </summary>
     class Player : public GameObject
     {
     private:
-        /** 向き*/
+        // 向き
         VECTOR dir;
 
-        /** 目標向き*/
+        // 目標向き
         VECTOR aimDir;
 
-        /** 速度*/
+        // 速度
         VECTOR speed;
 
-        /** アニメーション管理用*/
+        // アニメーション管理用
         class AnimationController* animCtrl;
 
-        /** アニメーションの種類ID*/
+        // アニメーション種類のID
         int animTypeID;
 
-        /** 回転中か*/
+        // 回転中か
         bool isRotate;
 
-        /** パッドの入力状態*/
-        int padInputState;
-
-        /** スティックのx座標*/
-        int stickX;
-
-        /** スティックのy座標*/
-        int stickY;
-
-        /** 移動*/
+        // プレイヤーの移動
         void Move(float deltaTime);
 
-        /** 回転*/
+        // プレイヤーの回転
         void RotateCheck();
 
     public:
-        /** コンストラクタ*/
+        /// <summary>
+        /// コンストラクタ
+        /// </summary>
         Player();
 
-        /** デストラクタ*/
+        /// <summary>
+        /// デストラクタ
+        /// </summary>
         ~Player();
 
-        /** プレイヤーの更新*/
+        /// <summary>
+        /// プレイヤーの更新
+        /// </summary>
+        /// <param name="deltaTime">1フレームの経過時間</param>
         void Update(float deltaTime) override;
 
-        /** プレイヤーの描画*/
+        /// <summary>
+        /// プレイヤーの描画
+        /// </summary>
         void Draw() override;
 
-        /** 当たり判定*/
+        /// <summary>
+        /// 他のオブジェクトと衝突したときのリアクション
+        /// </summary>
+        /// <param name="other">自分とは異なるオブジェクト</param>
         void OnCollisionEnter(const GameObject* other) override;
+
     };
-}/** namespace My3dApp*/
+}// namespace My3dApp
