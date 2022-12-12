@@ -2,50 +2,69 @@
 
 namespace My3dApp
 {
-    /**
-    * ゲームマネージャクラス
-    */
+    /// <summary>
+    /// ゲームマネージャ
+    /// </summary>
     class GameManager final
     {
     private:
-        /** コンストラクタ*/
+        /// <summary>
+        /// コンストラクタ（シングルトン）
+        /// </summary>
         GameManager();
 
-        /** デストラクタ*/
+        /// <summary>
+        /// デストラクタ
+        /// </summary>
         ~GameManager();
 
-        /** 初期化処理関数*/
+        /// <summary>
+        /// 初期化処理
+        /// </summary>
         void Init();
 
-        /** ループを抜ける際に使う入力処理関数*/
+        /// <summary>
+        /// ループを抜ける際に使う入力処理関数
+        /// </summary>
+        /// <returns>ループ継続ならtrue そうでなければfalse</returns>
         static bool ProcessInput();
 
-        /** マネージャのインスタンス*/
+        // ゲームマネージャの唯一のインスタンス
         static GameManager* instance;
 
-        /** シーン*/
+        // 現在のシーン
         static class SceneBase* nowScene;
 
-        /** 画面横幅*/
+        // 画面横幅
         int screenWidth;
 
-        /** 画面縦幅*/
+        // 画面縦幅
         int screenHeight;
 
-        /** 全画面フラグ*/
+        // 全画面フラグ
         bool fullScreen;
 
     public:
-        /** インスタンスの生成*/
+        /// <summary>
+        /// インスタンスの生成
+        /// </summary>
         static void CreateInstance();
 
-        /** インスタンスの削除*/
+        /// <summary>
+        /// インスタンスの削除
+        /// </summary>
         static void DeleteInstance();
 
-        /** 始めるシーンの指定*/
+        /// <summary>
+        /// 最初のシーンの設定
+        /// </summary>
+        /// <param name="scene">最初に表示したいシーン</param>
         static void SetFirstScene(SceneBase* scene) { nowScene = scene; }
 
-        /** ゲームループ関数*/
+        /// <summary>
+        /// ゲームループ
+        /// </summary>
         static void Loop();
+
     };
-}/** namespace My3dAppp*/
+}// namespace My3dApp

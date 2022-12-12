@@ -7,26 +7,17 @@
 
 namespace My3dApp
 {
-    /**
-    * コンストラクタ
-    */
     SceneBase::SceneBase()
         : text(nullptr)
     {
-        /** 処理なし*/
+        // 処理なし
     }
 
-    /**
-    * 仮想デストラクタ
-    */
     SceneBase::~SceneBase()
     {
-        /** 処理なし*/
+        // 処理なし
     }
 
-    /**
-    * シーンの切り替え入力
-    */
     SceneBase* SceneBase::CheckRetScene(int sceneNum)
     {
         if (CheckHitKey(KEY_INPUT_1) && sceneNum != 1)
@@ -52,11 +43,8 @@ namespace My3dApp
         return this;
     }
 
-    /**
-    * シーン確認用
-    */
     void SceneBase::CheckNowScene()
     {
         DrawFormatString(10, 10, GetColor(255, 255, 255), "%s", text);
     }
-}/** namespace My3dApp*/
+}// namespace My3dApp

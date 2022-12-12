@@ -10,6 +10,7 @@ namespace My3dApp
 
     Result::~Result()
     {
+        // èàóùÇ»Çµ
     }
 
     SceneBase* Result::Update(float deltaTime)
@@ -25,4 +26,4 @@ namespace My3dApp
     {
         CheckNowScene();
     }
-}/** namespace My3dApp*/
+}// namespace My3dApp

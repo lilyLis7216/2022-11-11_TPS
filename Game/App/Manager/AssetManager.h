@@ -7,62 +7,96 @@ using namespace std;
 
 namespace My3dApp
 {
-    /**
-    * アセットマネージャクラス
-    */
+    /// <summary>
+    /// アセットマネージャ
+    /// </summary>
     class AssetManager final
     {
     private:
-        /** コンストラクタ*/
+        /// <summary>
+        /// コンストラクタ
+        /// </summary>
         AssetManager();
 
-        /** デストラクタ*/
+        /// <summary>
+        /// デストラクタ
+        /// </summary>
         ~AssetManager();
 
-        /** インスタンスへのポインタ*/
+        // アセットマネージャの唯一のインスタンス
         static AssetManager* instance;
 
-        /** メッシュのマップ（原本）*/
+        // メッシュのマップ（原本）
         unordered_map<string, int>meshMap;
 
-        /** 複製したメッシュ*/
+        // 複製したメッシュ
         vector<int> duplicateMesh;
 
-        /** アニメーションのマップ*/
+        // アニメーションのマップ
         unordered_map<string, int>animationMap;
 
-        /** SEのマップ*/
+        // SEのマップ
         unordered_map<string, int>soundEffectMap;
 
     public:
-        /** インスタンスの生成*/
+        /// <summary>
+        /// インスタンスの生成
+        /// </summary>
         static void CreateInstance();
 
-        /** インスタンスの削除*/
+        /// <summary>
+        /// インスタンスの削除
+        /// </summary>
         static void DeleteInstance();
 
-        /** SEの追加*/
+        /// <summary>
+        /// SEの追加
+        /// </summary>
+        /// <param name="fileName"></param>
+        /// <param name="key"></param>
         static void AddSoundEffect(string fileName, string key);
 
-        /** SEの再生*/
+        /// <summary>
+        /// SEの再生
+        /// </summary>
+        /// <param name="key"></param>
         static void PlaySoundEffect(string key);
 
-        /** SEの停止*/
+        /// <summary>
+        /// SEの停止
+        /// </summary>
+        /// <param name="key"></param>
         static void StopSoundEffect(string key);
 
-        /** 全てのSEの停止*/
+        /// <summary>
+        /// すべてのSEの停止
+        /// </summary>
         static void StopAllSE();
 
-        /** メッシュの取得*/
+        /// <summary>
+        /// メッシュの取得
+        /// </summary>
+        /// <param name="fileName">取得したいメッシュのファイル名</param>
+        /// <returns>メッシュのハンドル</returns>
         static int GetMesh(string fileName);
 
-        /** メッシュの解放*/
+        /// <summary>
+        /// メッシュの解放
+        /// </summary>
+        /// <param name="meshID"></param>
         static void ReleaseMesh(int meshID);
 
-        /** アニメーションの取得*/
+        /// <summary>
+        /// アニメーションの取得
+        /// </summary>
+        /// <param name="fileName"></param>
+        /// <returns></returns>
         static int GetAnimation(string fileName);
 
-        /** 全てのアセットの解放*/
+        /// <summary>
+        /// すべてのアセットの解放
+        /// </summary>
         static void ReleaseAll();
+
     };
-}/** namespace My3dApp*/
+}// namespace My3dApp

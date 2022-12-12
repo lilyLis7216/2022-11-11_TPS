@@ -42,4 +42,4 @@ namespace My3dApp
 
         CheckNowScene();
     }
-}/** namespace My3dApp*/
+}// namespace My3dApp

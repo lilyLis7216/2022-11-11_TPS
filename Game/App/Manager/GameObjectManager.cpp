@@ -2,7 +2,8 @@
 
 namespace My3dApp
 {
-    /** インスタンスへのポインタ定義*/
+
+    // ゲームオブジェクトマネージャインスタンスへのポインタ定義
     GameObjectManager* GameObjectManager::instance = nullptr;
 
     GameObjectManager::GameObjectManager()
@@ -41,7 +42,7 @@ namespace My3dApp
 
         for (auto& tag : ObjectTagAll)
         {
-            /** 該当タグにあるすべてのオブジェクトの更新*/
+            // 該当タグにあるすべてのオブジェクトの更新
             for (int i = 0; i < instance->objects[tag].size(); ++i)
             {
                 instance->objects[tag][i]->Update(deltaTime);
@@ -91,7 +92,7 @@ namespace My3dApp
 
     void GameObjectManager::Entry(GameObject* newObject)
     {
-        /** 保留オブジェクトに一時保存*/
+        // 保留オブジェクトに一時保存
         instance->pendingObjects.push_back(newObject);
     }
 
@@ -152,4 +153,4 @@ namespace My3dApp
         }
         return instance->objects[tag][0];
     }
-}/** namespace My3dApp*/
+}// namespace My3dApp

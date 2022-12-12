@@ -2,38 +2,52 @@
 
 namespace My3dApp
 {
-    /**
-    * シーンの基底クラス
-    * 純粋仮想関数を持っている抽象クラス
-    */
+    /// <summary>
+    /// シーンベース（基底クラス）
+    /// </summary>
     class SceneBase
     {
     protected:
-        /** シーンの表記用テキスト*/
+        // シーン表示用
         const char* text;
 
     public:
-        /** コンストラクタ*/
+        /// <summary>
+        /// コンストラクタ
+        /// </summary>
         SceneBase();
 
-        /** 仮想デストラクタ*/
+        /// <summary>
+        /// 仮想デストラクタ
+        /// </summary>
         virtual ~SceneBase();
 
-        /** シーンの更新（純粋仮想関数）*/
+        /// <summary>
+        /// シーンベースの更新（純粋仮想関数）
+        /// </summary>
+        /// <param name="deltaTime">1フレームの経過時間</param>
+        /// <returns>現在のシーン、または遷移予定のシーン</returns>
         virtual SceneBase* Update(float deltaTime) = 0;
 
-        /** シーンの描画（純粋仮想関数）*/
+        /// <summary>
+        /// シーンの描画（純粋仮想関数）
+        /// </summary>
         virtual void Draw() = 0;
 
-        /** シーンの切り替え入力*/
+        /// <summary>
+        /// シーン切り替えの入力
+        /// </summary>
+        /// <param name="sceneNum">遷移したいシーン</param>
+        /// <returns></returns>
         SceneBase* CheckRetScene(int sceneNum);
 
-        /**
-        * 以下デバッグ用関数
-        */
+        
+        // 以下デバッグ用関数
 
-        /** 現在のシーンの確認関数*/
+        /// <summary>
+        /// 現在のシーンの確認用
+        /// </summary>
         void CheckNowScene();
 
     };
-}/** namespace My3dApp*/
+}// namespace My3dApp

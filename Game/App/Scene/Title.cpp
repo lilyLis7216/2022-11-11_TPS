@@ -10,7 +10,7 @@ namespace My3dApp
 
     Title::~Title()
     {
-        /** ˆ—‚È‚µ*/
+        // ˆ—‚È‚µ
     }
 
     SceneBase* Title::Update(float deltaTime)
@@ -26,4 +26,4 @@ namespace My3dApp
     {
         CheckNowScene();
     }
-}/** namespace My3dApp*/
+}// namespace My3dApp

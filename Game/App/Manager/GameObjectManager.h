@@ -9,50 +9,83 @@ using namespace std;
 
 namespace My3dApp
 {
+    /// <summary>
+    /// ゲームオブジェクトマネージャ
+    /// </summary>
     class GameObjectManager final
     {
     private:
         /** コンストラクタ（シングルトン）*/
+
+        /// <summary>
+        /// コンストラクタ（シングルトン）
+        /// </summary>
         GameObjectManager();
 
-        /** デストラクタ*/
+        /// <summary>
+        /// デストラクタ
+        /// </summary>
         ~GameObjectManager();
 
-        /** マネージャのインスタンス*/
+        // ゲームオブジェクトマネージャの唯一のインスタンス
         static GameObjectManager* instance;
 
-        /** 保留オブジェクト*/
+        // 保留オブジェクト
         vector<GameObject*> pendingObjects;
 
-        /** 実行オブジェクト*/
+        // 実行オブジェクト
         unordered_map<ObjectTag, vector<GameObject*>> objects;
 
     public:
-        /** インスタンスの生成*/
+        /// <summary>
+        /// インスタンスの生成
+        /// </summary>
         static void CreateInstance();
 
-        /** インスタンスの削除*/
+        /// <summary>
+        /// インスタンスの削除
+        /// </summary>
         static void DeleteInstance();
 
-        /** 更新*/
+        /// <summary>
+        /// ゲームオブジェクトマネージャの更新
+        /// </summary>
+        /// <param name="deltaTime">1フレームの経過時間</param>
         static void Update(float deltaTime);
 
-        /** 描画*/
+        /// <summary>
+        /// ゲームオブジェクトマネージャの描画
+        /// </summary>
         static void Draw();
 
-        /** オブジェクトの登録*/
+        /// <summary>
+        /// オブジェクトの登録
+        /// </summary>
+        /// <param name="newObject">登録するオブジェクト</param>
         static void Entry(GameObject* newObject);
 
-        /** オブジェクトの削除*/
+        /// <summary>
+        /// オブジェクトの削除
+        /// </summary>
+        /// <param name="releaseObject">削除するオブジェクト
+        /// </param>
         static void Release(GameObject* releaseObject);
 
-        /** 全オブジェクト削除*/
+        /// <summary>
+        /// 全オブジェクト削除
+        /// </summary>
         static void ReleaseAllObject();
 
-        /** 当たり判定*/
+        /// <summary>
+        /// 当たり判定
+        /// </summary>
         static void Collision();
 
-        /** オブジェクトタグ種の最初のGameObjectを返す*/
+        /// <summary>
+        /// オブジェクトタグ種の最初のGameObjectを返す
+        /// </summary>
+        /// <param name="tag"></param>
+        /// <returns></returns>
         static GameObject* GetFirstGameObject(ObjectTag tag);
     };
-}/** namespace My3dApp*/
+}// namespace My3dApp

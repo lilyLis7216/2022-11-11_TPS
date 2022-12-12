@@ -1,5 +1,5 @@
 #include "DebugGrid.h"
-#include <DxLib.h>
+#include "DxLib.h"
 
 namespace My3dApp
 {

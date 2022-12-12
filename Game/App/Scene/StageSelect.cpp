@@ -10,6 +10,7 @@ namespace My3dApp
 
     StageSelect::~StageSelect()
     {
+        // ˆ—‚È‚µ
     }
 
     SceneBase* StageSelect::Update(float deltaTime)

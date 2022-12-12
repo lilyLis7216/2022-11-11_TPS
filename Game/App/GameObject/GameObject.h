@@ -1,6 +1,6 @@
 #pragma once
 
-#include <DxLib.h>
+#include "DxLib.h"
 #include "ObjectTag.h"
 #include "../Library/CollisionType.h"
 #include "../Library/Collision.h"
