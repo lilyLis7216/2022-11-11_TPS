@@ -4,6 +4,7 @@
 #include "../GameObject/Player.h"
 #include "../GameObject/Camera.h"
 #include "../GameObject/Map.h"
+#include "../GameObject/Enemy.h"
 #include "../Library/DebugGrid.h"
 
 namespace My3dApp
@@ -14,6 +15,7 @@ namespace My3dApp
         GameObjectManager::Entry(new Player());
         GameObjectManager::Entry(new Camera(500, -500));
         GameObjectManager::Entry(new Map(VGet(0, -255, 0)));
+        GameObjectManager::Entry(new Enemy(VGet(0, 0, 0)));
     }
 
     Play::~Play()

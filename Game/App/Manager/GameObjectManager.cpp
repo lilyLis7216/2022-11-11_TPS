@@ -142,6 +142,19 @@ namespace My3dApp
             {
                 instance->objects[ObjectTag::Player][playerNum]->OnCollisionEnter(instance->objects[ObjectTag::Map][mapNum]);
             }
+
+            for (int enemyNum = 0; enemyNum < instance->objects[ObjectTag::Enemy].size(); ++enemyNum)
+            {
+                instance->objects[ObjectTag::Player][playerNum]->OnCollisionEnter(instance->objects[ObjectTag::Enemy][enemyNum]);
+            }
+        }
+
+        for (int enemyNum = 0; enemyNum < instance->objects[ObjectTag::Enemy].size(); ++enemyNum)
+        {
+            for (int mapNum = 0; mapNum < instance->objects[ObjectTag::Map].size(); ++mapNum)
+            {
+                instance->objects[ObjectTag::Enemy][enemyNum]->OnCollisionEnter(instance->objects[ObjectTag::Map][mapNum]);
+            }
         }
     }
 
