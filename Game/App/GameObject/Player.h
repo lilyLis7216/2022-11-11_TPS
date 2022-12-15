@@ -1,7 +1,6 @@
 #pragma once
 
 #include "GameObject.h"
-#include "DxLib.h"
 
 namespace My3dApp
 {
@@ -29,10 +28,15 @@ namespace My3dApp
         // 回転中か
         bool isRotate;
 
-        // プレイヤーの移動
+        /// <summary>
+        /// プレイヤーの移動
+        /// </summary>
+        /// <param name="deltaTime">1フレームの経過時間</param>
         void Move(float deltaTime);
 
-        // プレイヤーの回転
+        /// <summary>
+        /// プレイヤーの回転
+        /// </summary>
         void RotateCheck();
 
     public:
