@@ -26,10 +26,10 @@ namespace My3dApp
         VECTOR initPos = VGet(0, 0, 0);
 
         // 可視状態
-        bool visible;
+        bool isVisible;
 
         // 生死状態
-        bool alive;
+        bool isAlive;
 
         // 当たり判定の種類
         CollisionType collisionType;
@@ -104,25 +104,25 @@ namespace My3dApp
         /// 可視状態の取得
         /// </summary>
         /// <returns>可視ならtrue 不可視ならfalse</returns>
-        bool GetVisible() const { return visible; }
+        bool GetVisible() const { return isVisible; }
 
         /// <summary>
         /// 可視状態の変更
         /// </summary>
-        /// <param name="visible">変更したい状態</param>
-        void SetVisible(bool visible) { this->visible = visible; }
+        /// <param name="set">変更したい状態</param>
+        void SetVisible(bool set) { isVisible = set; }
 
         /// <summary>
         /// 生死状態の取得
         /// </summary>
         /// <returns>生きていたらtrue 死んでいたらfalse</returns>
-        bool GetAlive() const { return alive; }
+        bool GetAlive() const { return isAlive; }
 
         /// <summary>
         /// 生死状態の変更
         /// </summary>
-        /// <param name="alive">変更したい状態</param>
-        void SetAlive(bool alive) { this->alive = alive; }
+        /// <param name="set">変更したい状態</param>
+        void SetAlive(bool set) { isAlive = set; }
 
         /// <summary>
         /// 他のオブジェクトと衝突したときのリアクション
