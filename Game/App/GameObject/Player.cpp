@@ -1,7 +1,7 @@
 #include "Player.h"
 #include "../Manager/AssetManager.h"
-#include "../Library/Calc3D.h"
 #include "../Library/AnimationController.h"
+#include "../Library/Calc3D.h"
 #include "../Library/GamePad.h"
 
 namespace My3dApp
@@ -14,21 +14,22 @@ namespace My3dApp
     {
 
         // 3Dモデルの読み込み
-        modelHandle = AssetManager::GetMesh("../Assets/model/player2/unityChanModel.mv1");
+        modelHandle = AssetManager::GetMesh("../Assets/Model/Player/unityChanModel.mv1");
 
+        // モデルの大きさ設定
         MV1SetScale(modelHandle, VGet(0.01f, 0.01f, 0.01f));
 
         // アニメーションコントローラの生成
         animCtrl = new AnimationController(modelHandle);
 
         // 待機アニメーションの読み込み
-        animCtrl->AddAnimation("../Assets/model/player2/unityChanAnimIdle.mv1");
+        animCtrl->AddAnimation("../Assets/Model/Player/unityChanAnimIdle.mv1");
 
         // 走行アニメーションの読み込み
-        animCtrl->AddAnimation("../Assets/model/player2/unityChanAnimRun.mv1");
+        animCtrl->AddAnimation("../Assets/Model/Player/unityChanAnimRun.mv1");
 
         // 攻撃アニメーションの読み込み
-        animCtrl->AddAnimation("../Assets/model/player2/unityChanAnimPunch.mv1");
+        animCtrl->AddAnimation("../Assets/Model/Player/unityChanAnimPunch.mv1");
 
         // 初期再生アニメーションの初期化
         animCtrl->StartAnimation(animTypeID);
@@ -44,12 +45,16 @@ namespace My3dApp
         // 速度の初期化
         speed = VGet(0, 0, 0);
 
+        // 当たり判定種類を球体に設定
         collisionType = CollisionType::Sphere;
 
+        // ローカルセンターを50
         collisionSphere.localCenter = VGet(0, 50.0f, 0);
 
+        // 半径を30
         collisionSphere.radius = 30.0f;
 
+        // 線分当たり判定を設定
         collisionLine = LineSegment(VGet(0.0f, 20.0f, 0.0f), VGet(0.0f, -30.0f, 0.0f));
     }
 
@@ -91,7 +96,7 @@ namespace My3dApp
         {
             int collModel = other->GetCollisionModel();
 
-            // マップと自身の境界旧都の当たり判定
+            // マップと自身の境界球との当たり判定
             MV1_COLL_RESULT_POLY_DIM collInfo;
 
             // 当たっている場合
@@ -121,6 +126,15 @@ namespace My3dApp
 
                 // 当たり判定の更新
                 CollisionUpdate();
+            }
+        }
+
+        // 敵との衝突
+        if (tag == ObjectTag::Enemy)
+        {
+            if (CollisionPair(collisionSphere, other->GetCollisionSphere()))
+            {
+                printfDx("Hit!");
             }
         }
     }
