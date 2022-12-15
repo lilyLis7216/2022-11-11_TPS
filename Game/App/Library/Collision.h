@@ -21,8 +21,6 @@ namespace My3dApp
         /// <param name="endPos">‰ŠúI“_À•W</param>
         LineSegment(const VECTOR& startPos, const VECTOR& endPos);
 
-        /** ü•ª“–‚½‚è”»’è‚ÌˆÚ“®*/
-
         /// <summary>
         /// ü•ª“–‚½‚è”»’è‚ÌˆÚ“®
         /// </summary>
