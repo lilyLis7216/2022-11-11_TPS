@@ -60,7 +60,7 @@ namespace My3dApp
 
     void AnimationController::StartAnimation(int id)
     {
-        /** 以前と違うアニメーションが来たら一度デタッチ*/
+        // 以前と違うアニメーションが来たら一度デタッチ
         if (id != nowAnimTypeNum)
         {
             if (nowAnimTypeNum != -1)
@@ -68,7 +68,7 @@ namespace My3dApp
                 MV1DetachAnim(modelHandle, attachedIndex);
             }
 
-            /** 新規アニメーションをセット*/
+            // 新規アニメーションをセット
             nowAnimTypeNum = id;
             attachedIndex = MV1AttachAnim(modelHandle, animDatas[id].animationIndex, 
                 animDatas[nowAnimTypeNum].animationHandle, TRUE);
@@ -100,4 +100,4 @@ namespace My3dApp
         , isLoopAnimation(false)
     {
     }
-}/** namespace My3dApp*/
+}// namespace My3dApp

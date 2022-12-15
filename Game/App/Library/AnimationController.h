@@ -64,13 +64,16 @@ namespace My3dApp
         /// <summary>
         /// アニメーションの追加
         /// </summary>
-        /// <param name="fileName"></param>
+        /// <param name="fileName">ファイルまでのパス</param>
         /// <param name="fps"></param>
-        /// <param name="isLoop"></param>
+        /// <param name="isLoop">ループするかどうか</param>
         /// <returns></returns>
         int AddAnimation(std::string fileName, float fps = 30.0f, bool isLoop = true);
 
-        /** アニメーションの時間のセット*/
+        /// <summary>
+        /// アニメーションの時間のセット
+        /// </summary>
+        /// <param name="deltaTime">1フレームの経過時間</param>
         void AddAnimationTime(float deltaTime);
 
         /// <summary>
