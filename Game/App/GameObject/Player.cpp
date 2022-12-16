@@ -1,6 +1,7 @@
 #include "Player.h"
 #include "../Manager/AssetManager.h"
 #include "../Library/AnimationController.h"
+#include "../Manager/GameObjectManager.h"
 #include "../Library/Calc3D.h"
 #include "../Library/GamePad.h"
 
@@ -141,17 +142,31 @@ namespace My3dApp
 
     void Player::Move(float deltaTime)
     {
+        // カメラを持ってくる
+        GameObject* camera = GameObjectManager::GetFirstGameObject(ObjectTag::Camera);
+
+        // カメラの正面方向の位置ベクトルを計算
+        VECTOR front = pos - camera->GetPos();
+
+        front.y = 0.0f;
+
+        // ベクトルの正規化
+        front = VNorm(front);
+
+        // Y軸ベクトル
+        VECTOR YAxis = { 0,1,0 };
+
         // 上方向
-        VECTOR UP = { 0, 0, 1 };
+        VECTOR UP = front;
 
         // 下方向
-        VECTOR DOWN = { 0, 0, -1 };
-
-        // 左方向
-        VECTOR LEFT = { -1, 0, 0 };
+        VECTOR DOWN = VScale(front, -1.0f);
 
         // 右方向
-        VECTOR RIGHT = { 1, 0, 0 };
+        VECTOR RIGHT = VCross(YAxis, front);
+
+        // 左方向
+        VECTOR LEFT = VScale(RIGHT, -1.0f);
 
         // 移動用ベクトル
         VECTOR inputVec = VGet(0, 0, 0);
