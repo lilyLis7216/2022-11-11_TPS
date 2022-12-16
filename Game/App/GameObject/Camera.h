@@ -11,7 +11,7 @@ namespace My3dApp
     {
     private:
         // カメラの座標
-        VECTOR pos;
+        //VECTOR pos;
 
         // カメラの注目点
         VECTOR lookPos;
@@ -24,6 +24,12 @@ namespace My3dApp
 
         // カメラの注目点目標
         VECTOR aimLookPos;
+
+        float speed;
+
+        float yaw;
+
+        float pitch;
 
     public:
         /// <summary>
