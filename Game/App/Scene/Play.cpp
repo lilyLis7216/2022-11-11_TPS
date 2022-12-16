@@ -12,9 +12,13 @@ namespace My3dApp
     Play::Play()
     {
         text = "3.Play";
+
         GameObjectManager::Entry(new Player());
+
         GameObjectManager::Entry(new Camera(500, -500));
+
         GameObjectManager::Entry(new Map(VGet(0, -255, 0)));
+
         GameObjectManager::Entry(new Enemy(VGet(0, 0, 0)));
     }
 
