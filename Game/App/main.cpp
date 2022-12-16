@@ -6,6 +6,7 @@
 #include "Manager/GameObjectManager.h"
 #include "Library/GamePad.h"
 #include "Scene/Title.h"
+#include "Scene/Play.h"
 
 int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 {
@@ -22,7 +23,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
     My3dApp::GamePad::CreateInstance();
 
     // 最初のシーンをセット
-    My3dApp::GameManager::SetFirstScene(new My3dApp::Title());
+    My3dApp::GameManager::SetFirstScene(new My3dApp::Play());
 
     // ゲームループ
     My3dApp::GameManager::Loop();
