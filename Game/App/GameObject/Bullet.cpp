@@ -3,11 +3,6 @@
 
 namespace My3dApp
 {
-    Bullet::Bullet(ObjectTag tag)
-        : Bullet(tag, initPos)
-    {
-    }
-
     Bullet::Bullet(ObjectTag tag, VECTOR pos)
         : GameObject(tag, pos)
     {

@@ -14,12 +14,6 @@ namespace My3dApp
         /// コンストラクタ
         /// </summary>
         /// <param name="tag">オブジェクトのタグ</param>
-        Bullet(ObjectTag tag);
-
-        /// <summary>
-        /// コンストラクタ
-        /// </summary>
-        /// <param name="tag">オブジェクトのタグ</param>
         /// <param name="pos">初期位置</param>
         Bullet(ObjectTag tag, VECTOR pos);
 
