@@ -15,25 +15,25 @@ namespace My3dApp
     {
 
         // 3Dモデルの読み込み
-        modelHandle = AssetManager::GetMesh("../Assets/Model/Player/unityChanModel.mv1");
+        modelHandle = AssetManager::GetMesh("../Assets/Model/test/player.mv1");
 
         // モデルの大きさ設定
-        MV1SetScale(modelHandle, VGet(0.01f, 0.01f, 0.01f));
+        MV1SetScale(modelHandle, VGet(1, 1, 1));
 
-        // アニメーションコントローラの生成
-        animCtrl = new AnimationController(modelHandle);
+        //// アニメーションコントローラの生成
+        //animCtrl = new AnimationController(modelHandle);
 
-        // 待機アニメーションの読み込み
-        animCtrl->AddAnimation("../Assets/Model/Player/unityChanAnimIdle.mv1");
+        //// 待機アニメーションの読み込み
+        //animCtrl->AddAnimation("../Assets/Model/Player/unityChanAnimIdle.mv1");
 
-        // 走行アニメーションの読み込み
-        animCtrl->AddAnimation("../Assets/Model/Player/unityChanAnimRun.mv1");
+        //// 走行アニメーションの読み込み
+        //animCtrl->AddAnimation("../Assets/Model/Player/unityChanAnimRun.mv1");
 
-        // 攻撃アニメーションの読み込み
-        animCtrl->AddAnimation("../Assets/Model/Player/unityChanAnimPunch.mv1");
+        //// 攻撃アニメーションの読み込み
+        //animCtrl->AddAnimation("../Assets/Model/Player/unityChanAnimPunch.mv1");
 
-        // 初期再生アニメーションの初期化
-        animCtrl->StartAnimation(animTypeID);
+        //// 初期再生アニメーションの初期化
+        //animCtrl->StartAnimation(animTypeID);
 
         // 座標の初期化
         pos = VGet(0, 0, 0);
@@ -70,7 +70,7 @@ namespace My3dApp
 
     void Player::Update(float deltaTime)
     {
-        animCtrl->AddAnimationTime(deltaTime);
+        //animCtrl->AddAnimationTime(deltaTime);
 
         RotateCheck();
 
@@ -227,7 +227,7 @@ namespace My3dApp
             if (animTypeID != 1)
             {
                 animTypeID = 1;
-                animCtrl->StartAnimation(animTypeID);
+                //animCtrl->StartAnimation(animTypeID);
             }
         }
         else
@@ -238,7 +238,7 @@ namespace My3dApp
             if (animTypeID != 0)
             {
                 animTypeID = 0;
-                animCtrl->StartAnimation(animTypeID);
+                //animCtrl->StartAnimation(animTypeID);
             }
         }
 
