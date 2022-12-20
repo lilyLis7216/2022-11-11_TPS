@@ -45,7 +45,7 @@ namespace My3dApp
             VECTOR posMoveDir = aimCameraPos - pos;
 
             // è„
-            if (0 < GamePad::GetRightStickY())
+            if (0 < GamePad::GetRightStickY() || CheckHitKey(KEY_INPUT_UP))
             {
                 if (pitch < 1)
                 {
@@ -54,7 +54,7 @@ namespace My3dApp
             }
 
             // â∫
-            if (GamePad::GetRightStickY() < 0)
+            if (GamePad::GetRightStickY() < 0 || CheckHitKey(KEY_INPUT_DOWN))
             {
                 if (pitch > 0)
                 {
@@ -63,13 +63,13 @@ namespace My3dApp
             }
 
             // ç∂
-            if (GamePad::GetRightStickX() < 0)
+            if (GamePad::GetRightStickX() < 0 || CheckHitKey(KEY_INPUT_LEFT))
             {
                 yaw -= speed;
             }
 
             // âE
-            if (0 < GamePad::GetRightStickX())
+            if (0 < GamePad::GetRightStickX() || CheckHitKey(KEY_INPUT_RIGHT))
             {
                 yaw += speed;
             }

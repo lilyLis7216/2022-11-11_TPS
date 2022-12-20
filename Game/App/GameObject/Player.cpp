@@ -174,25 +174,25 @@ namespace My3dApp
         // “ü—Í‚ª‚ ‚Á‚½‚©‚Ç‚¤‚©
         bool input = false;
 
-        if (GamePad::GetInput(Button::UP) || 0 < GamePad::GetLeftStickY())
+        if (GamePad::GetInput(Button::UP) || 0 < GamePad::GetLeftStickY() || CheckHitKey(KEY_INPUT_W))
         {
             inputVec += UP;
             input = true;
         }
 
-        if (GamePad::GetInput(Button::DOWN) || GamePad::GetLeftStickY() < 0)
+        if (GamePad::GetInput(Button::DOWN) || GamePad::GetLeftStickY() < 0 || CheckHitKey(KEY_INPUT_S))
         {
             inputVec += DOWN;
             input = true;
         }
 
-        if (GamePad::GetInput(Button::LEFT) || GamePad::GetLeftStickX() < 0)
+        if (GamePad::GetInput(Button::LEFT) || GamePad::GetLeftStickX() < 0 || CheckHitKey(KEY_INPUT_A))
         {
             inputVec += LEFT;
             input = true;
         }
 
-        if (GamePad::GetInput(Button::RIGHT) || 0 < GamePad::GetLeftStickX())
+        if (GamePad::GetInput(Button::RIGHT) || 0 < GamePad::GetLeftStickX() || CheckHitKey(KEY_INPUT_D))
         {
             inputVec += RIGHT;
             input = true;
