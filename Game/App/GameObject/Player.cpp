@@ -18,7 +18,7 @@ namespace My3dApp
         modelHandle = AssetManager::GetMesh("../Assets/Model/test/player.mv1");
 
         // モデルの大きさ設定
-        MV1SetScale(modelHandle, VGet(1, 1, 1));
+        MV1SetScale(modelHandle, VGet(0.5f, 0.5f, 0.5f));
 
         //// アニメーションコントローラの生成
         //animCtrl = new AnimationController(modelHandle);
