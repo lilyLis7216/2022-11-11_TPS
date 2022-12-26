@@ -1,8 +1,10 @@
 #include "Enemy.h"
 #include "../Manager/AssetManager.h"
+#include "../Manager/GameObjectManager.h"
 #include "../Library/AnimationController.h"
 #include "../Library/Calc3D.h"
 #include "../Library/GamePad.h"
+#include "ObjectTag.h"
 
 namespace My3dApp
 {
@@ -109,27 +111,14 @@ namespace My3dApp
 
     void Enemy::Move(float deltaTime)
     {
-        if (moveCount > 0)
-        {
-            moveCount -= deltaTime;
-        }
-        else
-        {
-            moveCount = 3.0f;
-            moveTmp = rand() % 4;
-        }
+        // プレイヤーの取得
+        GameObject* player = GameObjectManager::GetFirstGameObject(ObjectTag::Player);
 
-        // 上方向
-        VECTOR UP = { 0, 0, 1 };
+        // プレイヤーの座標から自身の座標を引いて向きベクトルを計算する
+        VECTOR tmp = player->GetPos() - pos;
 
-        // 下方向
-        VECTOR DOWN = { 0, 0, -1 };
-
-        // 左方向
-        VECTOR LEFT = { -1, 0, 0 };
-
-        // 右方向
-        VECTOR RIGHT = { 1, 0, 0 };
+        // 高さベクトルの無効化
+        tmp.y = 0;
 
         // 移動用ベクトル
         VECTOR inputVec = VGet(0, 0, 0);
@@ -137,27 +126,17 @@ namespace My3dApp
         // 入力があったかどうか
         bool input = false;
 
-        switch (moveTmp)
+        if (abs(tmp.x) < 200.0f)
         {
-        case 0:
-            inputVec += UP;
             input = true;
-            break;
-        case 1:
-            inputVec += DOWN;
-            input = true;
-            break;
-        case 2:
-            inputVec += LEFT;
-            input = true;
-            break;
-        case 3:
-            inputVec += RIGHT;
-            input = true;
-            break;
-        default:
-            break;
         }
+
+        if (abs(tmp.z) < 200.0f)
+        {
+            input = true;
+        }
+
+        inputVec += tmp;
 
         // 入力があったら
         if (input)
@@ -182,7 +161,7 @@ namespace My3dApp
                 aimDir = inputVec;
             }
 
-            speed = inputVec + (inputVec * deltaTime * 200.0f);
+            speed = inputVec + (inputVec * deltaTime * 100.0f);
 
             // もし他のモーション中だったら走りモーションへ
             if (animTypeID != 1)
