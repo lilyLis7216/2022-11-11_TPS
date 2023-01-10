@@ -50,10 +50,10 @@ namespace My3dApp
         collisionType = CollisionType::Sphere;
 
         // ローカルセンターを50
-        collisionSphere.localCenter = VGet(0, 50.0f, 0);
+        collisionSphere.localCenter = VGet(0, 75.0f, 0);
 
         // 半径を30
-        collisionSphere.radius = 30.0f;
+        collisionSphere.radius = 65.0f;
 
         // 線分当たり判定を設定
         collisionLine = LineSegment(VGet(0.0f, 20.0f, 0.0f), VGet(0.0f, -30.0f, 0.0f));
