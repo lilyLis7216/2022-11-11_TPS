@@ -16,8 +16,8 @@ namespace My3dApp
         , aimCameraPos()
         , aimLookPos()
         , speed(0.03f)
-        , pitch(0.5)
-        , yaw(3.1)
+        , pitch(0.5f)
+        , yaw(3.1f)
     {
         pos = initPos;
         cameraOffset.x = 0;
@@ -65,17 +65,17 @@ namespace My3dApp
             // ç∂
             if (GamePad::GetRightStickX() < 0 || CheckHitKey(KEY_INPUT_LEFT))
             {
-                yaw -= speed;
+                yaw += speed;
             }
 
             // âE
             if (0 < GamePad::GetRightStickX() || CheckHitKey(KEY_INPUT_RIGHT))
             {
-                yaw += speed;
+                yaw -= speed;
             }
 
 
-            pos.x = cameraOffset.y * cosf(yaw) * cosf(pitch) + player->GetPos().x;
+            pos.x = cameraOffset.y * cosf(yaw) * cosf(pitch) + player->GetPos().x + 100.0f;
             pos.y = cameraOffset.y * sinf(pitch) + player->GetPos().y;
             pos.z = cameraOffset.y * sinf(yaw) * cosf(pitch) + player->GetPos().z;
 
