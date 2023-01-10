@@ -119,6 +119,8 @@ namespace My3dApp
         // 16000マイクロ秒 = 16ミリ秒 = 0.016秒
         float waitFrameTime = 15900;
 
+        SetBackgroundColor(128, 128, 128);
+
         // ループ本体
         while (gameLoop)
         {
