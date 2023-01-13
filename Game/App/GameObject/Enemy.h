@@ -19,9 +19,6 @@ namespace My3dApp
         // 速度
         VECTOR speed;
 
-        // アニメーション管理用
-        class AnimationController* animCtrl;
-
         // アニメーション種類のID
         int animTypeID;
 

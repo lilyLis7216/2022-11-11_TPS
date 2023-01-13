@@ -19,7 +19,7 @@ namespace My3dApp
 
         GameObjectManager::Entry(new Map(VGet(0, -255, 0)));
 
-        //GameObjectManager::Entry(new Enemy(VGet(0, 0, 0)));
+        GameObjectManager::Entry(new Enemy(VGet(0, 0, 0)));
     }
 
     Play::~Play()

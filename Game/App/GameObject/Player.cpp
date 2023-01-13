@@ -135,7 +135,7 @@ namespace My3dApp
         {
             if (CollisionPair(collisionSphere, other->GetCollisionSphere()))
             {
-                printfDx("Hit!");
+                //printfDx("Hit!");
             }
         }
     }
@@ -221,25 +221,11 @@ namespace My3dApp
                 aimDir = inputVec;
             }
 
-            speed = inputVec + (inputVec * deltaTime * 200.0f);
-
-            // もし他のモーション中だったら走りモーションへ
-            if (animTypeID != 1)
-            {
-                animTypeID = 1;
-                //animCtrl->StartAnimation(animTypeID);
-            }
+            speed = inputVec + (inputVec * deltaTime * 400.0f);
         }
         else
         {
             speed *= 0.9f;
-
-            // もしほかのモーション中だったら歩きモーションへ
-            if (animTypeID != 0)
-            {
-                animTypeID = 0;
-                //animCtrl->StartAnimation(animTypeID);
-            }
         }
 
         pos += speed;
