@@ -15,7 +15,6 @@ namespace My3dApp
 
     Enemy::Enemy(VECTOR pos)
         : GameObject(ObjectTag::Enemy, pos)
-        , animCtrl(nullptr)
         , animTypeID(0)
         , isRotate(false)
         , moveCount(10.0f)
@@ -26,7 +25,7 @@ namespace My3dApp
 
         MV1SetScale(modelHandle, VGet(0.5f, 0.5f, 0.5f));
 
-        dir = VGet(1, 0, 0);
+        dir = VGet(0, 0, 0);
 
         aimDir = dir;
 
@@ -45,16 +44,13 @@ namespace My3dApp
     {
         // モデルのアンロード
         AssetManager::ReleaseMesh(modelHandle);
-
-        // アニメーションコントローラの削除
-        delete animCtrl;
     }
 
     void Enemy::Update(float deltaTime)
     {
         Move(deltaTime);
 
-        RotateCheck();
+        //RotateCheck();
     }
 
     void Enemy::Draw()
@@ -120,69 +116,21 @@ namespace My3dApp
         // 高さベクトルの無効化
         tmp.y = 0;
 
-        // 移動用ベクトル
-        VECTOR inputVec = VGet(0, 0, 0);
 
-        // 入力があったかどうか
-        bool input = false;
-
-        if (abs(tmp.x) < 200.0f)
+        if (VSize(tmp) > 600.0f)
         {
-            input = true;
+            // 一定時間
+            dir.x *= -1;
         }
-
-        if (abs(tmp.z) < 200.0f)
+        // 近くまで追跡
+        else if (VSize(tmp) > 100.0f)
         {
-            input = true;
+            dir = VNorm(tmp);
+
+            speed =  (dir * deltaTime * 200.0f);
+
+            pos += speed;
         }
-
-        inputVec += tmp;
-
-        // 入力があったら
-        if (input)
-        {
-            // 左右上下同時押しなどで入力ベクトルが0のとき
-            if (VSquareSize(inputVec) < 0.5f)
-            {
-                return;
-            }
-
-            // 方向を正規化
-            inputVec = VNorm(inputVec);
-
-            // 入力方向は現在向いている方向と異なるか
-            if (IsNearAngle(inputVec, dir))
-            {
-                dir = inputVec;
-            }
-            else
-            {
-                isRotate = true;
-                aimDir = inputVec;
-            }
-
-            speed = inputVec + (inputVec * deltaTime * 100.0f);
-
-            // もし他のモーション中だったら走りモーションへ
-            if (animTypeID != 1)
-            {
-                animTypeID = 1;
-                //animCtrl->StartAnimation(animTypeID);
-            }
-        }
-        else
-        {
-            speed *= 0.9f;
-
-            // もしほかのモーション中だったら歩きモーションへ
-            if (animTypeID != 0)
-            {
-                animTypeID = 0;
-                //animCtrl->StartAnimation(animTypeID);
-            }
-        }
-
-        pos += speed;
 
         // 3Dモデルのポジション設定
         MV1SetPosition(modelHandle, pos);
