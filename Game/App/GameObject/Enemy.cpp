@@ -5,6 +5,7 @@
 #include "../Library/Calc3D.h"
 #include "../Library/GamePad.h"
 #include "ObjectTag.h"
+#include "Bullet.h"
 
 namespace My3dApp
 {
@@ -17,15 +18,14 @@ namespace My3dApp
         : GameObject(ObjectTag::Enemy, pos)
         , animTypeID(0)
         , isRotate(false)
-        , moveCount(10.0f)
-        , isMove(false)
-        , moveTmp(0)
+        , turnCount(5.0f)
+        , shotInterval(0)
     {
         modelHandle = AssetManager::GetMesh("../asset/model/test/enemy.mv1");
 
         MV1SetScale(modelHandle, VGet(0.5f, 0.5f, 0.5f));
 
-        dir = VGet(0, 0, 0);
+        dir = VGet(1, 0, 0);
 
         aimDir = dir;
 
@@ -33,11 +33,13 @@ namespace My3dApp
 
         collisionType = CollisionType::Sphere;
 
-        collisionSphere.localCenter = VGet(0, 50.0f, 0);
+        collisionSphere.localCenter = VGet(0, 75.0f, 0);
 
-        collisionSphere.radius = 30.0f;
+        collisionSphere.radius = 65.0f;
 
         collisionLine = LineSegment(VGet(0.0f, 20.0f, 0.0f), VGet(0.0f, -30.0f, 0.0f));
+
+        CollisionUpdate();
     }
 
     Enemy::~Enemy()
@@ -49,8 +51,6 @@ namespace My3dApp
     void Enemy::Update(float deltaTime)
     {
         Move(deltaTime);
-
-        //RotateCheck();
     }
 
     void Enemy::Draw()
@@ -71,7 +71,7 @@ namespace My3dApp
         {
             int collModel = other->GetCollisionModel();
 
-            // マップと自身の境界旧都の当たり判定
+            // マップと自身の境界球との当たり判定
             MV1_COLL_RESULT_POLY_DIM collInfo;
 
             // 当たっている場合
@@ -103,6 +103,31 @@ namespace My3dApp
                 CollisionUpdate();
             }
         }
+
+        // エネミーとの衝突
+        if (tag == ObjectTag::Enemy)
+        {
+            if (CollisionPair(collisionSphere, other->GetCollisionSphere()))
+            {
+                float vx = collisionSphere.worldCenter.x - other->GetCollisionSphere().worldCenter.x;
+                float vz = collisionSphere.worldCenter.z - other->GetCollisionSphere().worldCenter.z;
+                float r = sqrtf(pow(vx, 2.0f) + pow(vz, 2.0f));
+                float r1 = collisionSphere.radius;
+                float r2 = other->GetCollisionSphere().radius;
+
+                if (r1 + r2 > r)
+                {
+                    float dif = r1 + r2 - r;
+
+                    VECTOR pushBack = other->GetCollisionSphere().worldCenter - collisionSphere.worldCenter;
+                    pushBack = VNorm(pushBack);
+                    pos += pushBack * -dif;
+                }
+
+                // 当たり判定の更新
+                CollisionUpdate();
+            }
+        }
     }
 
     void Enemy::Move(float deltaTime)
@@ -116,15 +141,27 @@ namespace My3dApp
         // 高さベクトルの無効化
         tmp.y = 0;
 
-
-        if (VSize(tmp) > 600.0f)
+        if (VSize(tmp) > 800.0f)
         {
-            // 一定時間
-            dir.x *= -1;
+            if (turnCount < 0)
+            {
+                turnCount = 3.0f;
+                dir.x *= -1;
+                dir.z *= -1;
+            }
+            else
+            {
+                turnCount -= deltaTime;
+            }
         }
         // 近くまで追跡
         else if (VSize(tmp) > 100.0f)
         {
+
+            shotInterval -= deltaTime;
+
+            Shot();
+
             dir = VNorm(tmp);
 
             speed =  (dir * deltaTime * 200.0f);
@@ -176,6 +213,15 @@ namespace My3dApp
                 // 目標ベクトルに10度だけ近づけた角度
                 dir = interPolateDir;
             }
+        }
+    }
+
+    void Enemy::Shot()
+    {
+        if (shotInterval < 0)
+        {
+            shotInterval = 1.0f;
+            GameObjectManager::Entry(new Bullet(ObjectTag::EnemyBullet, pos, dir));
         }
     }
 }// namespace My3dApp
