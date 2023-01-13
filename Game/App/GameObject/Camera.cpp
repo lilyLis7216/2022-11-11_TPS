@@ -74,15 +74,12 @@ namespace My3dApp
                 yaw -= speed;
             }
 
-
             pos.x = cameraOffset.y * cosf(yaw) * cosf(pitch) + player->GetPos().x + 100.0f;
             pos.y = cameraOffset.y * sinf(pitch) + player->GetPos().y;
             pos.z = cameraOffset.y * sinf(yaw) * cosf(pitch) + player->GetPos().z;
 
-
             lookPos += lookMoveDir * cameraSpringStrength * deltaTime;
             pos += posMoveDir * cameraSpringStrength * deltaTime;
-
 
             SetCameraPositionAndTarget_UpVecY(pos, lookPos);
         }
