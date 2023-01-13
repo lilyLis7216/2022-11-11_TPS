@@ -2,7 +2,6 @@
 
 namespace My3dApp
 {
-
     // ゲームオブジェクトマネージャインスタンスへのポインタ定義
     GameObjectManager* GameObjectManager::instance = nullptr;
 
@@ -60,20 +59,24 @@ namespace My3dApp
         vector<GameObject*> deadObjects;
         for (auto& tag : ObjectTagAll)
         {
-            for (int i = 0; i < instance->objects[tag].size(); ++i)
+            for (auto obj : instance->objects[tag])
             {
-                if (!instance->objects[tag][i]->GetAlive())
+                if (!obj->GetAlive())
                 {
-                    deadObjects.emplace_back(instance->objects[tag][i]);
+                    deadObjects.emplace_back(obj);
                 }
             }
+
+            instance->objects[tag].erase(remove_if(begin(instance->objects[tag]), end(instance->objects[tag]), 
+                [](GameObject* g) {return !g->GetAlive(); }), cend(instance->objects[tag]));
         }
 
-        for (auto deadobj : deadObjects)
+        // 死んでいるGameObjectをここでdelete
+        while (!deadObjects.empty())
         {
-            delete deadobj;
+            delete deadObjects.back();
+            deadObjects.pop_back();
         }
-        deadObjects.clear();
     }
 
     void GameObjectManager::Draw()
@@ -136,24 +139,38 @@ namespace My3dApp
 
     void GameObjectManager::Collision()
     {
+        // プレイヤーの当たり判定
         for (int playerNum = 0; playerNum < instance->objects[ObjectTag::Player].size(); ++playerNum)
         {
+            // マップとの当たり判定
             for (int mapNum = 0; mapNum < instance->objects[ObjectTag::Map].size(); ++mapNum)
             {
                 instance->objects[ObjectTag::Player][playerNum]->OnCollisionEnter(instance->objects[ObjectTag::Map][mapNum]);
             }
 
+            // エネミーとの当たり判定
             for (int enemyNum = 0; enemyNum < instance->objects[ObjectTag::Enemy].size(); ++enemyNum)
             {
                 instance->objects[ObjectTag::Player][playerNum]->OnCollisionEnter(instance->objects[ObjectTag::Enemy][enemyNum]);
             }
         }
 
+        // エネミーの当たり判定
         for (int enemyNum = 0; enemyNum < instance->objects[ObjectTag::Enemy].size(); ++enemyNum)
         {
+            // マップとの当たり判定
             for (int mapNum = 0; mapNum < instance->objects[ObjectTag::Map].size(); ++mapNum)
             {
                 instance->objects[ObjectTag::Enemy][enemyNum]->OnCollisionEnter(instance->objects[ObjectTag::Map][mapNum]);
+            }
+
+            // 自身を除くエネミーとの当たり判定
+            for (int anotherEnemyNum = 0; anotherEnemyNum < instance->objects[ObjectTag::Enemy].size(); ++anotherEnemyNum)
+            {
+                if (enemyNum != anotherEnemyNum)
+                {
+                    instance->objects[ObjectTag::Enemy][enemyNum]->OnCollisionEnter(instance->objects[ObjectTag::Enemy][anotherEnemyNum]);
+                }
             }
         }
     }
