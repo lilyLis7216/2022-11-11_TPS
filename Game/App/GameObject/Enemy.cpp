@@ -22,7 +22,7 @@ namespace My3dApp
         , isMove(false)
         , moveTmp(0)
     {
-        modelHandle = AssetManager::GetMesh("../Assets/Model/test/enemy.mv1");
+        modelHandle = AssetManager::GetMesh("../asset/model/test/enemy.mv1");
 
         MV1SetScale(modelHandle, VGet(0.5f, 0.5f, 0.5f));
 

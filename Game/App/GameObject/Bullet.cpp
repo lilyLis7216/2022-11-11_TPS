@@ -6,7 +6,7 @@ namespace My3dApp
     Bullet::Bullet(ObjectTag tag, VECTOR pos)
         : GameObject(tag, pos)
     {
-        //modelHandle = AssetManager::GetMesh("../Asset/Model/Bullet/");
+        //modelHandle = AssetManager::GetMesh("../asset/Model/Bullet/");
 
         speed = VGet(0, 0, 0);
     }

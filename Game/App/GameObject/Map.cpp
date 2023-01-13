@@ -25,7 +25,7 @@ namespace My3dApp
     void Map::ModelLoad()
     {
         // 表示用モデルの読み込み
-        modelHandle = AssetManager::GetMesh("../Assets/Model/Map/map.mv1");
+        modelHandle = AssetManager::GetMesh("../asset/model/map/map.mv1");
 
         // 表示モデルのスケーリング
         MV1SetScale(modelHandle, VGet(1.0f, 1.0f, 1.0f));
@@ -34,7 +34,7 @@ namespace My3dApp
         MV1SetPosition(modelHandle, pos);
 
         // 当たり判定用モデルの読み込み
-        collisionModel = AssetManager::GetMesh("../Assets/Model/Map/map.mv1");
+        collisionModel = AssetManager::GetMesh("../asset/model/map/map.mv1");
 
         MV1SetScale(collisionModel, VGet(1.0f, 1.0f, 1.0f));
 

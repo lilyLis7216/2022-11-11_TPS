@@ -15,7 +15,7 @@ namespace My3dApp
     {
 
         // 3Dƒ‚ƒfƒ‹‚Ì“Ç‚İ‚İ
-        modelHandle = AssetManager::GetMesh("../Assets/Model/test/player.mv1");
+        modelHandle = AssetManager::GetMesh("../asset/model/test/player.mv1");
 
         // ƒ‚ƒfƒ‹‚Ì‘å‚«‚³İ’è
         MV1SetScale(modelHandle, VGet(0.5f, 0.5f, 0.5f));
