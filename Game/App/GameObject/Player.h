@@ -19,14 +19,14 @@ namespace My3dApp
         // 速度
         VECTOR speed;
 
-        // アニメーション管理用
-        class AnimationController* animCtrl;
-
-        // アニメーション種類のID
-        int animTypeID;
-
         // 回転中か
         bool isRotate;
+
+        int tmp;
+
+        bool prevPushShot;
+
+        float shotInterval;
 
         /// <summary>
         /// プレイヤーの移動
@@ -38,6 +38,11 @@ namespace My3dApp
         /// プレイヤーの回転
         /// </summary>
         void RotateCheck();
+
+        /// <summary>
+        /// 射撃処理
+        /// </summary>
+        void Shot();
 
     public:
         /// <summary>

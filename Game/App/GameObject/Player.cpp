@@ -4,14 +4,17 @@
 #include "../Manager/GameObjectManager.h"
 #include "../Library/Calc3D.h"
 #include "../Library/GamePad.h"
+#include "ObjectTag.h"
+#include "Bullet.h"
 
 namespace My3dApp
 {
     Player::Player()
         : GameObject(ObjectTag::Player)
-        , animCtrl(nullptr)
-        , animTypeID(0)
         , isRotate(false)
+        , tmp(0)
+        , prevPushShot(false)
+        , shotInterval(0)
     {
 
         // 3Dモデルの読み込み
@@ -20,23 +23,10 @@ namespace My3dApp
         // モデルの大きさ設定
         MV1SetScale(modelHandle, VGet(0.5f, 0.5f, 0.5f));
 
-        //// アニメーションコントローラの生成
-        //animCtrl = new AnimationController(modelHandle);
-
-        //// 待機アニメーションの読み込み
-        //animCtrl->AddAnimation("../Assets/Model/Player/unityChanAnimIdle.mv1");
-
-        //// 走行アニメーションの読み込み
-        //animCtrl->AddAnimation("../Assets/Model/Player/unityChanAnimRun.mv1");
-
-        //// 攻撃アニメーションの読み込み
-        //animCtrl->AddAnimation("../Assets/Model/Player/unityChanAnimPunch.mv1");
-
-        //// 初期再生アニメーションの初期化
-        //animCtrl->StartAnimation(animTypeID);
-
         // 座標の初期化
         pos = VGet(0, 0, 0);
+
+        MV1SetPosition(modelHandle, pos);
 
         // 向きの初期化
         dir = VGet(1, 0, 0);
@@ -63,18 +53,17 @@ namespace My3dApp
     {
         // モデルのアンロード
         AssetManager::ReleaseMesh(modelHandle);
-
-        // アニメーションコントローラの削除
-        delete animCtrl;
     }
 
     void Player::Update(float deltaTime)
     {
-        //animCtrl->AddAnimationTime(deltaTime);
+        Move(deltaTime);
 
         RotateCheck();
 
-        Move(deltaTime);
+        shotInterval -= deltaTime;
+
+        Shot();
 
         CollisionUpdate();
     }
@@ -148,6 +137,7 @@ namespace My3dApp
         // カメラの正面方向の位置ベクトルを計算
         VECTOR front = pos - camera->GetPos();
 
+        // 高さ無効
         front.y = 0.0f;
 
         // ベクトルの正規化
@@ -274,6 +264,15 @@ namespace My3dApp
                 // 目標ベクトルに10度だけ近づけた角度
                 dir = interPolateDir;
             }
+        }
+    }
+
+    void Player::Shot()
+    {
+        if (CheckHitKey(KEY_INPUT_SPACE) && shotInterval < 0)
+        {
+            shotInterval = 0.5f;
+            GameObjectManager::Entry(new Bullet(ObjectTag::PlayerBullet, pos, dir));
         }
     }
 }// namespace My3dApp

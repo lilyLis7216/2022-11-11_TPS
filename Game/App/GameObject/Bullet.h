@@ -9,13 +9,20 @@ namespace My3dApp
     private:
         VECTOR speed;
 
+        VECTOR dir;
+
+        float boost;
+
+        float deadCount;
+
     public:
         /// <summary>
         /// コンストラクタ
         /// </summary>
         /// <param name="tag">オブジェクトのタグ</param>
         /// <param name="pos">初期位置</param>
-        Bullet(ObjectTag tag, VECTOR pos);
+        /// <param name="dir">向き</param>
+        Bullet(ObjectTag tag, VECTOR pos, VECTOR dir);
 
         /// <summary>
         /// デストラクタ
