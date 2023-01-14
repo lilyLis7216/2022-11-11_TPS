@@ -9,13 +9,17 @@ namespace My3dApp
 {
     SceneBase::SceneBase()
         : text(nullptr)
+        , bgImage(-1)
     {
         // ˆ—‚È‚µ
     }
 
     SceneBase::~SceneBase()
     {
-        // ˆ—‚È‚µ
+        if (bgImage != -1)
+        {
+            bgImage = -1;
+        }
     }
 
     SceneBase* SceneBase::CheckRetScene(int sceneNum)

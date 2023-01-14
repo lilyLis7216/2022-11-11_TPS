@@ -11,6 +11,8 @@ namespace My3dApp
         // シーン表示用
         const char* text;
 
+        int bgImage;
+
     public:
         /// <summary>
         /// コンストラクタ
@@ -41,7 +43,6 @@ namespace My3dApp
         /// <returns></returns>
         SceneBase* CheckRetScene(int sceneNum);
 
-        
         // 以下デバッグ用関数
 
         /// <summary>

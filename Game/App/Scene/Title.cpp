@@ -6,11 +6,13 @@ namespace My3dApp
     Title::Title()
     {
         text = "1.Title";
+
+        bgImage = LoadGraph("../asset/image/title.png");
     }
 
     Title::~Title()
     {
-        // èàóùÇ»Çµ
+        DeleteGraph(bgImage);
     }
 
     SceneBase* Title::Update(float deltaTime)
@@ -24,6 +26,8 @@ namespace My3dApp
 
     void Title::Draw()
     {
+        DrawGraph(0, 0, bgImage, FALSE);
+
         CheckNowScene();
     }
 }// namespace My3dApp

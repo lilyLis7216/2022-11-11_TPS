@@ -6,11 +6,13 @@ namespace My3dApp
     Result::Result()
     {
         text = "4.Result";
+
+        bgImage = LoadGraph("../asset/image/result.png");
     }
 
     Result::~Result()
     {
-        // èàóùÇ»Çµ
+        DeleteGraph(bgImage);
     }
 
     SceneBase* Result::Update(float deltaTime)
@@ -24,6 +26,8 @@ namespace My3dApp
 
     void Result::Draw()
     {
+        DrawGraph(0, 0, bgImage, FALSE);
+
         CheckNowScene();
     }
 }// namespace My3dApp
