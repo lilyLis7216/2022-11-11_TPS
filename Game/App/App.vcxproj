@@ -158,6 +158,7 @@
     <ClCompile Include="Library\GamePad.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Manager\AssetManager.cpp" />
+    <ClCompile Include="Manager\EnemyManager.cpp" />
     <ClCompile Include="Manager\GameManager.cpp" />
     <ClCompile Include="Manager\GameObjectManager.cpp" />
     <ClCompile Include="Scene\Play.cpp" />
@@ -181,6 +182,7 @@
     <ClInclude Include="Library\DebugGrid.h" />
     <ClInclude Include="Library\GamePad.h" />
     <ClInclude Include="Manager\AssetManager.h" />
+    <ClInclude Include="Manager\EnemyManager.h" />
     <ClInclude Include="Manager\GameManager.h" />
     <ClInclude Include="Manager\GameObjectManager.h" />
     <ClInclude Include="Scene\Play.h" />
