@@ -40,43 +40,8 @@ namespace My3dApp
             aimLookPos = player->GetPos();
             aimCameraPos = aimLookPos + cameraOffset;
 
-            // カメラ位置から目標点に向かうベクトルを計算
             VECTOR lookMoveDir = aimLookPos - lookPos;
             VECTOR posMoveDir = aimCameraPos - pos;
-
-            // 上
-            if (0 < GamePad::GetRightStickY() || CheckHitKey(KEY_INPUT_UP))
-            {
-                if (pitch < 1)
-                {
-                    pitch += speed;
-                }
-            }
-
-            // 下
-            if (GamePad::GetRightStickY() < 0 || CheckHitKey(KEY_INPUT_DOWN))
-            {
-                if (pitch > 0)
-                {
-                    pitch -= speed;
-                }
-            }
-
-            // 左
-            if (GamePad::GetRightStickX() < 0 || CheckHitKey(KEY_INPUT_LEFT))
-            {
-                yaw += speed;
-            }
-
-            // 右
-            if (0 < GamePad::GetRightStickX() || CheckHitKey(KEY_INPUT_RIGHT))
-            {
-                yaw -= speed;
-            }
-
-            pos.x = cameraOffset.y * cosf(yaw) * cosf(pitch) + player->GetPos().x + 100.0f;
-            pos.y = cameraOffset.y * sinf(pitch) + player->GetPos().y;
-            pos.z = cameraOffset.y * sinf(yaw) * cosf(pitch) + player->GetPos().z;
 
             lookPos += lookMoveDir * cameraSpringStrength * deltaTime;
             pos += posMoveDir * cameraSpringStrength * deltaTime;
