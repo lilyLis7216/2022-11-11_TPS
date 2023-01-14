@@ -43,6 +43,36 @@ namespace My3dApp
             VECTOR lookMoveDir = aimLookPos - lookPos;
             VECTOR posMoveDir = aimCameraPos - pos;
 
+            //if (0 < GamePad::GetRightStickY() || CheckHitKey(KEY_INPUT_UP))
+            //{
+            //    if (pitch < 1)
+            //    {
+            //        pitch += speed;
+            //    }
+            //}
+
+            //if (GamePad::GetRightStickY() < 0 || CheckHitKey(KEY_INPUT_DOWN))
+            //{
+            //    if (pitch > 0)
+            //    {
+            //        pitch -= speed;
+            //    }
+            //}
+
+            //if (GamePad::GetRightStickX() < 0 || CheckHitKey(KEY_INPUT_LEFT))
+            //{
+            //    yaw += speed;
+            //}
+
+            //if (0 < GamePad::GetRightStickX() || CheckHitKey(KEY_INPUT_RIGHT))
+            //{
+            //    yaw -= speed;
+            //}
+
+            //pos.x = cameraOffset.y * cosf(yaw) * cosf(pitch) + player->GetPos().x + 100.0f;
+            //pos.y = cameraOffset.y * sinf(pitch) + player->GetPos().y;
+            //pos.z = cameraOffset.y * sinf(yaw) * cosf(pitch) + player->GetPos().z;
+
             lookPos += lookMoveDir * cameraSpringStrength * deltaTime;
             pos += posMoveDir * cameraSpringStrength * deltaTime;
 
