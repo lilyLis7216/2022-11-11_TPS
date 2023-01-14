@@ -139,38 +139,80 @@ namespace My3dApp
 
     void GameObjectManager::Collision()
     {
+        // メインのタグ
+        ObjectTag mainTag;
+
+        // ペアのタグ
+        ObjectTag pairTag;
+
         // プレイヤーの当たり判定
-        for (int playerNum = 0; playerNum < instance->objects[ObjectTag::Player].size(); ++playerNum)
+        mainTag = ObjectTag::Player;
+        for (int playerNum = 0; playerNum < instance->objects[mainTag].size(); ++playerNum)
         {
             // マップとの当たり判定
-            for (int mapNum = 0; mapNum < instance->objects[ObjectTag::Map].size(); ++mapNum)
+            pairTag = ObjectTag::Map;
+            for (int mapNum = 0; mapNum < instance->objects[pairTag].size(); ++mapNum)
             {
-                instance->objects[ObjectTag::Player][playerNum]->OnCollisionEnter(instance->objects[ObjectTag::Map][mapNum]);
+                instance->objects[mainTag][playerNum]->OnCollisionEnter(instance->objects[pairTag][mapNum]);
             }
 
             // エネミーとの当たり判定
-            for (int enemyNum = 0; enemyNum < instance->objects[ObjectTag::Enemy].size(); ++enemyNum)
+            pairTag = ObjectTag::Enemy;
+            for (int enemyNum = 0; enemyNum < instance->objects[pairTag].size(); ++enemyNum)
             {
-                instance->objects[ObjectTag::Player][playerNum]->OnCollisionEnter(instance->objects[ObjectTag::Enemy][enemyNum]);
+                instance->objects[mainTag][playerNum]->OnCollisionEnter(instance->objects[pairTag][enemyNum]);
             }
         }
 
         // エネミーの当たり判定
-        for (int enemyNum = 0; enemyNum < instance->objects[ObjectTag::Enemy].size(); ++enemyNum)
+        mainTag = ObjectTag::Enemy;
+        for (int enemyNum = 0; enemyNum < instance->objects[mainTag].size(); ++enemyNum)
         {
             // マップとの当たり判定
-            for (int mapNum = 0; mapNum < instance->objects[ObjectTag::Map].size(); ++mapNum)
+            pairTag = ObjectTag::Map;
+            for (int mapNum = 0; mapNum < instance->objects[pairTag].size(); ++mapNum)
             {
-                instance->objects[ObjectTag::Enemy][enemyNum]->OnCollisionEnter(instance->objects[ObjectTag::Map][mapNum]);
+                instance->objects[mainTag][enemyNum]->OnCollisionEnter(instance->objects[pairTag][mapNum]);
             }
 
             // 自身を除くエネミーとの当たり判定
-            for (int anotherEnemyNum = 0; anotherEnemyNum < instance->objects[ObjectTag::Enemy].size(); ++anotherEnemyNum)
+            pairTag = ObjectTag::Enemy;
+            for (int anotherEnemyNum = 0; anotherEnemyNum < instance->objects[pairTag].size(); ++anotherEnemyNum)
             {
                 if (enemyNum != anotherEnemyNum)
                 {
-                    instance->objects[ObjectTag::Enemy][enemyNum]->OnCollisionEnter(instance->objects[ObjectTag::Enemy][anotherEnemyNum]);
+                    instance->objects[mainTag][enemyNum]->OnCollisionEnter(instance->objects[pairTag][anotherEnemyNum]);
                 }
+            }
+
+            pairTag = ObjectTag::PlayerBullet;
+            for (int pBulletNum = 0; pBulletNum < instance->objects[pairTag].size(); ++pBulletNum)
+            {
+                instance->objects[mainTag][enemyNum]->OnCollisionEnter(instance->objects[pairTag][pBulletNum]);
+            }
+        }
+
+        // プレイヤー弾の当たり判定
+        mainTag = ObjectTag::PlayerBullet;
+        for (int pBulletNum = 0; pBulletNum < instance->objects[mainTag].size(); ++pBulletNum)
+        {
+            // 敵との当たり判定
+            pairTag = ObjectTag::Enemy;
+            for (int enemyNum = 0; enemyNum < instance->objects[pairTag].size(); ++enemyNum)
+            {
+                instance->objects[mainTag][pBulletNum]->OnCollisionEnter(instance->objects[pairTag][enemyNum]);
+            }
+        }
+
+        // エネミー弾の当たり判定
+        mainTag = ObjectTag::EnemyBullet;
+        for (int eBulletNum = 0; eBulletNum < instance->objects[mainTag].size(); ++eBulletNum)
+        {
+            // プレイヤーとの当たり判定
+            pairTag = ObjectTag::Player;
+            for (int playerNum = 0; playerNum < instance->objects[pairTag].size(); ++playerNum)
+            {
+                instance->objects[mainTag][eBulletNum]->OnCollisionEnter(instance->objects[pairTag][playerNum]);
             }
         }
     }

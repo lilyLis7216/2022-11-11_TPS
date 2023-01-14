@@ -9,7 +9,16 @@ namespace My3dApp
         , deadCount(5.0f)
         , boost(0)
     {
-        modelHandle = AssetManager::GetMesh("../asset/model/bullet/bullet.mv1");
+        modelHandle = -1;
+
+        if (this->tag == ObjectTag::PlayerBullet)
+        {
+            modelHandle = AssetManager::GetMesh("../asset/model/bullet/playerBullet.mv1");
+        }
+        else if (this->tag == ObjectTag::EnemyBullet)
+        {
+            modelHandle = AssetManager::GetMesh("../asset/model/bullet/enemyBullet.mv1");
+        }
 
         this->pos = pos;
 
@@ -31,6 +40,18 @@ namespace My3dApp
         {
             boost = 1000.0f;
         }
+
+        // 当たり判定種類の初期化
+        collisionType = CollisionType::Sphere;
+
+        // 球のローカル中心座標の初期化
+        collisionSphere.localCenter = VGet(0, 0, 0);
+
+        // 球の半径の初期化
+        collisionSphere.radius = 10.0f;
+
+        // 当たり判定の更新
+        CollisionUpdate();
     }
 
     Bullet::~Bullet()
@@ -63,10 +84,38 @@ namespace My3dApp
     {
         MV1DrawModel(modelHandle);
 
-        DrawCollider();
+        //DrawCollider();
     }
 
     void Bullet::OnCollisionEnter(const GameObject* other)
     {
+        // 調べるオブジェクトのタグを取得
+        ObjectTag tag = other->GetTag();
+
+        // 自身がプレイヤー弾であれば
+        if (this->tag == ObjectTag::PlayerBullet)
+        {
+            // エネミーとの当たり判定
+            if (tag == ObjectTag::Enemy)
+            {
+                if (CollisionPair(collisionSphere, other->GetCollisionSphere()))
+                {
+                    isAlive = false;
+                }
+            }
+        }
+
+        // 自身がエネミー弾であれば
+        if (this->tag == ObjectTag::EnemyBullet)
+        {
+            // プレイヤーとの当たり判定
+            if (tag == ObjectTag::Player)
+            {
+                if (CollisionPair(collisionSphere, other->GetCollisionSphere()))
+                {
+                    isAlive = false;
+                }
+            }
+        }
     }
 }// namespace My3dApp

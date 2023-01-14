@@ -148,6 +148,14 @@ namespace My3dApp
                 CollisionUpdate();
             }
         }
+
+        if (tag == ObjectTag::PlayerBullet)
+        {
+            if (CollisionPair(collisionSphere, other->GetCollisionSphere()))
+            {
+                isAlive = false;
+            }
+        }
     }
 
     void Enemy::Move(float deltaTime)

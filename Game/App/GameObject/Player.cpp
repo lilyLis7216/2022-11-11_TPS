@@ -12,7 +12,6 @@ namespace My3dApp
     Player::Player()
         : GameObject(ObjectTag::Player)
         , isRotate(false)
-        , tmp(0)
         , prevPushShot(false)
         , shotInterval(0)
     {
@@ -126,6 +125,14 @@ namespace My3dApp
             if (CollisionPair(collisionSphere, other->GetCollisionSphere()))
             {
                 //printfDx("Hit!");
+            }
+        }
+
+        if (tag == ObjectTag::EnemyBullet)
+        {
+            if (CollisionPair(collisionSphere, other->GetCollisionSphere()))
+            {
+
             }
         }
     }
@@ -272,9 +279,8 @@ namespace My3dApp
     {
         if (CheckHitKey(KEY_INPUT_SPACE) && shotInterval < 0)
         {
-            shotInterval = 0.5f;
+            shotInterval = 0.25f;
             GameObjectManager::Entry(new Bullet(ObjectTag::PlayerBullet, pos, dir));
         }
     }
-
 }// namespace My3dApp
