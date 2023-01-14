@@ -31,6 +31,7 @@ namespace My3dApp
         // 向きの初期化
         dir = VGet(1, 0, 0);
 
+        // 目標向きの初期化
         aimDir = dir;
 
         // 速度の初期化
@@ -39,10 +40,10 @@ namespace My3dApp
         // 当たり判定種類を球体に設定
         collisionType = CollisionType::Sphere;
 
-        // ローカルセンターを50
+        // 当たり判定球のローカル中心座標を初期化
         collisionSphere.localCenter = VGet(0, 75.0f, 0);
 
-        // 半径を30
+        // 当たり判定球の半径を初期化
         collisionSphere.radius = 65.0f;
 
         // 線分当たり判定を設定
@@ -275,4 +276,5 @@ namespace My3dApp
             GameObjectManager::Entry(new Bullet(ObjectTag::PlayerBullet, pos, dir));
         }
     }
+
 }// namespace My3dApp
