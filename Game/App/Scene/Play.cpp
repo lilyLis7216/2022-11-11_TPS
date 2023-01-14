@@ -1,17 +1,22 @@
 #include "Play.h"
 #include "DxLib.h"
 #include "../Manager/GameObjectManager.h"
+#include "../Manager/GameManager.h"
 #include "../GameObject/Player.h"
 #include "../GameObject/Camera.h"
 #include "../GameObject/Map.h"
 #include "../GameObject/Enemy.h"
 #include "../Library/DebugGrid.h"
+#include "Result.h"
 
 namespace My3dApp
 {
     Play::Play()
+        : timer(60.0f)
     {
         text = "3.Play";
+
+        bgImage = -1;
 
         GameObjectManager::Entry(new Player());
 
@@ -32,6 +37,8 @@ namespace My3dApp
 
     SceneBase* Play::Update(float deltaTime)
     {
+        timer -= deltaTime;
+
         SceneBase* retScene = this;
 
         GameObjectManager::Update(deltaTime);
@@ -40,12 +47,17 @@ namespace My3dApp
 
         retScene = CheckRetScene(3);
 
+        if (timer < 0)
+        {
+            retScene = new Result();
+        }
+
         return retScene;
     }
 
     void Play::Draw()
     {
-        DrawGrid(3000, 30);
+        //DrawGrid(3000, 30);
 
         GameObjectManager::Draw();
 

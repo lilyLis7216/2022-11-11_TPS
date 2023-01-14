@@ -9,6 +9,11 @@ namespace My3dApp
     /// </summary>
     class Play : public SceneBase
     {
+    private:
+
+        // タイマー
+        float timer;
+
     public:
         /// <summary>
         /// コンストラクタ
