@@ -26,6 +26,7 @@ namespace My3dApp
         // ƒ‚ƒfƒ‹‚ÌŒãŽn––
         if (modelHandle != -1)
         {
+            DeleteGraph(modelHandle);
             modelHandle = -1;
         }
     }

@@ -22,8 +22,6 @@ namespace My3dApp
         // ‰ñ“]’†‚©
         bool isRotate;
 
-        int tmp;
-
         bool prevPushShot;
 
         float shotInterval;
