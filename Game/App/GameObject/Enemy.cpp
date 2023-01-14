@@ -19,37 +19,51 @@ namespace My3dApp
         , animTypeID(0)
         , isRotate(false)
         , turnCount(5.0f)
-        , shotInterval(0)
+        , shotInterval(2.0f)
     {
+        // モデルの読み込み
         modelHandle = AssetManager::GetMesh("../asset/model/test/enemy.mv1");
 
+        // 位置の初期化
+        MV1SetPosition(modelHandle, this->pos);
+
+        // 大きさの初期化
         MV1SetScale(modelHandle, VGet(0.5f, 0.5f, 0.5f));
 
+        // 向きの初期化
         dir = VGet(1, 0, 0);
 
+        // 目標向きの初期化
         aimDir = dir;
 
+        // 速度の初期化
         speed = VGet(0, 0, 0);
 
+        // 当たり判定種類の初期化
         collisionType = CollisionType::Sphere;
 
+        // 球のローカル中心座標の初期化
         collisionSphere.localCenter = VGet(0, 75.0f, 0);
 
+        // 球の半径の初期化
         collisionSphere.radius = 65.0f;
 
+        // 線形当たり判定の追加
         collisionLine = LineSegment(VGet(0.0f, 20.0f, 0.0f), VGet(0.0f, -30.0f, 0.0f));
 
+        // 当たり判定の更新
         CollisionUpdate();
     }
 
     Enemy::~Enemy()
     {
-        // モデルのアンロード
+        // モデルの後始末
         AssetManager::ReleaseMesh(modelHandle);
     }
 
     void Enemy::Update(float deltaTime)
     {
+        // 移動
         Move(deltaTime);
     }
 
@@ -58,6 +72,7 @@ namespace My3dApp
         // モデルの描画
         MV1DrawModel(modelHandle);
 
+        // 当たり判定の描画
         DrawCollider();
     }
 
@@ -107,20 +122,25 @@ namespace My3dApp
         // エネミーとの衝突
         if (tag == ObjectTag::Enemy)
         {
+            // 当たっていたら
             if (CollisionPair(collisionSphere, other->GetCollisionSphere()))
             {
                 float vx = collisionSphere.worldCenter.x - other->GetCollisionSphere().worldCenter.x;
                 float vz = collisionSphere.worldCenter.z - other->GetCollisionSphere().worldCenter.z;
                 float r = sqrtf(pow(vx, 2.0f) + pow(vz, 2.0f));
-                float r1 = collisionSphere.radius;
-                float r2 = other->GetCollisionSphere().radius;
 
-                if (r1 + r2 > r)
+                if (collisionSphere.radius + other->GetCollisionSphere().radius > r)
                 {
-                    float dif = r1 + r2 - r;
+                    // 差分を計算して
+                    float dif = collisionSphere.radius + other->GetCollisionSphere().radius - r;
 
+                    // 押し戻し量を計算する
                     VECTOR pushBack = other->GetCollisionSphere().worldCenter - collisionSphere.worldCenter;
+
+                    // 正規化して
                     pushBack = VNorm(pushBack);
+
+                    // 押し戻す
                     pos += pushBack * -dif;
                 }
 
@@ -141,6 +161,7 @@ namespace My3dApp
         // 高さベクトルの無効化
         tmp.y = 0;
 
+        // 遠すぎると追跡をやめてその場で探す
         if (VSize(tmp) > 800.0f)
         {
             if (turnCount < 0)
@@ -155,9 +176,8 @@ namespace My3dApp
             }
         }
         // 近くまで追跡
-        else if (VSize(tmp) > 100.0f)
+        else if (VSize(tmp) > 200.0f)
         {
-
             shotInterval -= deltaTime;
 
             Shot();
@@ -167,6 +187,12 @@ namespace My3dApp
             speed =  (dir * deltaTime * 200.0f);
 
             pos += speed;
+        }
+        else
+        {
+            shotInterval -= deltaTime;
+
+            Shot();
         }
 
         // 3Dモデルのポジション設定
