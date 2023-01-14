@@ -12,7 +12,7 @@ namespace My3dApp
         VECTOR end = VGet(0, 0, 0);
 
         // 線の色
-        int lineColor = GetColor(0, 128, 0);
+        int lineColor = GetColor(0, 0, 0);
 
         // グリッド線を引く範囲の半分の幅
         float halfWidth = groundSize * 0.5f;
