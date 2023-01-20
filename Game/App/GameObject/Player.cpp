@@ -122,9 +122,29 @@ namespace My3dApp
         // “G‚Æ‚ÌÕ“Ë
         if (tag == ObjectTag::Enemy)
         {
+            // “–‚½‚Á‚Ä‚¢‚½‚ç
             if (CollisionPair(collisionSphere, other->GetCollisionSphere()))
             {
-                //printfDx("Hit!");
+                float vx = collisionSphere.worldCenter.x - other->GetCollisionSphere().worldCenter.x;
+                float vz = collisionSphere.worldCenter.z - other->GetCollisionSphere().worldCenter.z;
+                float r = sqrtf(pow(vx, 2.0f) + pow(vz, 2.0f));
+
+                if (collisionSphere.radius + other->GetCollisionSphere().radius > r)
+                {
+                    // ·•ª‚ğŒvZ‚µ‚Ä
+                    float dif = collisionSphere.radius + other->GetCollisionSphere().radius - r;
+
+                    // ‰Ÿ‚µ–ß‚µ—Ê‚ğŒvZ‚·‚é
+                    VECTOR pushBack = other->GetCollisionSphere().worldCenter - collisionSphere.worldCenter;
+
+                    // ³‹K‰»‚µ‚Ä
+                    pushBack = VNorm(pushBack);
+
+                    // ‰Ÿ‚µ–ß‚·
+                    pos += pushBack * -dif;
+                }
+                // “–‚½‚è”»’è‚ÌXV
+                CollisionUpdate();
             }
         }
 
