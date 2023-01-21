@@ -1,6 +1,7 @@
 #include "Enemy.h"
-#include "../Manager/AssetManager.h"
 #include "../Manager/GameObjectManager.h"
+#include "../Manager/AssetManager.h"
+#include "../Manager/EnemyManager.h"
 #include "../Library/AnimationController.h"
 #include "../Library/Calc3D.h"
 #include "../Library/GamePad.h"
@@ -53,12 +54,16 @@ namespace My3dApp
 
         // 当たり判定の更新
         CollisionUpdate();
+
+        EnemyManager::AddNum();
     }
 
     Enemy::~Enemy()
     {
         // モデルの後始末
         AssetManager::ReleaseMesh(modelHandle);
+
+        EnemyManager::SubNum();
     }
 
     void Enemy::Update(float deltaTime)
@@ -199,6 +204,8 @@ namespace My3dApp
         else
         {
             shotInterval -= deltaTime;
+
+            dir = VNorm(tmp);
 
             Shot();
         }

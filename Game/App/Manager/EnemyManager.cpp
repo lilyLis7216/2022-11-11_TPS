@@ -38,8 +38,10 @@ namespace My3dApp
         }
     }
 
-    bool EnemyManager::IsCreateEnemy()
+    bool EnemyManager::IsCreateEnemy(float deltaTime)
     {
+        createInterval -= deltaTime;
+
         if (enemyNum < enemyNumMax && createInterval < 0)
         {
             createInterval = 3.0f;
