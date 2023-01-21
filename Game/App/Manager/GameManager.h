@@ -19,11 +19,6 @@ namespace My3dApp
         ~GameManager();
 
         /// <summary>
-        /// 初期化処理
-        /// </summary>
-        void Init();
-
-        /// <summary>
         /// ループを抜ける際に使う入力処理関数
         /// </summary>
         /// <returns>ループ継続ならtrue そうでなければfalse</returns>
@@ -36,13 +31,13 @@ namespace My3dApp
         static class SceneBase* nowScene;
 
         // 画面横幅
-        int screenWidth;
+        static int screenWidth;
 
         // 画面縦幅
-        int screenHeight;
+        static int screenHeight;
 
         // 全画面フラグ
-        bool fullScreen;
+        static bool fullScreen;
 
     public:
         /// <summary>
@@ -54,6 +49,11 @@ namespace My3dApp
         /// インスタンスの削除
         /// </summary>
         static void DeleteInstance();
+
+        /// <summary>
+        /// 初期化処理
+        /// </summary>
+        static int Init();
 
         /// <summary>
         /// 最初のシーンの設定

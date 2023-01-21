@@ -1,5 +1,6 @@
 #include "GameManager.h"
-#include "../Dxlib_h/DxLib.h"
+#include "DxLib.h"
+//#include "../Dxlib_h/EffekseerForDXLib.h"
 #include "../Scene/SceneBase.h"
 #include "../Scene/Title.h"
 #include "../Scene/StageSelect.h"
@@ -14,12 +15,17 @@ namespace My3dApp
 
     SceneBase* GameManager::nowScene = nullptr;
 
+    int GameManager::screenWidth;
+
+    int GameManager::screenHeight;
+
+    bool GameManager::fullScreen;
+
     GameManager::GameManager()
-        : screenWidth(0)
-        , screenHeight(0)
-        , fullScreen(false)
     {
-        Init();
+        screenWidth = 0;
+        screenHeight = 0;
+        fullScreen = false;
     }
 
     GameManager::~GameManager()
@@ -63,7 +69,7 @@ namespace My3dApp
         return true;
     }
 
-    void GameManager::Init()
+    int GameManager::Init()
     {
         // 画面の横幅を1920に設定
         screenWidth = 1920;
@@ -85,7 +91,23 @@ namespace My3dApp
         SetGraphMode(screenWidth, screenHeight, 32);
 
         // DxLibの初期化処理
-        DxLib_Init();
+        if (DxLib_Init() == -1)
+        {
+            return -1;
+        }
+
+        // Effekseerの初期化
+        /*if (Effekseer_Init(8000) == -1)
+        {
+            DxLib_End();
+            return -1;
+        }*/
+
+        // フルスクリーンウインドウの切り替えでリソースが消えるのを防ぐ
+        //SetChangeScreenModeGraphicsSystemResetFlag(FALSE);
+
+        // DxLibのデバイスロストした時のコールバック
+        //Effekseer_SetGraphicsDeviceLostCallbackFunctions();
 
         // マウスカーソルを表示しない
         SetMouseDispFlag(false);
@@ -101,6 +123,8 @@ namespace My3dApp
 
         // 
         SetCameraPositionAndTarget_UpVecY(VGet(0, 80, -200), VGet(0.0f, 80.0f, 0.0f));
+
+        return 0;
     }
 
     void GameManager::Loop()
@@ -174,7 +198,10 @@ namespace My3dApp
             prevCount = nowCount;
         }
 
-        // DxLibの使用終了処理
+        // Effkseerの終了処理
+        //Effkseer_End();
+
+        // DxLibの終了処理
         DxLib_End();
     }
 }// namespace My3dApp
