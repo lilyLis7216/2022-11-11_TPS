@@ -31,6 +31,9 @@ namespace My3dApp
         // ¶€ó‘Ô
         bool isAlive;
 
+        // ’nã‚É‚¢‚é‚©‚Ç‚¤‚©
+        bool onGround;
+
         // “–‚½‚è”»’è‚Ìí—Ş
         CollisionType collisionType;
 

@@ -12,6 +12,7 @@ namespace My3dApp
         , modelHandle(-1)
         , isVisible(true)
         , isAlive(true)
+        , onGround(true)
         , collisionType()
         , collisionLine()
         , collisionSphere()

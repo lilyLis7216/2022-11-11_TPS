@@ -25,8 +25,6 @@ namespace My3dApp
         // ‰ñ“]’†‚©
         bool isRotate;
 
-        float turnCount;
-
         float shotInterval;
 
         void Move(float deltaTime);

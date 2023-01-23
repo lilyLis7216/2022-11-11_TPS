@@ -19,13 +19,14 @@ namespace My3dApp
         // 3Dモデルの読み込み
         modelHandle = AssetManager::GetMesh("../asset/model/test/player.mv1");
 
-        // モデルの大きさ設定
-        MV1SetScale(modelHandle, VGet(0.5f, 0.5f, 0.5f));
-
         // 座標の初期化
         pos = VGet(0, 0, 0);
 
+        // 座標の設定
         MV1SetPosition(modelHandle, pos);
+
+        // 大きさの設定
+        MV1SetScale(modelHandle, VGet(0.5f, 0.5f, 0.5f));
 
         // 向きの初期化
         dir = VGet(1, 0, 0);
@@ -97,6 +98,8 @@ namespace My3dApp
 
                 // 押し戻し
                 pos += pushBackVec;
+
+                onGround = true;
 
                 // 当たり判定情報の解放
                 MV1CollResultPolyDimTerminate(collInfo);
@@ -247,6 +250,32 @@ namespace My3dApp
         }
 
         pos += speed;
+
+        if (pos.y > 10.0f)
+        {
+            onGround = false;
+        }
+        else if (pos.y > 0.0f)
+        {
+            onGround = true;
+        }
+        else if (pos.y < 0.0f)
+        {
+            onGround = false;
+        }
+
+        if (!onGround)
+        {
+            speed = (VGet(0, -1, 0) * 10.0f);
+
+            pos += speed;
+
+            CollisionUpdate();
+        }
+        else
+        {
+
+        }
 
         // 3Dモデルのポジション設定
         MV1SetPosition(modelHandle, pos);

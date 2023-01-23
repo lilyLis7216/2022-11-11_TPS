@@ -19,7 +19,6 @@ namespace My3dApp
         : GameObject(ObjectTag::Enemy, pos)
         , animTypeID(0)
         , isRotate(false)
-        , turnCount(5.0f)
         , shotInterval(2.0f)
     {
         // モデルの読み込み
@@ -103,10 +102,18 @@ namespace My3dApp
                 // 押し戻し
                 pos += pushBackVec;
 
+                onGround = true;
+
                 // 当たり判定情報の解放
                 MV1CollResultPolyDimTerminate(collInfo);
 
                 // 当たり判定の更新
+                CollisionUpdate();
+            }
+            else
+            {
+                onGround = false;
+
                 CollisionUpdate();
             }
 
@@ -174,22 +181,7 @@ namespace My3dApp
         // 高さベクトルの無効化
         tmp.y = 0;
 
-        // 遠すぎると追跡をやめてその場で探す
-        if (VSize(tmp) > 800.0f)
-        {
-            if (turnCount < 0)
-            {
-                turnCount = 3.0f;
-                dir.x *= -1;
-                dir.z *= -1;
-            }
-            else
-            {
-                turnCount -= deltaTime;
-            }
-        }
-        // 近くまで追跡
-        else if (VSize(tmp) > 200.0f)
+        if (VSize(tmp) > 200.0f)
         {
             shotInterval -= deltaTime;
 
@@ -197,7 +189,7 @@ namespace My3dApp
 
             dir = VNorm(tmp);
 
-            speed =  (dir * deltaTime * 200.0f);
+            speed =  (dir * deltaTime * 300.0f);
 
             pos += speed;
         }
@@ -208,6 +200,15 @@ namespace My3dApp
             dir = VNorm(tmp);
 
             Shot();
+        }
+
+        if (!onGround)
+        {
+            speed = (VGet(0, -1, 0) * 10.0f);
+
+            pos += speed;
+
+            CollisionUpdate();
         }
 
         // 3Dモデルのポジション設定
