@@ -28,9 +28,9 @@ namespace My3dApp
         GameObjectManager::Entry(new Map(VGet(0, 0, 0)));
 
         GameObjectManager::Entry(new Enemy(VGet(0, 0, 1000)));
-        GameObjectManager::Entry(new Enemy(VGet(0, 0, -1000)));
-        GameObjectManager::Entry(new Enemy(VGet(1000, 0, 0)));
-        GameObjectManager::Entry(new Enemy(VGet(-1000, 0, 0)));
+        // GameObjectManager::Entry(new Enemy(VGet(0, 0, -1000)));
+        // GameObjectManager::Entry(new Enemy(VGet(1000, 0, 0)));
+        // GameObjectManager::Entry(new Enemy(VGet(-1000, 0, 0)));
     }
 
     Play::~Play()

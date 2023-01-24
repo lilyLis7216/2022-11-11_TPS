@@ -10,8 +10,6 @@ namespace My3dApp
     class Camera : public GameObject
     {
     private:
-        // カメラの座標
-        //VECTOR pos;
 
         // カメラの注目点
         VECTOR lookPos;

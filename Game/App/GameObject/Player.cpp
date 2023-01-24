@@ -48,6 +48,9 @@ namespace My3dApp
 
         // ü•ª“–‚½‚è”»’è‚ðÝ’è
         collisionLine = LineSegment(VGet(0.0f, 20.0f, 0.0f), VGet(0.0f, -30.0f, 0.0f));
+
+        // “–‚½‚è”»’è‚ÌXV
+        CollisionUpdate();
     }
 
     Player::~Player()
@@ -107,6 +110,12 @@ namespace My3dApp
                 // “–‚½‚è”»’è‚ÌXV
                 CollisionUpdate();
             }
+            else
+            {
+                onGround = false;
+
+                CollisionUpdate();
+            }
 
             // ”wŒi‚Æ‘«Œ³ü•ª“–‚½‚è”»’è
             MV1_COLL_RESULT_POLY collInfoLine;
@@ -155,7 +164,27 @@ namespace My3dApp
         {
             if (CollisionPair(collisionSphere, other->GetCollisionSphere()))
             {
+                float vx = collisionSphere.worldCenter.x - other->GetCollisionSphere().worldCenter.x;
+                float vz = collisionSphere.worldCenter.z - other->GetCollisionSphere().worldCenter.z;
+                float r = sqrtf(pow(vx, 2.0f) + pow(vz, 2.0f));
 
+                if (collisionSphere.radius + other->GetCollisionSphere().radius > r)
+                {
+                    // ·•ª‚ðŒvŽZ‚µ‚Ä
+                    float dif = collisionSphere.radius + other->GetCollisionSphere().radius - r;
+
+                    // ‰Ÿ‚µ–ß‚µ—Ê‚ðŒvŽZ‚·‚é
+                    VECTOR pushBack = other->GetCollisionSphere().worldCenter - collisionSphere.worldCenter;
+
+                    // ³‹K‰»‚µ‚Ä
+                    pushBack = VNorm(pushBack);
+
+                    // ‰Ÿ‚µ–ß‚·
+                    pos += pushBack * -dif * 100.0f;
+                }
+
+                // “–‚½‚è”»’è‚ÌXV
+                CollisionUpdate();
             }
         }
     }
@@ -250,19 +279,6 @@ namespace My3dApp
         }
 
         pos += speed;
-
-        if (pos.y > 10.0f)
-        {
-            onGround = false;
-        }
-        else if (pos.y > 0.0f)
-        {
-            onGround = true;
-        }
-        else if (pos.y < 0.0f)
-        {
-            onGround = false;
-        }
 
         if (!onGround)
         {

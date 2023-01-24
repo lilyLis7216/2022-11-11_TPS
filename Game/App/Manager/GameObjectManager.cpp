@@ -164,6 +164,18 @@ namespace My3dApp
             }
         }
 
+        // プレイヤー弾の当たり判定
+        mainTag = ObjectTag::PlayerBullet;
+        for (int pBulletNum = 0; pBulletNum < instance->objects[mainTag].size(); ++pBulletNum)
+        {
+            // 敵との当たり判定
+            pairTag = ObjectTag::Enemy;
+            for (int enemyNum = 0; enemyNum < instance->objects[pairTag].size(); ++enemyNum)
+            {
+                instance->objects[mainTag][pBulletNum]->OnCollisionEnter(instance->objects[pairTag][enemyNum]);
+            }
+        }
+
         // エネミーの当たり判定
         mainTag = ObjectTag::Enemy;
         for (int enemyNum = 0; enemyNum < instance->objects[mainTag].size(); ++enemyNum)
@@ -189,18 +201,6 @@ namespace My3dApp
             for (int pBulletNum = 0; pBulletNum < instance->objects[pairTag].size(); ++pBulletNum)
             {
                 instance->objects[mainTag][enemyNum]->OnCollisionEnter(instance->objects[pairTag][pBulletNum]);
-            }
-        }
-
-        // プレイヤー弾の当たり判定
-        mainTag = ObjectTag::PlayerBullet;
-        for (int pBulletNum = 0; pBulletNum < instance->objects[mainTag].size(); ++pBulletNum)
-        {
-            // 敵との当たり判定
-            pairTag = ObjectTag::Enemy;
-            for (int enemyNum = 0; enemyNum < instance->objects[pairTag].size(); ++enemyNum)
-            {
-                instance->objects[mainTag][pBulletNum]->OnCollisionEnter(instance->objects[pairTag][enemyNum]);
             }
         }
 

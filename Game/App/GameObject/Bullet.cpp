@@ -22,8 +22,6 @@ namespace My3dApp
 
         this->pos = pos;
 
-        this->pos.y = 80.0f;
-
         MV1SetPosition(modelHandle, this->pos);
 
         MV1SetScale(modelHandle, VGet(0.1f, 0.1f, 0.1f));
@@ -46,6 +44,8 @@ namespace My3dApp
 
         // 球のローカル中心座標の初期化
         collisionSphere.localCenter = VGet(0, 0, 0);
+
+        collisionSphere.worldCenter = this->pos;
 
         // 球の半径の初期化
         collisionSphere.radius = 10.0f;

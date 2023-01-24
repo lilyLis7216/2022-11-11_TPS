@@ -11,7 +11,7 @@
 namespace My3dApp
 {
     Enemy::Enemy()
-        : Enemy(initPos)
+        : Enemy(VGet(0, 0, 0))
     {
     }
 
@@ -165,7 +165,29 @@ namespace My3dApp
         {
             if (CollisionPair(collisionSphere, other->GetCollisionSphere()))
             {
-                isAlive = false;
+                float vx = collisionSphere.worldCenter.x - other->GetCollisionSphere().worldCenter.x;
+                float vz = collisionSphere.worldCenter.z - other->GetCollisionSphere().worldCenter.z;
+                float r = sqrtf(pow(vx, 2.0f) + pow(vz, 2.0f));
+
+                if (collisionSphere.radius + other->GetCollisionSphere().radius > r)
+                {
+                    // 差分を計算して
+                    float dif = collisionSphere.radius + other->GetCollisionSphere().radius - r;
+
+                    // 押し戻し量を計算する
+                    VECTOR pushBack = other->GetCollisionSphere().worldCenter - collisionSphere.worldCenter;
+
+                    // 正規化して
+                    pushBack = VNorm(pushBack);
+
+                    // 押し戻す
+                    pos += pushBack * -dif * 100.0f;
+
+                    pos.y += 200.0f;
+                }
+
+                // 当たり判定の更新
+                CollisionUpdate();
             }
         }
     }
@@ -181,7 +203,7 @@ namespace My3dApp
         // 高さベクトルの無効化
         tmp.y = 0;
 
-        if (VSize(tmp) > 200.0f)
+        if (VSize(tmp) > 300.0f)
         {
             shotInterval -= deltaTime;
 

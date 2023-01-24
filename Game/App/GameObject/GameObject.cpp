@@ -3,7 +3,7 @@
 namespace My3dApp
 {
     GameObject::GameObject(ObjectTag tag)
-        : GameObject(tag, initPos)
+        : GameObject(tag, VGet(0, 0, 0))
     {
     }
 

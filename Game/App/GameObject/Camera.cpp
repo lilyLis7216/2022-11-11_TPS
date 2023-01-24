@@ -11,7 +11,6 @@ namespace My3dApp
 
     Camera::Camera(float height, float z)
         : GameObject(ObjectTag::Camera)
-        //, pos(initPos)
         , lookPos()
         , aimCameraPos()
         , aimLookPos()
@@ -19,7 +18,7 @@ namespace My3dApp
         , pitch(0.5f)
         , yaw(3.1f)
     {
-        pos = initPos;
+        pos = VGet(0, 0, 0);
         cameraOffset.x = 0;
         cameraOffset.y = height;
         cameraOffset.z = z;

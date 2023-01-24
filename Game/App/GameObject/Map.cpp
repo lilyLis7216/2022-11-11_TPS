@@ -28,7 +28,7 @@ namespace My3dApp
         modelHandle = AssetManager::GetMesh("../asset/model/map/stage.mv1");
 
         // 表示モデルのスケーリング
-        MV1SetScale(modelHandle, VGet(1.0f, 1.0f, 1.0f));
+        MV1SetScale(modelHandle, VGet(0.75f, 0.75f, 0.75f));
 
         // 表示モデルの位置セット
         MV1SetPosition(modelHandle, pos);
@@ -36,7 +36,7 @@ namespace My3dApp
         // 当たり判定用モデルの読み込み
         collisionModel = AssetManager::GetMesh("../asset/model/map/stage.mv1");
 
-        MV1SetScale(collisionModel, VGet(1.0f, 1.0f, 1.0f));
+        MV1SetScale(collisionModel, VGet(0.75f, 0.75f, 0.75f));
 
         // 当たり判定モデルに不透明度を設定
         MV1SetOpacityRate(collisionModel, 0.3f);

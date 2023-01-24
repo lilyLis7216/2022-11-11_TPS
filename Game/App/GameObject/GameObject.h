@@ -22,9 +22,6 @@ namespace My3dApp
         // オブジェクトの座標
         VECTOR pos;
 
-        // 座標の初期位置
-        VECTOR initPos = VGet(0, 0, 0);
-
         // 可視状態
         bool isVisible;
 
