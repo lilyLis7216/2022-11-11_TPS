@@ -156,6 +156,7 @@
     <ClCompile Include="Library\Collision.cpp" />
     <ClCompile Include="Library\DebugGrid.cpp" />
     <ClCompile Include="Library\GamePad.cpp" />
+    <ClCompile Include="Library\Shadow.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Manager\AssetManager.cpp" />
     <ClCompile Include="Manager\EnemyManager.cpp" />
@@ -181,6 +182,7 @@
     <ClInclude Include="Library\CollisionType.h" />
     <ClInclude Include="Library\DebugGrid.h" />
     <ClInclude Include="Library\GamePad.h" />
+    <ClInclude Include="Library\Shadow.h" />
     <ClInclude Include="Manager\AssetManager.h" />
     <ClInclude Include="Manager\EnemyManager.h" />
     <ClInclude Include="Manager\GameManager.h" />

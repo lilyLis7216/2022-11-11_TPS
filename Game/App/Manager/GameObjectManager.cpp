@@ -1,4 +1,5 @@
 #include "GameObjectManager.h"
+#include "../Library/Shadow.h"
 
 namespace My3dApp
 {
@@ -81,6 +82,9 @@ namespace My3dApp
 
     void GameObjectManager::Draw()
     {
+        // シャドウマップへの描画の準備
+        ShadowMap_DrawSetup(Shadow::GetShadowMap());
+
         for (auto& tag : ObjectTagAll)
         {
             for (int i = 0; i < instance->objects[tag].size(); ++i)
@@ -91,6 +95,26 @@ namespace My3dApp
                 }
             }
         }
+
+        // シャドウマップへの描画を終了
+        ShadowMap_DrawEnd();
+
+        // 描画に使用するシャドウマップを設定
+        SetUseShadowMap(0, Shadow::GetShadowMap());
+
+        for (auto& tag : ObjectTagAll)
+        {
+            for (int i = 0; i < instance->objects[tag].size(); ++i)
+            {
+                if (instance->objects[tag][i]->GetVisible())
+                {
+                    instance->objects[tag][i]->Draw();
+                }
+            }
+        }
+
+        // 描画に使用するシャドウマップの設定を解除
+        SetUseShadowMap(0, -1);
     }
 
     void GameObjectManager::Entry(GameObject* newObject)

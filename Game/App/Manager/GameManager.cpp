@@ -1,12 +1,12 @@
 #include "GameManager.h"
 #include "DxLib.h"
-//#include "../Dxlib_h/EffekseerForDXLib.h"
 #include "../Scene/SceneBase.h"
 #include "../Scene/Title.h"
 #include "../Scene/StageSelect.h"
 #include "../Scene/Play.h"
 #include "../Scene/Result.h"
 #include "../Library/GamePad.h"
+#include "../Library/Shadow.h"
 
 namespace My3dApp
 {
@@ -23,14 +23,20 @@ namespace My3dApp
 
     GameManager::GameManager()
     {
+        // 画面の横幅初期化
         screenWidth = 0;
+
+        // 画面の高さ初期化
         screenHeight = 0;
+
+        // 非フルスクリーン
         fullScreen = false;
     }
 
     GameManager::~GameManager()
     {
-        // 処理なし
+        // 影管理用のインスタンス削除
+        Shadow::DeleteInstance();
     }
 
     void GameManager::CreateInstance()
@@ -96,18 +102,11 @@ namespace My3dApp
             return -1;
         }
 
-        // Effekseerの初期化
-        /*if (Effekseer_Init(8000) == -1)
-        {
-            DxLib_End();
-            return -1;
-        }*/
+        // 影管理用のインスタンス生成
+        Shadow::CreateInstance();
 
         // フルスクリーンウインドウの切り替えでリソースが消えるのを防ぐ
-        //SetChangeScreenModeGraphicsSystemResetFlag(FALSE);
-
-        // DxLibのデバイスロストした時のコールバック
-        //Effekseer_SetGraphicsDeviceLostCallbackFunctions();
+        SetChangeScreenModeGraphicsSystemResetFlag(FALSE);
 
         // マウスカーソルを表示しない
         SetMouseDispFlag(false);
@@ -118,11 +117,20 @@ namespace My3dApp
         // Zバッファへの書き込みを有効にする
         SetWriteZBuffer3D(true);
 
-        // 
+        // 描画する奥行き方向の範囲を設定
         SetCameraNearFar(10.0f, 30000.0f);
 
-        // 
+        // カメラの位置と向きを設定
         SetCameraPositionAndTarget_UpVecY(VGet(0, 80, -200), VGet(0.0f, 80.0f, 0.0f));
+
+        // ライトの方向を設定
+        SetLightDirection(VGet(-1.5f, -1.5f, 0.5f));
+
+        // シャドウマップが想定するライトの方向セット
+        SetShadowMapLightDirection(Shadow::GetShadowMap(), VGet(-1.5f, -1.5f, 0.5f));
+
+        // シャドウマップに描画する範囲を設定
+        SetShadowMapDrawArea(Shadow::GetShadowMap(), VGet(-1000.0f, -1.0f, -1000.0f), VGet(1000.0f, 1000.0f, 1000.0f));
 
         return 0;
     }
