@@ -22,7 +22,7 @@ namespace My3dApp
         , shotInterval(2.0f)
     {
         // モデルの読み込み
-        modelHandle = AssetManager::GetMesh("../asset/model/test/enemy.mv1");
+        modelHandle = AssetManager::GetMesh("../asset/model/enemy.mv1");
 
         // 位置の初期化
         MV1SetPosition(modelHandle, this->pos);
@@ -43,7 +43,7 @@ namespace My3dApp
         collisionType = CollisionType::Sphere;
 
         // 球のローカル中心座標の初期化
-        collisionSphere.localCenter = VGet(0, 75.0f, 0);
+        collisionSphere.localCenter = VGet(0, 0, 0);
 
         // 球の半径の初期化
         collisionSphere.radius = 65.0f;

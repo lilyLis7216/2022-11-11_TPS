@@ -12,12 +12,11 @@ namespace My3dApp
     Player::Player()
         : GameObject(ObjectTag::Player)
         , isRotate(false)
-        , prevPushShot(false)
         , shotInterval(0)
     {
 
         // 3Dモデルの読み込み
-        modelHandle = AssetManager::GetMesh("../asset/model/test/player.mv1");
+        modelHandle = AssetManager::GetMesh("../asset/model/player.mv1");
 
         // 座標の初期化
         pos = VGet(0, 0, 0);
@@ -41,7 +40,7 @@ namespace My3dApp
         collisionType = CollisionType::Sphere;
 
         // 当たり判定球のローカル中心座標を初期化
-        collisionSphere.localCenter = VGet(0, 75.0f, 0);
+        collisionSphere.localCenter = VGet(0, 0, 0);
 
         // 当たり判定球の半径を初期化
         collisionSphere.radius = 65.0f;
@@ -151,6 +150,8 @@ namespace My3dApp
 
                     // 正規化して
                     pushBack = VNorm(pushBack);
+
+                    pushBack.y = 1;
 
                     // 押し戻す
                     pos += pushBack * -dif;
@@ -284,7 +285,7 @@ namespace My3dApp
         {
             speed = (VGet(0, -1, 0) * 10.0f);
 
-            pos += speed;
+            //pos += speed;
 
             CollisionUpdate();
         }
@@ -342,7 +343,7 @@ namespace My3dApp
 
     void Player::Shot()
     {
-        if (CheckHitKey(KEY_INPUT_SPACE) && shotInterval < 0)
+        if (CheckHitKey(KEY_INPUT_J) && shotInterval < 0)
         {
             shotInterval = 0.25f;
             GameObjectManager::Entry(new Bullet(ObjectTag::PlayerBullet, pos, dir));

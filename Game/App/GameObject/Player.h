@@ -22,8 +22,7 @@ namespace My3dApp
         // 回転中か
         bool isRotate;
 
-        bool prevPushShot;
-
+        // 射撃のインターバル
         float shotInterval;
 
         /// <summary>

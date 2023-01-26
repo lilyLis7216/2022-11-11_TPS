@@ -5,16 +5,12 @@
 
 namespace My3dApp
 {
-    Map::Map()
-        : GameObject(ObjectTag::Map)
-    {
-        ModelLoad();
-    }
+
 
     Map::Map(VECTOR pos)
-        : GameObject(ObjectTag::Map, pos)
+        : GameObject(ObjectTag::Map)
     {
-        ModelLoad();
+        ModelLoad(pos);
     }
 
     Map::~Map()
@@ -22,19 +18,21 @@ namespace My3dApp
         AssetManager::ReleaseMesh(modelHandle);
     }
 
-    void Map::ModelLoad()
+    void Map::ModelLoad(VECTOR initPos)
     {
         // 表示用モデルの読み込み
-        modelHandle = AssetManager::GetMesh("../asset/model/map/stage.mv1");
+        modelHandle = AssetManager::GetMesh("../asset/model/stage.mv1");
 
         // 表示モデルのスケーリング
         MV1SetScale(modelHandle, VGet(0.75f, 0.75f, 0.75f));
+
+        pos = initPos;
 
         // 表示モデルの位置セット
         MV1SetPosition(modelHandle, pos);
 
         // 当たり判定用モデルの読み込み
-        collisionModel = AssetManager::GetMesh("../asset/model/map/stage.mv1");
+        collisionModel = AssetManager::GetMesh("../asset/model/stage.mv1");
 
         MV1SetScale(collisionModel, VGet(0.75f, 0.75f, 0.75f));
 

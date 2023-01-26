@@ -25,12 +25,10 @@ namespace My3dApp
 
         GameObjectManager::Entry(new Camera(750, -1000));
 
-        GameObjectManager::Entry(new Map(VGet(0, 0, 0)));
+        GameObjectManager::Entry(new Map(VGet(0, -100, 0)));
 
-        GameObjectManager::Entry(new Enemy(VGet(0, 0, 1000)));
+        GameObjectManager::Entry(new Enemy(VGet(0, 100, 1000)));
         // GameObjectManager::Entry(new Enemy(VGet(0, 0, -1000)));
-        // GameObjectManager::Entry(new Enemy(VGet(1000, 0, 0)));
-        // GameObjectManager::Entry(new Enemy(VGet(-1000, 0, 0)));
     }
 
     Play::~Play()
@@ -48,7 +46,7 @@ namespace My3dApp
 
         if (EnemyManager::IsCreateEnemy(deltaTime))
         {
-            GameObjectManager::Entry(new Enemy(VGet(rand() % 10 * 100, 0, rand() % 10 * 100)));
+            //GameObjectManager::Entry(new Enemy(VGet(rand() % 10 * 100, 0, rand() % 10 * 100)));
         }
 
         GameObjectManager::Update(deltaTime);

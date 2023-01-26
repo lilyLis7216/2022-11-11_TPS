@@ -13,11 +13,6 @@ namespace My3dApp
         /// <summary>
         /// コンストラクタ
         /// </summary>
-        Map();
-
-        /// <summary>
-        /// コンストラクタ
-        /// </summary>
         /// <param name="pos">初期位置</param>
         Map(VECTOR pos);
 
@@ -29,7 +24,8 @@ namespace My3dApp
         /// <summary>
         /// モデルの読み込み
         /// </summary>
-        void ModelLoad();
+        /// <param name="initPos">初期位置</param>
+        void ModelLoad(VECTOR initPos);
 
         /// <summary>
         /// マップの更新
