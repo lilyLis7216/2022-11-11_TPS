@@ -19,7 +19,7 @@ namespace My3dApp
         modelHandle = AssetManager::GetMesh("../asset/model/player.mv1");
 
         // À•W‚Ì‰Šú‰»
-        pos = VGet(0, 0, 0);
+        pos = VGet(0, 100, 0);
 
         // À•W‚Ìİ’è
         MV1SetPosition(modelHandle, pos);

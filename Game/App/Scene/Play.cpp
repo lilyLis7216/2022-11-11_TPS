@@ -25,7 +25,7 @@ namespace My3dApp
 
         GameObjectManager::Entry(new Camera(750, -1000));
 
-        GameObjectManager::Entry(new Map(VGet(0, -100, 0)));
+        GameObjectManager::Entry(new Map(VGet(0, 0, 0)));
 
         GameObjectManager::Entry(new Enemy(VGet(0, 100, 1000)));
         // GameObjectManager::Entry(new Enemy(VGet(0, 0, -1000)));

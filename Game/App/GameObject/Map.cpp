@@ -5,8 +5,6 @@
 
 namespace My3dApp
 {
-
-
     Map::Map(VECTOR pos)
         : GameObject(ObjectTag::Map)
     {
@@ -24,7 +22,7 @@ namespace My3dApp
         modelHandle = AssetManager::GetMesh("../asset/model/stage.mv1");
 
         // 表示モデルのスケーリング
-        MV1SetScale(modelHandle, VGet(0.75f, 0.75f, 0.75f));
+        MV1SetScale(modelHandle, VGet(1.0f, 1.0f, 1.0f));
 
         pos = initPos;
 
@@ -32,15 +30,15 @@ namespace My3dApp
         MV1SetPosition(modelHandle, pos);
 
         // 当たり判定用モデルの読み込み
-        collisionModel = AssetManager::GetMesh("../asset/model/stage.mv1");
+        collisionModel = AssetManager::GetMesh("../asset/model/stage_none.mv1");
 
-        MV1SetScale(collisionModel, VGet(0.75f, 0.75f, 0.75f));
+        MV1SetScale(collisionModel, VGet(1.0f, 1.0f, 1.0f));
 
         // 当たり判定モデルに不透明度を設定
         MV1SetOpacityRate(collisionModel, 0.3f);
 
         // 表示モデルと当たり判定モデルの位置を微調整
-        MV1SetPosition(collisionModel, pos + VGet(-45, 0, -35));
+        MV1SetPosition(collisionModel, pos + VGet(0, 0, 0));
 
         // モデルの当たり判定情報の再構築
         MV1SetupCollInfo(collisionModel);
