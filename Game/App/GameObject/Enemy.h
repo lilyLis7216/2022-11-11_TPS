@@ -27,11 +27,15 @@ namespace My3dApp
 
         float shotInterval;
 
+        float nockBackPar;
+
         void Move(float deltaTime);
 
         void RotateCheck();
 
         void Shot();
+
+        void NockBackParView();
 
     public:
         /// <summary>

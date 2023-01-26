@@ -20,6 +20,7 @@ namespace My3dApp
         , animTypeID(0)
         , isRotate(false)
         , shotInterval(2.0f)
+        , nockBackPar(0.0f)
     {
         // ÉÇÉfÉãÇÃì«Ç›çûÇ›
         modelHandle = AssetManager::GetMesh("../asset/model/enemy.mv1");
@@ -78,6 +79,8 @@ namespace My3dApp
 
         // ìñÇΩÇËîªíËÇÃï`âÊ
         DrawCollider();
+
+        NockBackParView();
     }
 
     void Enemy::OnCollisionEnter(const GameObject* other)
@@ -184,6 +187,8 @@ namespace My3dApp
                     pos += pushBack * -dif * 100.0f;
 
                     pos.y += 200.0f;
+
+                    nockBackPar += 10.0f;
                 }
 
                 // ìñÇΩÇËîªíËÇÃçXêV
@@ -287,5 +292,12 @@ namespace My3dApp
             shotInterval = 1.0f;
             GameObjectManager::Entry(new Bullet(ObjectTag::EnemyBullet, pos, dir));
         }
+    }
+
+    void Enemy::NockBackParView()
+    {
+        VECTOR screenPos = ConvWorldPosToScreenPos(pos);
+
+        DrawFormatString((int)screenPos.x - 10, (int)screenPos.y - 50, GetColor(255, 255, 255), "%1.1fÅì", nockBackPar);
     }
 }// namespace My3dApp
