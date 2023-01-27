@@ -19,10 +19,10 @@ namespace My3dApp
         /// <summary>
         /// コンストラクタ
         /// </summary>
-        /// <param name="tag">オブジェクトのタグ</param>
-        /// <param name="pos">初期位置</param>
-        /// <param name="dir">向き</param>
-        Bullet(ObjectTag tag, VECTOR pos, VECTOR dir);
+        /// <param name="setTag">オブジェクトのタグ</param>
+        /// <param name="initPos">初期位置</param>
+        /// <param name="initDir">向き</param>
+        Bullet(ObjectTag setTag, VECTOR initPos, VECTOR initDir);
 
         /// <summary>
         /// デストラクタ

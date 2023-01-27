@@ -4,29 +4,29 @@
 
 namespace My3dApp
 {
-    Bullet::Bullet(ObjectTag tag, VECTOR pos, VECTOR dir)
-        : GameObject(tag)
+    Bullet::Bullet(ObjectTag setTag, VECTOR initPos, VECTOR initDir)
+        : GameObject(setTag)
         , deadCount(5.0f)
         , boost(0)
     {
         modelHandle = -1;
 
-        if (this->tag == ObjectTag::PlayerBullet)
+        if (tag == ObjectTag::PlayerBullet)
         {
             modelHandle = AssetManager::GetMesh("../asset/model/bullet/playerBullet.mv1");
         }
-        else if (this->tag == ObjectTag::EnemyBullet)
+        else if (tag == ObjectTag::EnemyBullet)
         {
             modelHandle = AssetManager::GetMesh("../asset/model/bullet/enemyBullet.mv1");
         }
 
-        this->pos = pos;
+        pos = initPos;
 
-        MV1SetPosition(modelHandle, this->pos);
+        MV1SetPosition(modelHandle, pos);
 
         MV1SetScale(modelHandle, VGet(0.1f, 0.1f, 0.1f));
 
-        this->dir = dir;
+        dir = initDir;
 
         speed = VGet(0, 0, 0);
 
@@ -45,7 +45,7 @@ namespace My3dApp
         // 球のローカル中心座標の初期化
         collisionSphere.localCenter = VGet(0, 0, 0);
 
-        collisionSphere.worldCenter = this->pos;
+        collisionSphere.worldCenter = pos;
 
         // 球の半径の初期化
         collisionSphere.radius = 10.0f;
