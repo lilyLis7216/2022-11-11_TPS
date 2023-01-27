@@ -1,11 +1,10 @@
 #include "Player.h"
+#include "ObjectTag.h"
 #include "../Manager/AssetManager.h"
-#include "../Library/AnimationController.h"
 #include "../Manager/GameObjectManager.h"
 #include "../Library/Calc3D.h"
 #include "../Library/GamePad.h"
-#include "ObjectTag.h"
-#include "Bullet.h"
+#include "Bullet/NormalBullet.h"
 
 namespace My3dApp
 {
@@ -346,7 +345,7 @@ namespace My3dApp
         if (CheckHitKey(KEY_INPUT_J) && shotInterval < 0)
         {
             shotInterval = 0.25f;
-            GameObjectManager::Entry(new Bullet(ObjectTag::PlayerBullet, pos, dir));
+            GameObjectManager::Entry(new NormalBullet(ObjectTag::PlayerBullet, pos, dir));
         }
     }
 }// namespace My3dApp

@@ -19,23 +19,28 @@ namespace My3dApp
         // 消失までのカウント
         float vanishCount;
 
-        // 消失カウントの初期値
-        float const initVanishCount = 5.0f;
-
         // 弾にかける加速
         float boost;
+
+        // 弾の種類
+        int bulletType;
 
     public:
         /// <summary>
         /// コンストラクタ
         /// </summary>
         /// <param name="tag">オブジェクトの種類</param>
-        BaseBullet(ObjectTag tag);
+        BaseBullet(ObjectTag tag, VECTOR pos, VECTOR dir);
 
         /// <summary>
         /// デストラクタ
         /// </summary>
         virtual ~BaseBullet();
+
+        /// <summary>
+        /// 弾の描画
+        /// </summary>
+        void Draw() override;
 
         // 弾の種類
         enum BulletType

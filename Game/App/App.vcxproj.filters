@@ -79,9 +79,6 @@
     <ClCompile Include="GameObject\Enemy.cpp">
       <Filter>ソース ファイル\GameObject</Filter>
     </ClCompile>
-    <ClCompile Include="GameObject\Bullet.cpp">
-      <Filter>ソース ファイル\GameObject</Filter>
-    </ClCompile>
     <ClCompile Include="Manager\EnemyManager.cpp">
       <Filter>ソース ファイル\Manager</Filter>
     </ClCompile>
@@ -157,9 +154,6 @@
       <Filter>ソース ファイル\Library</Filter>
     </ClInclude>
     <ClInclude Include="GameObject\Enemy.h">
-      <Filter>ソース ファイル\GameObject</Filter>
-    </ClInclude>
-    <ClInclude Include="GameObject\Bullet.h">
       <Filter>ソース ファイル\GameObject</Filter>
     </ClInclude>
     <ClInclude Include="Manager\EnemyManager.h">

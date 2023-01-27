@@ -6,7 +6,7 @@
 #include "../Library/Calc3D.h"
 #include "../Library/GamePad.h"
 #include "ObjectTag.h"
-#include "Bullet.h"
+#include "Bullet/NormalBullet.h"
 
 namespace My3dApp
 {
@@ -298,7 +298,7 @@ namespace My3dApp
         if (shotInterval < 0)
         {
             shotInterval = 1.0f;
-            GameObjectManager::Entry(new Bullet(ObjectTag::EnemyBullet, pos, dir));
+            GameObjectManager::Entry(new NormalBullet(ObjectTag::EnemyBullet, pos, dir));
         }
     }
 
