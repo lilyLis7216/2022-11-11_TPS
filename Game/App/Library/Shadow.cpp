@@ -9,7 +9,7 @@ namespace My3dApp
 
     Shadow::Shadow()
     {
-        //shadowMap = MakeShadowMap(1024, 1024);
+        shadowMap = MakeShadowMap(2048, 2048);
         instance = this;
     }
 
