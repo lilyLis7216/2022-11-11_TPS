@@ -104,11 +104,11 @@ namespace My3dApp
             if (tag != ObjectTag::Map)
             {
                 // 描画に使用するシャドウマップを設定
-                SetUseShadowMap(1, Shadow::GetShadowMap());
+                SetUseShadowMap(0, Shadow::GetShadowMap());
             }
             else
             {
-                SetUseShadowMap(2, Shadow::GetShadowMap());
+                SetUseShadowMap(1, Shadow::GetShadowMap());
             }
             for (int i = 0; i < instance->objects[tag].size(); ++i)
             {
@@ -120,9 +120,9 @@ namespace My3dApp
         }
 
         // 描画に使用するシャドウマップの設定を解除
-        //SetUseShadowMap(0, -1);
+        SetUseShadowMap(0, -1);
         SetUseShadowMap(1, -1);
-        SetUseShadowMap(2, -1);
+        //SetUseShadowMap(2, -1);
     }
 
     void GameObjectManager::Entry(GameObject* newObject)
