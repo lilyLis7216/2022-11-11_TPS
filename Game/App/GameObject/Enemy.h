@@ -5,7 +5,7 @@
 namespace My3dApp
 {
     /// <summary>
-    /// エネミー（派生クラス、継承元：ゲームオブジェクト）
+    /// エネミー（GameObject継承）
     /// </summary>
     class Enemy : public GameObject
     {

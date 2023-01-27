@@ -32,14 +32,14 @@ namespace My3dApp
         // 座標の設定
         MV1SetPosition(modelHandle, this->pos);
 
-        // 弾の大きさ
-        float bulletSize = 0.25f;
+        // モデルの大きさ
+        float modelSize = 0.25f;
 
         // 大きさの設定
-        MV1SetScale(modelHandle, VGet(bulletSize, bulletSize, bulletSize));
+        MV1SetScale(modelHandle, VGet(modelSize, modelSize, modelSize));
 
         // 当たり判定球の半径の設定
-        collisionSphere.radius = 10.0f;
+        collisionSphere.radius = 25.0f;
 
         // 当たり判定の更新
         CollisionUpdate();
@@ -50,7 +50,7 @@ namespace My3dApp
     /// </summary>
     NormalBullet::~NormalBullet()
     {
-        MV1DeleteModel(modelHandle);
+        AssetManager::ReleaseMesh(modelHandle);
     }
 
     /// <summary>

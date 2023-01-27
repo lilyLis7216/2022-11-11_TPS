@@ -1,5 +1,4 @@
 #include "Camera.h"
-#include "ObjectTag.h"
 #include "../Manager/GameObjectManager.h"
 #include "../Library/Calc3D.h"
 #include "../Library/GamePad.h"
@@ -9,6 +8,11 @@ namespace My3dApp
     // カメラのばねの定数
     const float cameraSpringStrength = 2.0f;
 
+    /// <summary>
+    /// コンストラクタ
+    /// </summary>
+    /// <param name="height">カメラの高さ</param>
+    /// <param name="z">カメラの引き</param>
     Camera::Camera(float height, float z)
         : GameObject(ObjectTag::Camera)
         , lookPos()
@@ -24,11 +28,18 @@ namespace My3dApp
         cameraOffset.z = z;
     }
 
+    /// <summary>
+    /// デストラクタ
+    /// </summary>
     Camera::~Camera()
     {
         // 処理なし
     }
 
+    /// <summary>
+    /// カメラの更新
+    /// </summary>
+    /// <param name="deltaTime">1フレームの経過時間</param>
     void Camera::Update(float deltaTime)
     {
         // カメラの注視目標点と、カメラの位置目標点を計算

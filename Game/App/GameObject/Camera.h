@@ -5,7 +5,7 @@
 namespace My3dApp
 {
     /// <summary>
-    /// カメラ（派生クラス、継承元：ゲームオブジェクト）
+    /// カメラ（GameObject継承）
     /// </summary>
     class Camera : public GameObject
     {
@@ -34,7 +34,7 @@ namespace My3dApp
         /// コンストラクタ
         /// </summary>
         /// <param name="height">カメラの高さ</param>
-        /// <param name="z"></param>
+        /// <param name="z">カメラの引き</param>
         Camera(float height, float z);
 
         /// <summary>

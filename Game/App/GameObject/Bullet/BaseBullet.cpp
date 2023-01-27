@@ -19,9 +19,6 @@ namespace My3dApp
 
         // 当たり判定球のローカル座標の初期化
         collisionSphere.localCenter = VGet(0, 0, 0);
-
-        // 当たり判定球のワールド座標の初期化
-        collisionSphere.worldCenter = this->pos;
     }
 
     /// <summary>
@@ -41,6 +38,6 @@ namespace My3dApp
         MV1DrawModel(modelHandle);
 
         // 当たり判定の描画(必要な場合非コメント化)
-        //DrawCollider();
+        DrawCollider();
     }
 }// namespace My3dApp
