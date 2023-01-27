@@ -146,6 +146,9 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="GameObject\Bullet.cpp" />
+    <ClCompile Include="GameObject\Bullet\BaseBullet.cpp" />
+    <ClCompile Include="GameObject\Bullet\ChargeBullet.cpp" />
+    <ClCompile Include="GameObject\Bullet\NormalBullet.cpp" />
     <ClCompile Include="GameObject\Camera.cpp" />
     <ClCompile Include="GameObject\Enemy.cpp" />
     <ClCompile Include="GameObject\GameObject.cpp" />
@@ -170,6 +173,9 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameObject\Bullet.h" />
+    <ClInclude Include="GameObject\Bullet\BaseBullet.h" />
+    <ClInclude Include="GameObject\Bullet\ChargeBullet.h" />
+    <ClInclude Include="GameObject\Bullet\NormalBullet.h" />
     <ClInclude Include="GameObject\Camera.h" />
     <ClInclude Include="GameObject\Enemy.h" />
     <ClInclude Include="GameObject\GameObject.h" />

@@ -17,6 +17,9 @@
     <Filter Include="ソース ファイル\Library">
       <UniqueIdentifier>{dacbfa0b-0d7b-4b61-a450-fef475ebf9e4}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ソース ファイル\GameObject\Bullet">
+      <UniqueIdentifier>{7e06194c-2e59-4e08-a862-358d839c14db}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -84,6 +87,15 @@
     </ClCompile>
     <ClCompile Include="Library\Shadow.cpp">
       <Filter>ソース ファイル\Library</Filter>
+    </ClCompile>
+    <ClCompile Include="GameObject\Bullet\BaseBullet.cpp">
+      <Filter>ソース ファイル\GameObject\Bullet</Filter>
+    </ClCompile>
+    <ClCompile Include="GameObject\Bullet\ChargeBullet.cpp">
+      <Filter>ソース ファイル\GameObject\Bullet</Filter>
+    </ClCompile>
+    <ClCompile Include="GameObject\Bullet\NormalBullet.cpp">
+      <Filter>ソース ファイル\GameObject\Bullet</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -155,6 +167,15 @@
     </ClInclude>
     <ClInclude Include="Library\Shadow.h">
       <Filter>ソース ファイル\Library</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObject\Bullet\BaseBullet.h">
+      <Filter>ソース ファイル\GameObject\Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObject\Bullet\ChargeBullet.h">
+      <Filter>ソース ファイル\GameObject\Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObject\Bullet\NormalBullet.h">
+      <Filter>ソース ファイル\GameObject\Bullet</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
