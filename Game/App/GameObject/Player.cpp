@@ -5,6 +5,7 @@
 #include "../Library/Calc3D.h"
 #include "../Library/GamePad.h"
 #include "Bullet/NormalBullet.h"
+#include "Bullet/ChargeBullet.h"
 
 namespace My3dApp
 {
@@ -284,14 +285,9 @@ namespace My3dApp
         {
             speed = (VGet(0, -1, 0) * 10.0f);
 
-            //pos += speed;
-
             CollisionUpdate();
         }
-        else
-        {
 
-        }
 
         // 3Dモデルのポジション設定
         MV1SetPosition(modelHandle, pos);
@@ -346,6 +342,12 @@ namespace My3dApp
         {
             shotInterval = 0.25f;
             GameObjectManager::Entry(new NormalBullet(ObjectTag::PlayerBullet, pos, dir));
+        }
+
+        if (CheckHitKey(KEY_INPUT_K) && shotInterval < 0)
+        {
+            shotInterval = 0.25f;
+            GameObjectManager::Entry(new ChargeBullet(ObjectTag::PlayerBullet, pos, dir));
         }
     }
 }// namespace My3dApp
