@@ -20,6 +20,9 @@
     <Filter Include="ソース ファイル\GameObject\Bullet">
       <UniqueIdentifier>{7e06194c-2e59-4e08-a862-358d839c14db}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ソース ファイル\GameObject\Enemy">
+      <UniqueIdentifier>{f67cf00b-ac35-444e-a104-8bd219c40552}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -93,6 +96,18 @@
     </ClCompile>
     <ClCompile Include="GameObject\Bullet\NormalBullet.cpp">
       <Filter>ソース ファイル\GameObject\Bullet</Filter>
+    </ClCompile>
+    <ClCompile Include="GameObject\Enemy\BaseEnemy.cpp">
+      <Filter>ソース ファイル\GameObject\Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="GameObject\Enemy\HeavyEnemy.cpp">
+      <Filter>ソース ファイル\GameObject\Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="GameObject\Enemy\LightEnemy.cpp">
+      <Filter>ソース ファイル\GameObject\Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="GameObject\Enemy\NormalEnemy.cpp">
+      <Filter>ソース ファイル\GameObject\Enemy</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -170,6 +185,18 @@
     </ClInclude>
     <ClInclude Include="GameObject\Bullet\NormalBullet.h">
       <Filter>ソース ファイル\GameObject\Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObject\Enemy\BaseEnemy.h">
+      <Filter>ソース ファイル\GameObject\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObject\Enemy\HeavyEnemy.h">
+      <Filter>ソース ファイル\GameObject\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObject\Enemy\LightEnemy.h">
+      <Filter>ソース ファイル\GameObject\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObject\Enemy\NormalEnemy.h">
+      <Filter>ソース ファイル\GameObject\Enemy</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
