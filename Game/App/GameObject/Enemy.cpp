@@ -218,7 +218,10 @@ namespace My3dApp
 
             speed =  (dir * deltaTime * 300.0f);
 
-            pos += speed;
+            if (onGround)
+            {
+                pos += speed;
+            }
         }
         else
         {
@@ -251,6 +254,11 @@ namespace My3dApp
 
         // 当たり判定モデルの位置更新
         CollisionUpdate();
+
+        if (pos.y < -500.0f)
+        {
+            isAlive = false;
+        }
     }
 
     void Enemy::RotateCheck()
