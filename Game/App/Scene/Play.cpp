@@ -28,7 +28,6 @@ namespace My3dApp
         GameObjectManager::Entry(new Map(VGet(0, 0, 0)));
 
         GameObjectManager::Entry(new Enemy(VGet(0, 100, 1000)));
-        // GameObjectManager::Entry(new Enemy(VGet(0, 0, -1000)));
     }
 
     Play::~Play()
@@ -46,7 +45,7 @@ namespace My3dApp
 
         if (EnemyManager::IsCreateEnemy(deltaTime))
         {
-            //GameObjectManager::Entry(new Enemy(VGet(rand() % 10 * 100, 0, rand() % 10 * 100)));
+            GameObjectManager::Entry(new Enemy(VGet((float)(rand() % 10 * 100), 500.0f, (float)(rand() % 10 * 100))));
         }
 
         GameObjectManager::Update(deltaTime);
@@ -55,10 +54,10 @@ namespace My3dApp
 
         retScene = CheckRetScene(3);
 
-        if (timer < 0)
+        /*if (timer < 0)
         {
             retScene = new Result();
-        }
+        }*/
 
         return retScene;
     }
