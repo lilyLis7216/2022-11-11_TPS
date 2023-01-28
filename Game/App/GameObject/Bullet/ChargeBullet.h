@@ -10,16 +10,20 @@ namespace My3dApp
     class ChargeBullet : public BaseBullet
     {
     private:
-        // チャージの状態
-        int chargeState;
+        // チャージ中か
+        bool isCharging = false;
 
-        bool prevPush;
-
-        bool move;
-
-        bool isCharging = false;   // チャージ中かどうか
+        // チャージ時間
+        float chargeTime = 0;
  
-        float chargeTime = 0;        // チャージ時間
+        // 移動できるか
+        bool canMove;
+
+        // 撃ったか
+        bool isShoot;
+
+        // キー入力
+        int key[256] = { 0 };
 
     public:
         /// <summary>
