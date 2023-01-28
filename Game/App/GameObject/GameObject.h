@@ -22,6 +22,9 @@ namespace My3dApp
         // オブジェクトの座標
         VECTOR pos;
 
+        // オブジェクトの向き
+        VECTOR dir;
+
         // 可視状態
         bool isVisible;
 
@@ -99,6 +102,10 @@ namespace My3dApp
         /// </summary>
         /// <param name="set">変更したい位置</param>
         void SetPos(const VECTOR set) { pos = set; }
+
+        const VECTOR& GetDir() const { return dir; }
+
+        void SetDir(const VECTOR set) { dir = set; }
 
         /// <summary>
         /// 可視状態の取得

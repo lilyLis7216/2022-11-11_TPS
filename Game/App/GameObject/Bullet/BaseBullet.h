@@ -10,9 +10,6 @@ namespace My3dApp
     class BaseBullet : public GameObject
     {
     protected:
-        // Œü‚«
-        VECTOR dir;
-
         // ‘¬“x
         VECTOR speed;
 

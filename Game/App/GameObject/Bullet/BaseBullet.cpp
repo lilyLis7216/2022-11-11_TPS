@@ -8,12 +8,13 @@ namespace My3dApp
     /// <param name="tag">オブジェクトの種類</param>
     BaseBullet::BaseBullet(ObjectTag tag, VECTOR pos, VECTOR dir)
         : GameObject(tag, pos)
-        , dir(dir)
         , speed(VGet(0, 0, 0))
         , vanishCount(5.0f)
         , boost(0)
         , bulletType(-1)
     {
+        this->dir = dir;
+
         // 当たり判定種類の設定
         collisionType = CollisionType::Sphere;
 

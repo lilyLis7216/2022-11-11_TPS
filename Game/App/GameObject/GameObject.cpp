@@ -20,6 +20,7 @@ namespace My3dApp
         , collisionModel()
     {
         this->pos = pos;
+        dir = VGet(0, 1, 0);
     }
 
     GameObject::~GameObject()

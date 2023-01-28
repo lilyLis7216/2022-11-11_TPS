@@ -10,9 +10,6 @@ namespace My3dApp
     class Enemy : public GameObject
     {
     private:
-        // Œü‚«
-        VECTOR dir;
-
         // –Ú•WŒü‚«
         VECTOR aimDir;
 
