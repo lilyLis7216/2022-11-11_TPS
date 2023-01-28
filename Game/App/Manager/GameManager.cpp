@@ -1,5 +1,6 @@
 #include "GameManager.h"
 #include "DxLib.h"
+#include "EffekseerForDXLib.h"
 #include "../Scene/SceneBase.h"
 #include "../Scene/Title.h"
 #include "../Scene/StageSelect.h"
@@ -96,20 +97,34 @@ namespace My3dApp
         // 画面モードの設定
         SetGraphMode(screenWidth, screenHeight, 32);
 
-        // DxLibの初期化処理
+        // DxLibの初期化
         if (DxLib_Init() == -1)
         {
+            return -1;
+        }
+
+        // Effekseerの初期化
+        if (Effekseer_Init(8000) == -1)
+        {
+            DxLib_End();
             return -1;
         }
 
         // 影管理用のインスタンス生成
         Shadow::CreateInstance();
 
+        // マウスカーソルを表示しない
+        SetMouseDispFlag(false);
+
         // フルスクリーンウインドウの切り替えでリソースが消えるのを防ぐ
         SetChangeScreenModeGraphicsSystemResetFlag(FALSE);
 
-        // マウスカーソルを表示しない
-        SetMouseDispFlag(false);
+        // DirectX11を使用するようにする(Effekseerを使用するには必ず設定する)
+        SetUseDirect3DVersion(DX_DIRECT3D_11);
+
+        // DXライブラリのデバイスロストした時のコールバックを設定する
+        // ウインドウとフルスクリーンの切り替えが発生する場合は必ず実行する
+        Effekseer_SetGraphicsDeviceLostCallbackFunctions();
 
         // 描画先を裏に設定する
         SetDrawScreen(DX_SCREEN_BACK);
@@ -125,6 +140,9 @@ namespace My3dApp
 
         // カメラの位置と向きを設定
         SetCameraPositionAndTarget_UpVecY(VGet(0, 80, -200), VGet(0.0f, 80.0f, 0.0f));
+
+        // DXライブラリのカメラとEffekseerのカメラを同期
+        Effekseer_Sync3DSetting();
 
         // ライトの方向を設定
         SetLightDirection(VGet(-1.5f, -3.5f, 0.5f));
@@ -208,6 +226,9 @@ namespace My3dApp
             // 現在のカウントを保存する
             prevCount = nowCount;
         }
+
+        // Effkseerの終了処理
+        Effkseer_End();
 
         // DxLibの終了処理
         DxLib_End();

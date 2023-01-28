@@ -10,9 +10,6 @@ namespace My3dApp
     class Player : public GameObject
     {
     private:
-        // 向き
-        VECTOR dir;
-
         // 目標向き
         VECTOR aimDir;
 
@@ -24,6 +21,15 @@ namespace My3dApp
 
         // 射撃のインターバル
         float shotInterval;
+
+        // チャージ中か
+        bool isCharge;
+
+        int effectHandle;
+
+        int playEffHandle;
+
+        float effPlayTime;
 
         /// <summary>
         /// プレイヤーの移動

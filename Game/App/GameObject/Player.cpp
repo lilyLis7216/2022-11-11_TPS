@@ -1,7 +1,7 @@
 #include "Player.h"
-#include "ObjectTag.h"
 #include "../Manager/AssetManager.h"
 #include "../Manager/GameObjectManager.h"
+#include "EffekseerForDXLib.h"
 #include "../Library/Calc3D.h"
 #include "../Library/GamePad.h"
 #include "Bullet/NormalBullet.h"
@@ -13,8 +13,8 @@ namespace My3dApp
         : GameObject(ObjectTag::Player)
         , isRotate(false)
         , shotInterval(0)
+        , isCharge(false)
     {
-
         // 3Dモデルの読み込み
         modelHandle = AssetManager::GetMesh("../asset/model/player.mv1");
 
@@ -50,12 +50,18 @@ namespace My3dApp
 
         // 当たり判定の更新
         CollisionUpdate();
+
+        effectHandle = LoadEffekseerEffect("../asset/effect/test2.efkefc", 1.0f);
+
+        playEffHandle = -1;
     }
 
     Player::~Player()
     {
         // モデルのアンロード
         AssetManager::ReleaseMesh(modelHandle);
+
+        DeleteEffekseerEffect(effectHandle);
     }
 
     void Player::Update(float deltaTime)
@@ -69,6 +75,19 @@ namespace My3dApp
         Shot();
 
         CollisionUpdate();
+
+        effPlayTime -= deltaTime;
+
+        if (effPlayTime < 0)
+        {
+            playEffHandle = PlayEffekseer3DEffect(effectHandle);
+
+            effPlayTime = 5.0f;
+        }
+
+        SetPosPlayingEffekseer3DEffect(effectHandle, pos.x, pos.y + 500.0f, pos.z);
+
+        UpdateEffekseer3D();
     }
 
     void Player::Draw()
@@ -77,6 +96,8 @@ namespace My3dApp
         MV1DrawModel(modelHandle);
 
         DrawCollider();
+
+        DrawEffekseer3D();
     }
 
     void Player::OnCollisionEnter(const GameObject* other)
@@ -284,10 +305,7 @@ namespace My3dApp
         if (!onGround)
         {
             speed = (VGet(0, -1, 0) * 10.0f);
-
-            CollisionUpdate();
         }
-
 
         // 3Dモデルのポジション設定
         MV1SetPosition(modelHandle, pos);
@@ -338,16 +356,21 @@ namespace My3dApp
 
     void Player::Shot()
     {
-        if (CheckHitKey(KEY_INPUT_J) && shotInterval < 0)
+        if (CheckHitKey(KEY_INPUT_J) && !CheckHitKey(KEY_INPUT_K) && shotInterval < 0)
         {
             shotInterval = 0.25f;
             GameObjectManager::Entry(new NormalBullet(ObjectTag::PlayerBullet, pos, dir));
         }
 
-        if (CheckHitKey(KEY_INPUT_K) && shotInterval < 0)
+        if (CheckHitKey(KEY_INPUT_K) && !CheckHitKey(KEY_INPUT_J) && !isCharge)
         {
-            shotInterval = 0.25f;
+            isCharge = true;
             GameObjectManager::Entry(new ChargeBullet(ObjectTag::PlayerBullet, pos, dir));
+        }
+
+        if (!CheckHitKey(KEY_INPUT_K))
+        {
+            isCharge = false;
         }
     }
 }// namespace My3dApp
