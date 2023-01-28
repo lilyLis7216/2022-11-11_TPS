@@ -97,6 +97,9 @@ namespace My3dApp
         // 画面モードの設定
         SetGraphMode(screenWidth, screenHeight, 32);
 
+        // DirectX11を使用するようにする
+        SetUseDirect3DVersion(DX_DIRECT3D_11);
+
         // DxLibの初期化
         if (DxLib_Init() == -1)
         {
@@ -118,9 +121,6 @@ namespace My3dApp
 
         // フルスクリーンウインドウの切り替えでリソースが消えるのを防ぐ
         SetChangeScreenModeGraphicsSystemResetFlag(FALSE);
-
-        // DirectX11を使用するようにする(Effekseerを使用するには必ず設定する)
-        SetUseDirect3DVersion(DX_DIRECT3D_11);
 
         // DXライブラリのデバイスロストした時のコールバックを設定する
         // ウインドウとフルスクリーンの切り替えが発生する場合は必ず実行する

@@ -5,7 +5,7 @@
 namespace My3dApp
 {
     /// <summary>
-    /// プレイヤー（派生クラス、継承元：ゲームオブジェクト）
+    /// プレイヤー（GameObject継承）
     /// </summary>
     class Player : public GameObject
     {
@@ -24,12 +24,6 @@ namespace My3dApp
 
         // チャージ中か
         bool isCharge;
-
-        int effectHandle;
-
-        int playEffHandle;
-
-        float effPlayTime;
 
         /// <summary>
         /// プレイヤーの移動
