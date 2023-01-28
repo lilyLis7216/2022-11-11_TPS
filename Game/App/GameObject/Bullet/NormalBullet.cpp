@@ -1,6 +1,8 @@
 #include "NormalBullet.h"
 #include "../../Manager/AssetManager.h"
 #include "../../Library/Calc3D.h"
+#include "../../Manager/GameObjectManager.h"
+#include "../Effect/HitEffect.h"
 
 namespace My3dApp
 {
@@ -96,6 +98,8 @@ namespace My3dApp
             {
                 if (CollisionPair(collisionSphere, other->GetCollisionSphere()))
                 {
+                    GameObjectManager::Entry(new HitEffect(pos));
+
                     isAlive = false;
                 }
             }
