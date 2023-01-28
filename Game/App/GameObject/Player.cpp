@@ -50,18 +50,12 @@ namespace My3dApp
 
         // 当たり判定の更新
         CollisionUpdate();
-
-        effectHandle = LoadEffekseerEffect("../asset/effect/test2.efkefc", 1.0f);
-
-        playEffHandle = -1;
     }
 
     Player::~Player()
     {
         // モデルのアンロード
         AssetManager::ReleaseMesh(modelHandle);
-
-        DeleteEffekseerEffect(effectHandle);
     }
 
     void Player::Update(float deltaTime)
@@ -75,19 +69,6 @@ namespace My3dApp
         Shot();
 
         CollisionUpdate();
-
-        effPlayTime -= deltaTime;
-
-        if (effPlayTime < 0)
-        {
-            playEffHandle = PlayEffekseer3DEffect(effectHandle);
-
-            effPlayTime = 5.0f;
-        }
-
-        SetPosPlayingEffekseer3DEffect(effectHandle, pos.x, pos.y + 500.0f, pos.z);
-
-        UpdateEffekseer3D();
     }
 
     void Player::Draw()
@@ -96,8 +77,6 @@ namespace My3dApp
         MV1DrawModel(modelHandle);
 
         DrawCollider();
-
-        DrawEffekseer3D();
     }
 
     void Player::OnCollisionEnter(const GameObject* other)

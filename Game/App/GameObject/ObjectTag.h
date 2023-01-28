@@ -12,7 +12,8 @@ namespace My3dApp
         PlayerBullet,
         Enemy,
         EnemyBullet,
-        Camera
+        Effect,
+        Camera,
     };
 
     constexpr static ObjectTag ObjectTagAll[] =
@@ -22,6 +23,7 @@ namespace My3dApp
         ObjectTag::PlayerBullet,
         ObjectTag::Enemy,
         ObjectTag::EnemyBullet,
+        ObjectTag::Effect,
         ObjectTag::Camera,
     };
 }// namespace My3dApp
