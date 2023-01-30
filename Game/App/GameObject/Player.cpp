@@ -76,7 +76,8 @@ namespace My3dApp
         // 3Dƒ‚ƒfƒ‹‚Ì•`‰æ
         MV1DrawModel(modelHandle);
 
-        DrawCollider();
+        // “–‚½‚è”»’è‚Ì•`‰æ
+        //DrawCollider();
     }
 
     void Player::OnCollisionEnter(const GameObject* other)
