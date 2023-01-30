@@ -157,7 +157,6 @@
     <ClCompile Include="GameObject\Camera.cpp" />
     <ClCompile Include="GameObject\Effect\BaseEffect.cpp" />
     <ClCompile Include="GameObject\Effect\HitEffect.cpp" />
-    <ClCompile Include="GameObject\Enemy.cpp" />
     <ClCompile Include="GameObject\Enemy\BaseEnemy.cpp" />
     <ClCompile Include="GameObject\Enemy\HeavyEnemy.cpp" />
     <ClCompile Include="GameObject\Enemy\LightEnemy.cpp" />
@@ -189,7 +188,6 @@
     <ClInclude Include="GameObject\Camera.h" />
     <ClInclude Include="GameObject\Effect\BaseEffect.h" />
     <ClInclude Include="GameObject\Effect\HitEffect.h" />
-    <ClInclude Include="GameObject\Enemy.h" />
     <ClInclude Include="GameObject\Enemy\BaseEnemy.h" />
     <ClInclude Include="GameObject\Enemy\HeavyEnemy.h" />
     <ClInclude Include="GameObject\Enemy\LightEnemy.h" />

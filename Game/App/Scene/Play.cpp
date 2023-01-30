@@ -6,7 +6,7 @@
 #include "../GameObject/Player.h"
 #include "../GameObject/Camera.h"
 #include "../GameObject/Map.h"
-#include "../GameObject/Enemy.h"
+#include "../GameObject/Enemy/NormalEnemy.h"
 #include "../Library/DebugGrid.h"
 #include "Result.h"
 
@@ -27,7 +27,7 @@ namespace My3dApp
 
         GameObjectManager::Entry(new Map(VGet(0, 0, 0)));
 
-        GameObjectManager::Entry(new Enemy(VGet(0, 100, 1000)));
+        GameObjectManager::Entry(new NormalEnemy(VGet(0, 100, 1000)));
     }
 
     Play::~Play()
@@ -43,10 +43,7 @@ namespace My3dApp
 
         SceneBase* retScene = this;
 
-        if (EnemyManager::IsCreateEnemy(deltaTime))
-        {
-            GameObjectManager::Entry(new Enemy(VGet((float)(rand() % 10 * 100), 500.0f, (float)(rand() % 10 * 100))));
-        }
+        EnemyManager::Update(deltaTime);
 
         GameObjectManager::Update(deltaTime);
 

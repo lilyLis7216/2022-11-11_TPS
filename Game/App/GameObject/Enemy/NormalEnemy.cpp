@@ -8,6 +8,7 @@ namespace My3dApp
     NormalEnemy::NormalEnemy(VECTOR pos)
         : BaseEnemy(pos)
     {
+        // モデルの読み込み
         modelHandle = AssetManager::GetMesh("../asset/model/enemy.mv1");
 
         // 座標の設定
@@ -28,6 +29,7 @@ namespace My3dApp
 
     NormalEnemy::~NormalEnemy()
     {
+        // モデルの後始末
         AssetManager::ReleaseMesh(modelHandle);
     }
 

@@ -50,7 +50,7 @@ namespace My3dApp
         MV1DrawModel(modelHandle);
 
         // 当たり判定の描画
-        DrawCollider();
+        //DrawCollider();
 
         // 蓄積ダメージの表示
         DamageParView();

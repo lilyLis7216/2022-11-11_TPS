@@ -17,7 +17,15 @@ namespace My3dApp
         void Move(float deltaTime)override;
 
     public:
+        /// <summary>
+        /// コンストラクタ
+        /// </summary>
+        /// <param name="pos">初期位置</param>
         LightEnemy(VECTOR pos);
+
+        /// <summary>
+        /// デストラクタ
+        /// </symmary>
         ~LightEnemy();
 
         /// <summary>
