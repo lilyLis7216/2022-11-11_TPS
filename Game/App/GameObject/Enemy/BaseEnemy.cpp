@@ -82,7 +82,7 @@ namespace My3dApp
                 // ‰Ÿ‚µ–ß‚µ
                 pos += pushBackVec;
 
-                onGround = true;
+                //onGround = true;
 
                 // “–‚½‚è”»’èî•ñ‚Ì‰ğ•ú
                 MV1CollResultPolyDimTerminate(collInfo);
@@ -213,6 +213,17 @@ namespace My3dApp
         DrawFormatString((int)screenPos.x - 10, (int)screenPos.y - 50, GetColor(255, 255, 255), "%1.1f“", damagePar);
     }
 
+    bool BaseEnemy::IsDead()
+    {
+        // ˆê’èˆÈã—‰º‚µ‚½‚ç
+        if (pos.y < -500.0f)
+        {
+            // €‚ñ‚Å‚¢‚é
+            return true;
+        }
+        return false;
+    }
+
     void BaseEnemy::Shot()
     {
         if (shotInterval < 0)
@@ -220,5 +231,9 @@ namespace My3dApp
             shotInterval = 1.0f;
             GameObjectManager::Entry(new NormalBullet(ObjectTag::EnemyBullet, pos, dir));
         }
+    }
+
+    void BaseEnemy::NockBack()
+    {
     }
 }// namespace My3dApp

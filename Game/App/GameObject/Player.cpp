@@ -102,18 +102,10 @@ namespace My3dApp
                 // 押し戻し
                 pos += pushBackVec;
 
-                onGround = true;
-
                 // 当たり判定情報の解放
                 MV1CollResultPolyDimTerminate(collInfo);
 
                 // 当たり判定の更新
-                CollisionUpdate();
-            }
-            else
-            {
-                onGround = false;
-
                 CollisionUpdate();
             }
 
@@ -274,18 +266,17 @@ namespace My3dApp
             }
 
             speed = inputVec + (inputVec * deltaTime * 400.0f);
+            pos += speed;
         }
         else
         {
             speed *= 0.9f;
+            //pos += speed;
         }
+
+        speed = (VGet(0, -1, 0) * 10.0f);
 
         pos += speed;
-
-        if (!onGround)
-        {
-            speed = (VGet(0, -1, 0) * 10.0f);
-        }
 
         // 3Dモデルのポジション設定
         MV1SetPosition(modelHandle, pos);

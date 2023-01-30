@@ -22,9 +22,16 @@ namespace My3dApp
         // 回転中か
         bool isRotate;
 
+        // 発射の間隔
         float shotInterval;
 
+        // 蓄積ダメージ
         float damagePar;
+
+        // ノックバック中か
+        bool isNockBack;
+
+        
 
         /// <summary>
         /// エネミーの移動
@@ -42,7 +49,15 @@ namespace My3dApp
         /// </summary>
         void DamageParView();
 
+        /// <summary>
+        /// 死んでいるかどうかの確認
+        /// </summary>
+        /// <returns>true 死んでいる false 死んでいない</returns>
+        bool IsDead();
+
         void Shot();
+
+        void NockBack();
 
     public:
         /// <summary>

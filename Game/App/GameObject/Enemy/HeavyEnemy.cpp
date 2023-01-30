@@ -36,6 +36,11 @@ namespace My3dApp
     {
         // 移動
         Move(deltaTime);
+
+        if (IsDead())
+        {
+            isAlive = false;
+        }
     }
 
     void HeavyEnemy::Move(float deltaTime)
@@ -59,10 +64,7 @@ namespace My3dApp
 
             speed = (dir * deltaTime * 300.0f);
 
-            if (onGround)
-            {
-                pos += speed;
-            }
+            pos += speed;
         }
         else
         {
@@ -73,14 +75,9 @@ namespace My3dApp
             Shot();
         }
 
-        if (!onGround)
-        {
-            speed = (VGet(0, -1, 0) * 10.0f);
+        speed = (VGet(0, -1, 0) * 10.0f);
 
-            pos += speed;
-
-            CollisionUpdate();
-        }
+        pos += speed;
 
         // 3Dモデルのポジション設定
         MV1SetPosition(modelHandle, pos);
@@ -95,10 +92,5 @@ namespace My3dApp
 
         // 当たり判定モデルの位置更新
         CollisionUpdate();
-
-        if (pos.y < -500.0f)
-        {
-            isAlive = false;
-        }
     }
 }// namespace My3dApp
