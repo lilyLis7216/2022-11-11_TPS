@@ -169,8 +169,7 @@ namespace My3dApp
 
         // 待機フレーム時間（60fps想定）
         // 1/60 = 1.66666...
-        // 16000マイクロ秒 = 16ミリ秒 = 0.016秒
-        float waitFrameTime = 15900;
+        float waitFrameTime = 16667;
 
         SetBackgroundColor(128, 128, 128);
 
