@@ -9,7 +9,7 @@ namespace My3dApp
     /// <param name="pos">初期位置</param>
     BaseEffect::BaseEffect(VECTOR pos)
         : GameObject(ObjectTag::Effect, pos)
-        , effectHandle(0)
+        , effectHandle(-1)
         , playEffect(-1)
         , isPlay(false)
     {
@@ -22,13 +22,5 @@ namespace My3dApp
     BaseEffect::~BaseEffect()
     {
         // 処理なし
-    }
-
-    /// <summary>
-    /// エフェクトの描画
-    /// </summary>
-    void BaseEffect::Draw()
-    {
-        DrawEffekseer3D();
     }
 }// namespace My3dApp

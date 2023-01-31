@@ -30,10 +30,5 @@ namespace My3dApp
         /// デストラクタ
         /// </summary>
         virtual ~BaseEffect();
-
-        /// <summary>
-        /// エフェクトの描画
-        /// </summary>
-        void Draw() override;
     };
 }// namespace My3dApp

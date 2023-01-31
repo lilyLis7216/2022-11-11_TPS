@@ -1,5 +1,6 @@
 #include "Play.h"
 #include "DxLib.h"
+#include "EffekseerForDXLib.h"
 #include "../Manager/GameManager.h"
 #include "../Manager/GameObjectManager.h"
 #include "../Manager/EnemyManager.h"
@@ -47,6 +48,9 @@ namespace My3dApp
 
         GameObjectManager::Update(deltaTime);
 
+        // エフェクシアの更新
+        UpdateEffekseer3D();
+
         GameObjectManager::Collision();
 
         retScene = CheckRetScene(3);
@@ -64,6 +68,8 @@ namespace My3dApp
         //DrawGrid(3000, 30);
 
         GameObjectManager::Draw();
+
+        DrawEffekseer3D();
 
         CheckNowScene();
     }

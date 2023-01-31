@@ -98,7 +98,7 @@ namespace My3dApp
             {
                 if (CollisionPair(collisionSphere, other->GetCollisionSphere()))
                 {
-                    //GameObjectManager::Entry(new HitEffect(pos));
+                    GameObjectManager::Entry(new HitEffect(pos));
 
                     isAlive = false;
                 }

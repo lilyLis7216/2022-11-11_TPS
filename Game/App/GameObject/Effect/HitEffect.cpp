@@ -42,9 +42,7 @@ namespace My3dApp
         // エフェクトの位置設定
         SetPosPlayingEffekseer3DEffect(playEffect, pos.x, pos.y, pos.z);
 
-        // エフェクシアの更新
-        UpdateEffekseer3D();
-
+        
         if (IsEffekseer3DEffectPlaying(playEffect) == -1)
         {
             isAlive = false;
