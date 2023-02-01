@@ -93,4 +93,8 @@ namespace My3dApp
         // 当たり判定モデルの位置更新
         CollisionUpdate();
     }
+
+    void HeavyEnemy::NockBack(float deltaTime)
+    {
+    }
 }// namespace My3dApp

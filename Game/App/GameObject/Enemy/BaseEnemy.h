@@ -31,7 +31,14 @@ namespace My3dApp
         // ノックバック中か
         bool isNockBack;
 
-        
+        // ノックバックの向き
+        VECTOR nockBackDir;
+
+        const float jumpForce = 200.0f;
+
+        const float GRAVITY = 250.0f;
+
+        float gravity;
 
         /// <summary>
         /// エネミーの移動
@@ -57,7 +64,11 @@ namespace My3dApp
 
         void Shot();
 
-        void NockBack();
+        /// <summary>
+        /// エネミーのノックバック処理
+        /// </summary>
+        /// <param name="deltaTime">1フレームの経過時間</param>
+        virtual void NockBack(float deltaTime) = 0;
 
     public:
         /// <summary>

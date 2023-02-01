@@ -14,7 +14,9 @@ namespace My3dApp
         /// ヘビーエネミーの移動
         /// </summary>
         /// <param name="deltaTime">1フレームの経過時間</param>
-        void Move(float deltaTime)override;
+        void Move(float deltaTime) override;
+
+        void NockBack(float deltaTime) override;
 
     public:
         /// <summary>

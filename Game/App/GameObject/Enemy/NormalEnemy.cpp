@@ -23,6 +23,8 @@ namespace My3dApp
         // 当たり判定球の半径の設定
         collisionSphere.radius = 65.0f;
 
+        gravity = -500.0f;
+
         // 当たり判定の更新
         CollisionUpdate();
     }
@@ -35,8 +37,21 @@ namespace My3dApp
 
     void NormalEnemy::Update(float deltaTime)
     {
-        // 移動
-        Move(deltaTime);
+        if (isNockBack)
+        {
+            NockBack(deltaTime);
+        }
+        else
+        {
+            // 移動
+            Move(deltaTime);
+        }
+
+        // 3Dモデルのポジション設定
+        MV1SetPosition(modelHandle, pos);
+
+        // 当たり判定モデルの位置更新
+        CollisionUpdate();
 
         if (IsDead())
         {
@@ -76,12 +91,7 @@ namespace My3dApp
             Shot();
         }
 
-        speed = (VGet(0, -1, 0) * 10.0f);
-
-        pos += speed;
-
-        // 3Dモデルのポジション設定
-        MV1SetPosition(modelHandle, pos);
+        pos.y += gravity * deltaTime;
 
         // 向きに合わせてモデルを回転
         MATRIX rotYMat = MGetRotY(180.0f * (float)(DX_PI / 180.0f));
@@ -91,7 +101,19 @@ namespace My3dApp
         // モデルに回転をセットする
         MV1SetRotationZYAxis(modelHandle, negativeVec, VGet(0.0f, 1.0f, 0.0f), 0.0f);
 
-        // 当たり判定モデルの位置更新
-        CollisionUpdate();
+    }
+
+    void NormalEnemy::NockBack(float deltaTime)
+    {
+        // ノックバックする向きを正規化して
+        nockBackDir = VNorm(nockBackDir);
+
+        speed = (nockBackDir * 400.0f * deltaTime);
+
+        pos += speed;
+
+        gravity -= GRAVITY * deltaTime;
+
+        pos.y += gravity * deltaTime;
     }
 }// namespace My3dApp

@@ -18,6 +18,9 @@ namespace My3dApp
         , isRotate(false)
         , shotInterval(2.0f)
         , damagePar(0.0f)
+        , isNockBack(false)
+        , nockBackDir(VGet(0, 1, 0))
+        , gravity(10.0f)
     {
         // 当たり判定種類の設定
         collisionType = CollisionType::Sphere;
@@ -50,10 +53,13 @@ namespace My3dApp
         MV1DrawModel(modelHandle);
 
         // 当たり判定の描画
-        //DrawCollider();
+        DrawCollider();
 
-        // 蓄積ダメージの表示
-        DamageParView();
+        if (pos.y > 0.0f)
+        {
+            // 蓄積ダメージの表示
+            DamageParView();
+        }
     }
 
     /// <summary>
@@ -82,18 +88,17 @@ namespace My3dApp
                 // 押し戻し
                 pos += pushBackVec;
 
-                //onGround = true;
+                gravity = 0;
+
+                if (gravity == 0)
+                {
+                    isNockBack = false;
+                }
 
                 // 当たり判定情報の解放
                 MV1CollResultPolyDimTerminate(collInfo);
 
                 // 当たり判定の更新
-                CollisionUpdate();
-            }
-            else
-            {
-                onGround = false;
-
                 CollisionUpdate();
             }
 
@@ -161,11 +166,18 @@ namespace My3dApp
                     pushBack = VNorm(pushBack);
 
                     // 押し戻す
-                    pos += pushBack * -dif * 100.0f;
+                    //pos += pushBack * -dif * 100.0f;
 
-                    pos.y += 200.0f;
+                    //pos.y += 200.0f;
 
                     damagePar += 10.0f;
+
+                    isNockBack = true;
+
+                    gravity = jumpForce;
+
+                    nockBackDir = other->GetDir();
+
                 }
 
                 // 当たり判定の更新
@@ -231,9 +243,5 @@ namespace My3dApp
             shotInterval = 1.0f;
             GameObjectManager::Entry(new NormalBullet(ObjectTag::EnemyBullet, pos, dir));
         }
-    }
-
-    void BaseEnemy::NockBack()
-    {
     }
 }// namespace My3dApp

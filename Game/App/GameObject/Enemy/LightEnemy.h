@@ -16,6 +16,8 @@ namespace My3dApp
         /// <param name="deltaTime">1フレームの経過時間</param>
         void Move(float deltaTime)override;
 
+        void NockBack(float deltaTime) override;
+
     public:
         /// <summary>
         /// コンストラクタ
