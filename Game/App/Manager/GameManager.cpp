@@ -139,10 +139,7 @@ namespace My3dApp
         SetCameraNearFar(10.0f, 30000.0f);
 
         // カメラの位置と向きを設定
-        SetCameraPositionAndTarget_UpVecY(VGet(0, 80, -200), VGet(0.0f, 80.0f, 0.0f));
-
-        // DXライブラリのカメラとEffekseerのカメラを同期
-        Effekseer_Sync3DSetting();
+        SetCameraPositionAndTarget_UpVecY(VGet(0.0f, 80.0f, -200.0f), VGet(0.0f, 80.0f, 0.0f));
 
         // ライトの方向を設定
         SetLightDirection(VGet(-1.5f, -3.5f, 0.5f));

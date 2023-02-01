@@ -2,6 +2,7 @@
 #include "../Manager/GameObjectManager.h"
 #include "../Library/Calc3D.h"
 #include "../Library/GamePad.h"
+#include "EffekseerForDXLib.h"
 
 namespace My3dApp
 {
@@ -87,6 +88,9 @@ namespace My3dApp
             pos += posMoveDir * cameraSpringStrength * deltaTime;
 
             SetCameraPositionAndTarget_UpVecY(pos, lookPos);
+
+            // DXライブラリのカメラとEffekseerのカメラを同期
+            Effekseer_Sync3DSetting();
         }
     }
 }// namespace My3dApp
