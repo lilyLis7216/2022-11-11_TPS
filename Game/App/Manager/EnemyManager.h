@@ -15,7 +15,7 @@ namespace My3dApp
 
         static EnemyManager* instance;
 
-        static const int enemyNumMax = 3;
+        static const int enemyNumMax = 1;
 
         static int enemyNum;
 
