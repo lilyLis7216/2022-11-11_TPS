@@ -11,7 +11,7 @@ namespace My3dApp
         : BaseEffect(pos)
     {
         // エフェクトの読み込み
-        effectHandle = LoadEffekseerEffect("../asset/effect/hit.efkefc", 1.0f);
+        effectHandle = LoadEffekseerEffect("../asset/_ef/hit.efkefc", 10.0f);
     }
 
     /// <summary>
