@@ -9,10 +9,16 @@ namespace My3dApp
     BaseBullet::BaseBullet(ObjectTag tag, VECTOR pos, VECTOR dir)
         : GameObject(tag, pos)
         , speed(VGet(0, 0, 0))
+        , bulletType(-1)
+        , radius(0)
+        , divNum(16)
+        , difColor(-1)
+        , spcColor(-1)
+        , isFill(true)
         , vanishCount(5.0f)
         , boost(0)
-        , bulletType(-1)
     {
+        // 向きを設定
         this->dir = dir;
 
         // 当たり判定種類の設定
@@ -35,10 +41,10 @@ namespace My3dApp
     /// </summary>
     void BaseBullet::Draw()
     {
-        // モデルの描画
-        MV1DrawModel(modelHandle);
+        // 球の描画
+        DrawSphere3D(pos, collisionSphere.radius, divNum, difColor, spcColor, isFill);
 
-        // 当たり判定の描画(必要な場合非コメント化)
+        // 当たり判定の描画
         DrawCollider();
     }
 }// namespace My3dApp

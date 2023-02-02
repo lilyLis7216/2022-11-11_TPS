@@ -13,14 +13,29 @@ namespace My3dApp
         // 速度
         VECTOR speed;
 
+        // 弾の種類
+        int bulletType;
+
+        // 弾の半径
+        float radius;
+
+        // 形成時のポリゴンの細かさ
+        int divNum;
+
+        // ディフューズカラー
+        int difColor;
+
+        // スペキュラカラー
+        int spcColor;
+
+        // 塗りつぶし
+        bool isFill;
+
         // 消失までのカウント
         float vanishCount;
 
         // 弾にかける加速
         float boost;
-
-        // 弾の種類
-        int bulletType;
 
     public:
         /// <summary>

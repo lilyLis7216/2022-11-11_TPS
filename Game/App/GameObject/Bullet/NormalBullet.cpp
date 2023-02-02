@@ -1,7 +1,6 @@
 #include "NormalBullet.h"
-#include "../../Manager/AssetManager.h"
-#include "../../Library/Calc3D.h"
 #include "../../Manager/GameObjectManager.h"
+#include "../../Library/Calc3D.h"
 #include "../Effect/HitEffect.h"
 
 namespace My3dApp
@@ -21,27 +20,21 @@ namespace My3dApp
         // オブジェクトの種類がプレイヤー弾なら
         if (tag == ObjectTag::PlayerBullet)
         {
-            modelHandle = AssetManager::GetMesh("../asset/model/bullet/playerBullet.mv1");
+            difColor = GetColor(0, 0, 255);
             boost = 800.0f;
         }
         // オブジェクトの種類がエネミー弾なら
         else if (tag == ObjectTag::EnemyBullet)
         {
-            modelHandle = AssetManager::GetMesh("../asset/model/bullet/enemyBullet.mv1");
+            difColor = GetColor(255, 0, 0);
             boost = 1000.0f;
         }
 
-        // 座標の設定
-        MV1SetPosition(modelHandle, this->pos);
-
-        // モデルの大きさ
-        float modelSize = 0.25f;
-
-        // 大きさの設定
-        MV1SetScale(modelHandle, VGet(modelSize, modelSize, modelSize));
+        // 弾の半径の設定
+        radius = 25.0f;
 
         // 当たり判定球の半径の設定
-        collisionSphere.radius = 25.0f;
+        collisionSphere.radius = radius;
 
         // 当たり判定の更新
         CollisionUpdate();
@@ -52,7 +45,7 @@ namespace My3dApp
     /// </summary>
     NormalBullet::~NormalBullet()
     {
-        AssetManager::ReleaseMesh(modelHandle);
+        // 処理なし
     }
 
     /// <summary>
@@ -73,9 +66,6 @@ namespace My3dApp
         speed = dir * deltaTime * boost;
 
         pos += speed;
-
-        // モデルの位置の更新
-        MV1SetPosition(modelHandle, pos);
 
         // 当たり判定の更新
         CollisionUpdate();
