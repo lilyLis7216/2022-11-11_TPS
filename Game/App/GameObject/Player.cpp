@@ -14,6 +14,9 @@ namespace My3dApp
         , isRotate(false)
         , shotInterval(0)
         , isCharge(false)
+        , isNockBack(false)
+        , nockBackDir(VGet(0, 1, 0))
+        , gravity(-500.0f)
     {
         // 3Dモデルの読み込み
         modelHandle = AssetManager::GetMesh("../asset/model/player.mv1");
@@ -60,9 +63,17 @@ namespace My3dApp
 
     void Player::Update(float deltaTime)
     {
+        if (isNockBack)
+        {
+            NockBack(deltaTime);
+        }
+
         Move(deltaTime);
 
         RotateCheck();
+
+        // 3Dモデルのポジション設定
+        MV1SetPosition(modelHandle, pos);
 
         shotInterval -= deltaTime;
 
@@ -77,7 +88,7 @@ namespace My3dApp
         MV1DrawModel(modelHandle);
 
         // 当たり判定の描画
-        //DrawCollider();
+        DrawCollider();
     }
 
     void Player::OnCollisionEnter(const GameObject* other)
@@ -101,6 +112,13 @@ namespace My3dApp
 
                 // 押し戻し
                 pos += pushBackVec;
+
+                gravity = 0;
+
+                if (gravity == 0)
+                {
+                    isNockBack = false;
+                }
 
                 // 当たり判定情報の解放
                 MV1CollResultPolyDimTerminate(collInfo);
@@ -173,8 +191,11 @@ namespace My3dApp
                     // 正規化して
                     pushBack = VNorm(pushBack);
 
-                    // 押し戻す
-                    pos += pushBack * -dif * 100.0f;
+                    isNockBack = true;
+
+                    gravity = jumpForce;
+
+                    nockBackDir = other->GetDir();
                 }
 
                 // 当たり判定の更新
@@ -271,15 +292,16 @@ namespace My3dApp
         else
         {
             speed *= 0.9f;
-            //pos += speed;
         }
 
-        speed = (VGet(0, -1, 0) * 10.0f);
+        /*speed = (VGet(0, -1, 0) * 10.0f);
 
-        pos += speed;
+        pos += speed;*/
 
-        // 3Dモデルのポジション設定
-        MV1SetPosition(modelHandle, pos);
+        gravity -= GRAVITY * deltaTime;
+
+        pos.y += gravity * deltaTime;
+
 
         // 向きに合わせてモデルを回転
         MATRIX rotYMat = MGetRotY(180.0f * (float)(DX_PI / 180.0f));
@@ -289,8 +311,6 @@ namespace My3dApp
         // モデルに回転をセットする
         MV1SetRotationZYAxis(modelHandle, negativeVec, VGet(0.0f, 1.0f, 0.0f), 0.0f);
 
-        // 当たり判定モデルの位置更新
-        CollisionUpdate();
     }
 
     void Player::RotateCheck()
@@ -343,5 +363,19 @@ namespace My3dApp
         {
             isCharge = false;
         }
+    }
+
+    void Player::NockBack(float deltaTime)
+    {
+        // ノックバックする向きを正規化して
+        nockBackDir = VNorm(nockBackDir);
+
+        speed = (nockBackDir * 400.0f * deltaTime);
+
+        pos += speed;
+
+        gravity -= GRAVITY * deltaTime;
+
+        pos.y += gravity * deltaTime;
     }
 }// namespace My3dApp

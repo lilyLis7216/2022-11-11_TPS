@@ -194,6 +194,13 @@ namespace My3dApp
             {
                 instance->objects[mainTag][playerNum]->OnCollisionEnter(instance->objects[pairTag][enemyNum]);
             }
+
+            // エネミー弾との当たり判定
+            pairTag = ObjectTag::EnemyBullet;
+            for (int eBulletNum = 0; eBulletNum < instance->objects[pairTag].size(); ++eBulletNum)
+            {
+                instance->objects[mainTag][playerNum]->OnCollisionEnter(instance->objects[pairTag][eBulletNum]);
+            }
         }
 
         // プレイヤー弾の当たり判定

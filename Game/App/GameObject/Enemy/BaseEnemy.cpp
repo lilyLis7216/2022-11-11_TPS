@@ -165,11 +165,6 @@ namespace My3dApp
                     // ê≥ãKâªÇµÇƒ
                     pushBack = VNorm(pushBack);
 
-                    // âüÇµñﬂÇ∑
-                    //pos += pushBack * -dif * 100.0f;
-
-                    //pos.y += 200.0f;
-
                     damagePar += 10.0f;
 
                     isNockBack = true;

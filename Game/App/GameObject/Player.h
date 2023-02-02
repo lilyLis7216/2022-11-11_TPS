@@ -25,6 +25,18 @@ namespace My3dApp
         // チャージ中か
         bool isCharge;
 
+        // ノックバック中か
+        bool isNockBack;
+
+        // ノックバックの向き
+        VECTOR nockBackDir;
+
+        const float jumpForce = 200.0f;
+
+        const float GRAVITY = 250.0f;
+
+        float gravity;
+
         /// <summary>
         /// プレイヤーの移動
         /// </summary>
@@ -40,6 +52,12 @@ namespace My3dApp
         /// 射撃処理
         /// </summary>
         void Shot();
+
+        /// <summary>
+        /// プレイヤーのノックバック処理
+        /// </summary>
+        /// <param name="deltaTime">1フレームの経過時間</param>
+        void NockBack(float deltaTime);
 
     public:
         /// <summary>
