@@ -70,14 +70,18 @@ namespace My3dApp
 
         Move(deltaTime);
 
-        RotateCheck();
+        gravity -= GRAVITY * deltaTime;
 
-        // 3Dモデルのポジション設定
-        MV1SetPosition(modelHandle, pos);
+        pos.y += gravity * deltaTime;
 
         shotInterval -= deltaTime;
 
         Shot();
+
+        // 3Dモデルのポジション設定
+        MV1SetPosition(modelHandle, pos);
+
+        RotateCheck();
 
         CollisionUpdate();
     }
@@ -182,15 +186,6 @@ namespace My3dApp
 
                 if (collisionSphere.radius + other->GetCollisionSphere().radius > r)
                 {
-                    // 差分を計算して
-                    float dif = collisionSphere.radius + other->GetCollisionSphere().radius - r;
-
-                    // 押し戻し量を計算する
-                    VECTOR pushBack = other->GetCollisionSphere().worldCenter - collisionSphere.worldCenter;
-
-                    // 正規化して
-                    pushBack = VNorm(pushBack);
-
                     isNockBack = true;
 
                     gravity = jumpForce;
@@ -213,7 +208,7 @@ namespace My3dApp
         VECTOR front = pos - camera->GetPos();
 
         // 高さ無効
-        front.y = 0.0f;
+        front.y = 0;
 
         // ベクトルの正規化
         front = VNorm(front);
@@ -287,21 +282,13 @@ namespace My3dApp
             }
 
             speed = inputVec + (inputVec * deltaTime * 400.0f);
+
             pos += speed;
         }
         else
         {
             speed *= 0.9f;
         }
-
-        /*speed = (VGet(0, -1, 0) * 10.0f);
-
-        pos += speed;*/
-
-        gravity -= GRAVITY * deltaTime;
-
-        pos.y += gravity * deltaTime;
-
 
         // 向きに合わせてモデルを回転
         MATRIX rotYMat = MGetRotY(180.0f * (float)(DX_PI / 180.0f));
@@ -373,9 +360,5 @@ namespace My3dApp
         speed = (nockBackDir * 400.0f * deltaTime);
 
         pos += speed;
-
-        gravity -= GRAVITY * deltaTime;
-
-        pos.y += gravity * deltaTime;
     }
 }// namespace My3dApp

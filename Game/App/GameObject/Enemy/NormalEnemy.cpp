@@ -39,13 +39,30 @@ namespace My3dApp
     {
         if (isNockBack)
         {
+            // ノックバック処理
             NockBack(deltaTime);
         }
         else
         {
             // 移動
             Move(deltaTime);
+
+            shotInterval -= deltaTime;
+
+            Shot();
         }
+
+        gravity -= GRAVITY * deltaTime;
+
+        pos.y += gravity * deltaTime;
+
+        // 向きに合わせてモデルを回転
+        MATRIX rotYMat = MGetRotY(180.0f * (float)(DX_PI / 180.0f));
+
+        VECTOR negativeVec = VTransform(dir, rotYMat);
+
+        // モデルに回転をセットする
+        MV1SetRotationZYAxis(modelHandle, negativeVec, VGet(0.0f, 1.0f, 0.0f), 0.0f);
 
         // 3Dモデルのポジション設定
         MV1SetPosition(modelHandle, pos);
@@ -72,10 +89,6 @@ namespace My3dApp
 
         if (VSize(tmp) > 300.0f)
         {
-            shotInterval -= deltaTime;
-
-            Shot();
-
             dir = VNorm(tmp);
 
             speed = (dir * deltaTime * 300.0f);
@@ -84,23 +97,8 @@ namespace My3dApp
         }
         else
         {
-            shotInterval -= deltaTime;
-
             dir = VNorm(tmp);
-
-            Shot();
         }
-
-        pos.y += gravity * deltaTime;
-
-        // 向きに合わせてモデルを回転
-        MATRIX rotYMat = MGetRotY(180.0f * (float)(DX_PI / 180.0f));
-
-        VECTOR negativeVec = VTransform(dir, rotYMat);
-
-        // モデルに回転をセットする
-        MV1SetRotationZYAxis(modelHandle, negativeVec, VGet(0.0f, 1.0f, 0.0f), 0.0f);
-
     }
 
     void NormalEnemy::NockBack(float deltaTime)
@@ -111,9 +109,5 @@ namespace My3dApp
         speed = (nockBackDir * 400.0f * deltaTime);
 
         pos += speed;
-
-        gravity -= GRAVITY * deltaTime;
-
-        pos.y += gravity * deltaTime;
     }
 }// namespace My3dApp

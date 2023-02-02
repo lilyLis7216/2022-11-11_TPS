@@ -156,15 +156,6 @@ namespace My3dApp
 
                 if (collisionSphere.radius + other->GetCollisionSphere().radius > r)
                 {
-                    // 差分を計算して
-                    float dif = collisionSphere.radius + other->GetCollisionSphere().radius - r;
-
-                    // 押し戻し量を計算する
-                    VECTOR pushBack = other->GetCollisionSphere().worldCenter - collisionSphere.worldCenter;
-
-                    // 正規化して
-                    pushBack = VNorm(pushBack);
-
                     damagePar += 10.0f;
 
                     isNockBack = true;
@@ -172,7 +163,6 @@ namespace My3dApp
                     gravity = jumpForce;
 
                     nockBackDir = other->GetDir();
-
                 }
 
                 // 当たり判定の更新
