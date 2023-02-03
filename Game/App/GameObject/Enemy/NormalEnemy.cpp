@@ -23,7 +23,9 @@ namespace My3dApp
         // 当たり判定球の半径の設定
         collisionSphere.radius = 65.0f;
 
-        gravity = -500.0f;
+        weight = 500.0f;
+
+        nockBackPar = 400.0f;
 
         // 当たり判定の更新
         CollisionUpdate();
@@ -40,7 +42,7 @@ namespace My3dApp
         if (isNockBack)
         {
             // ノックバック処理
-            NockBack(deltaTime);
+            KnockBack(deltaTime);
         }
         else
         {
@@ -52,7 +54,7 @@ namespace My3dApp
             Shot();
         }
 
-        gravity -= GRAVITY * deltaTime;
+        gravity -= weight * deltaTime;
 
         pos.y += gravity * deltaTime;
 
@@ -101,12 +103,14 @@ namespace My3dApp
         }
     }
 
-    void NormalEnemy::NockBack(float deltaTime)
+    void NormalEnemy::KnockBack(float deltaTime)
     {
         // ノックバックする向きを正規化して
         nockBackDir = VNorm(nockBackDir);
 
-        speed = (nockBackDir * 400.0f * deltaTime);
+        nockBackPar = damagePar * 40.0f;
+
+        speed = (nockBackDir * nockBackPar * deltaTime);
 
         pos += speed;
     }

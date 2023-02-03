@@ -36,7 +36,9 @@ namespace My3dApp
 
         const float jumpForce = 200.0f;
 
-        const float GRAVITY = 250.0f;
+        float weight;
+
+        float nockBackPar;
 
         float gravity;
 
@@ -68,7 +70,7 @@ namespace My3dApp
         /// エネミーのノックバック処理
         /// </summary>
         /// <param name="deltaTime">1フレームの経過時間</param>
-        virtual void NockBack(float deltaTime) = 0;
+        virtual void KnockBack(float deltaTime) = 0;
 
     public:
         /// <summary>

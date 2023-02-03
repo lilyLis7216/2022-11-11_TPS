@@ -20,6 +20,7 @@ namespace My3dApp
         , damagePar(0.0f)
         , isNockBack(false)
         , nockBackDir(VGet(0, 1, 0))
+        , weight(0)
         , gravity(10.0f)
     {
         // “–‚½‚è”»’èí—Ş‚Ìİ’è
