@@ -16,7 +16,7 @@ namespace My3dApp
         /// <param name="deltaTime">1ƒtƒŒ[ƒ€‚ÌŒo‰ßŠÔ</param>
         void Move(float deltaTime)override;
 
-        void NockBack(float deltaTime) override;
+        void KnockBack(float deltaTime) override;
 
     public:
         /// <summary>

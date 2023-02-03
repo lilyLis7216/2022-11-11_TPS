@@ -94,7 +94,7 @@ namespace My3dApp
         CollisionUpdate();
     }
 
-    void HeavyEnemy::NockBack(float deltaTime)
+    void HeavyEnemy::KnockBack(float deltaTime)
     {
     }
 }// namespace My3dApp
