@@ -57,7 +57,7 @@ namespace My3dApp
         /// プレイヤーのノックバック処理
         /// </summary>
         /// <param name="deltaTime">1フレームの経過時間</param>
-        void NockBack(float deltaTime);
+        void KnockBack(float deltaTime);
 
     public:
         /// <summary>

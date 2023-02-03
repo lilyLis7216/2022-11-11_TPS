@@ -65,7 +65,7 @@ namespace My3dApp
     {
         if (isNockBack)
         {
-            NockBack(deltaTime);
+            KnockBack(deltaTime);
         }
 
         Move(deltaTime);
@@ -352,7 +352,7 @@ namespace My3dApp
         }
     }
 
-    void Player::NockBack(float deltaTime)
+    void Player::KnockBack(float deltaTime)
     {
         // ノックバックする向きを正規化して
         nockBackDir = VNorm(nockBackDir);
