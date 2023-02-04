@@ -24,11 +24,11 @@ namespace My3dApp
 
         GameObjectManager::Entry(new Player());
 
-        GameObjectManager::Entry(new Camera(750, -1000));
+        GameObjectManager::Entry(new Camera(1000, -1000));
 
         GameObjectManager::Entry(new Map(VGet(0, 0, 0)));
 
-        GameObjectManager::Entry(new NormalEnemy(VGet(0, 100, 1000)));
+        GameObjectManager::Entry(new NormalEnemy(VGet(0, 200, 1000)));
     }
 
     Play::~Play()
