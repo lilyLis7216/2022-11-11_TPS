@@ -22,9 +22,6 @@ namespace My3dApp
         // 撃ったか
         bool isShoot;
 
-        // キー入力
-        int key[256] = { 0 };
-
     public:
         /// <summary>
         /// コンストラクタ

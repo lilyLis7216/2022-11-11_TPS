@@ -1,11 +1,12 @@
 #include "ChargeBullet.h"
 #include "../../Manager/GameObjectManager.h"
 #include "../../Library/Calc3D.h"
+#include "../../Library/GamePad.h"
 
 namespace My3dApp
 {
     ChargeBullet::ChargeBullet(ObjectTag tag, VECTOR pos, VECTOR dir)
-        : BaseBullet(tag,pos,dir)
+        : BaseBullet(tag, pos, dir)
         , isCharging(false)
         , chargeTime(0)
         , canMove(false)
@@ -40,12 +41,7 @@ namespace My3dApp
 
     void ChargeBullet::Update(float deltaTime)
     {
-        GetHitKeyStateAllEx(key);
-
-        if (key[KEY_INPUT_K] == 1)
-        {
-        }
-        else if (key[KEY_INPUT_K] > 1)
+        if (GamePad::GetButtonState(Button::B) > 1)
         {
             chargeTime += deltaTime;
 
@@ -53,13 +49,13 @@ namespace My3dApp
             {
                 GameObject* player = GameObjectManager::GetFirstGameObject(ObjectTag::Player);
 
-                pos = player->GetPos();
+                pos = player->GetPos() + player->GetDir() * 150.0f;
 
-                pos.y += 100.0f;
-
-                MV1SetPosition(modelHandle, pos);
+                pos.y += 50.0f;
 
                 dir = player->GetDir();
+
+                MV1SetPosition(modelHandle, pos);
 
                 if (chargeTime > 2.0f)
                 {
@@ -71,7 +67,7 @@ namespace My3dApp
                 }
             }
         }
-        else if (key[KEY_INPUT_K] == -1)
+        else if (GamePad::GetButtonState(Button::B) == -1)
         {
             isShoot = true;
             if (chargeTime > 1.0f)
