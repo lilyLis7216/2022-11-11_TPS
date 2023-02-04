@@ -4,9 +4,11 @@ namespace My3dApp
 {
     GamePad* GamePad::instance = nullptr;
 
-    XINPUT_STATE GamePad::padState;
+    XINPUT_STATE GamePad::inputState;
 
-    int GamePad::buttonInput = 0x00;
+    int GamePad::buttonBit = 0x00;
+
+    int GamePad::buttonState[16] = { 0 };
 
     const unsigned int BIT_FLAG[] =
     {
@@ -31,7 +33,7 @@ namespace My3dApp
     GamePad::GamePad()
     {
         instance = this;
-        padState = { 0 };
+        inputState = { 0 };
     }
 
     GamePad::~GamePad()
@@ -57,28 +59,48 @@ namespace My3dApp
 
     void GamePad::Update()
     {
-        GetJoypadXInputState(DX_INPUT_KEY_PAD1, &padState);
+        GetJoypadXInputState(DX_INPUT_KEY_PAD1, &inputState);
 
         // 全ボタンの入力確認
         for (int i = 0; i < 16; i++)
         {
-            if (padState.Buttons[i])
+            if (inputState.Buttons[i])
             {
-                buttonInput |= (1 << BIT_FLAG[i]);
+                if (buttonBit & BIT_FLAG[i])
+                {
+                    buttonState[i]++;
+                }
+                else
+                {
+                    buttonBit |= BIT_FLAG[i];
+                }
             }
             else
             {
-                buttonInput &= ~(1 << BIT_FLAG[i]);
+                if (buttonBit & BIT_FLAG[i])
+                {
+                    buttonBit &= ~BIT_FLAG[i];
+                    buttonState[i] = -1;
+                }
+                else
+                {
+                    buttonState[i] = 0;
+                }
             }
         }
     }
 
     bool GamePad::GetInput(const int buttonNumber)
     {
-        if (buttonInput & (1 << BIT_FLAG[buttonNumber]))
+        if (buttonBit & BIT_FLAG[buttonNumber])
         {
             return true;
         }
         return false;
+    }
+
+    int GamePad::GetButtonState(const int buttonNumber)
+    {
+        return buttonState[buttonNumber];
     }
 }/** namespace My3dApp*/

@@ -26,10 +26,13 @@ namespace My3dApp
         static GamePad* instance;
 
         // パッドの入力状態
-        static XINPUT_STATE padState;
+        static XINPUT_STATE inputState;
 
-        // ボタンの入力識別用
-        static int buttonInput;
+        // ボタンの入力ビット
+        static int buttonBit;
+
+        // 
+        static int buttonState[16];
 
     public:
         /// <summary>
@@ -76,40 +79,47 @@ namespace My3dApp
         static bool GetInput(const int buttonNumber);
 
         /// <summary>
+        /// ボタンの状態取得
+        /// </summary>
+        /// <param name="buttonNumber">取得したいボタン</param>
+        /// <returns>0:押されていない 1:押された瞬間 2～:押しっぱなし -1:離した瞬間</returns>
+        static int GetButtonState(const int buttonNumber);
+
+        /// <summary>
         /// 左トリガーの取得
         /// </summary>
         /// <returns></returns>
-        static const unsigned char GetLeftTrigger() { return padState.LeftTrigger; }
+        static const unsigned char GetLeftTrigger() { return inputState.LeftTrigger; }
 
         /// <summary>
         /// 右トリガーの取得
         /// </summary>
         /// <returns></returns>
-        static const unsigned char GetRightTrigger() { return padState.RightTrigger; }
+        static const unsigned char GetRightTrigger() { return inputState.RightTrigger; }
 
         /// <summary>
         /// 左スティックのX座標
         /// </summary>
         /// <returns></returns>
-        static const short GetLeftStickX() { return padState.ThumbLX; }
+        static const short GetLeftStickX() { return inputState.ThumbLX; }
 
         /// <summary>
         /// 左スティックのY座標
         /// </summary>
         /// <returns></returns>
-        static const short GetLeftStickY() { return padState.ThumbLY; }
+        static const short GetLeftStickY() { return inputState.ThumbLY; }
 
         /// <summary>
         /// 右スティックのX座標
         /// </summary>
         /// <returns></returns>
-        static const short GetRightStickX() { return padState.ThumbRX; }
+        static const short GetRightStickX() { return inputState.ThumbRX; }
 
         /// <summary>
         /// 右スティックのY座標
         /// </summary>
         /// <returns></returns>
-        static const short GetRightStickY() { return padState.ThumbRY; }
+        static const short GetRightStickY() { return inputState.ThumbRY; }
     };
 
 #define Button GamePad::ButtonNum
