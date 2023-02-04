@@ -36,10 +36,13 @@ namespace My3dApp
 
         const float jumpForce = 200.0f;
 
+        // 重さ
         float weight;
 
+        // ノックバック量
         float nockBackPar;
 
+        // 重力
         float gravity;
 
         /// <summary>
@@ -64,13 +67,16 @@ namespace My3dApp
         /// <returns>true 死んでいる false 死んでいない</returns>
         bool IsDead();
 
-        void Shot();
+        /// <summary>
+        /// エネミーの射撃処理
+        /// </summary>
+        void Shot(float deltaTime);
 
         /// <summary>
         /// エネミーのノックバック処理
         /// </summary>
         /// <param name="deltaTime">1フレームの経過時間</param>
-        virtual void KnockBack(float deltaTime) = 0;
+        void KnockBack(float deltaTime);
 
     public:
         /// <summary>

@@ -25,8 +25,6 @@ namespace My3dApp
 
         weight = 500.0f;
 
-        nockBackPar = 400.0f;
-
         // 当たり判定の更新
         CollisionUpdate();
     }
@@ -49,9 +47,8 @@ namespace My3dApp
             // 移動
             Move(deltaTime);
 
-            shotInterval -= deltaTime;
-
-            Shot();
+            // 射撃
+            Shot(deltaTime);
         }
 
         gravity -= weight * deltaTime;
@@ -89,29 +86,13 @@ namespace My3dApp
         // 高さベクトルの無効化
         tmp.y = 0;
 
+        dir = VNorm(tmp);
+
         if (VSize(tmp) > 300.0f)
         {
-            dir = VNorm(tmp);
-
             speed = (dir * deltaTime * 300.0f);
 
             pos += speed;
         }
-        else
-        {
-            dir = VNorm(tmp);
-        }
-    }
-
-    void NormalEnemy::KnockBack(float deltaTime)
-    {
-        // ノックバックする向きを正規化して
-        nockBackDir = VNorm(nockBackDir);
-
-        nockBackPar = damagePar * 40.0f;
-
-        speed = (nockBackDir * nockBackPar * deltaTime);
-
-        pos += speed;
     }
 }// namespace My3dApp

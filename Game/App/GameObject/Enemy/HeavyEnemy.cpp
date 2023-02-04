@@ -37,6 +37,20 @@ namespace My3dApp
         // 移動
         Move(deltaTime);
 
+        // 3Dモデルのポジション設定
+        MV1SetPosition(modelHandle, pos);
+
+        // 向きに合わせてモデルを回転
+        MATRIX rotYMat = MGetRotY(180.0f * (float)(DX_PI / 180.0f));
+
+        VECTOR negativeVec = VTransform(dir, rotYMat);
+
+        // モデルに回転をセットする
+        MV1SetRotationZYAxis(modelHandle, negativeVec, VGet(0.0f, 1.0f, 0.0f), 0.0f);
+
+        // 当たり判定モデルの位置更新
+        CollisionUpdate();
+
         if (IsDead())
         {
             isAlive = false;
@@ -54,47 +68,13 @@ namespace My3dApp
         // 高さベクトルの無効化
         tmp.y = 0;
 
+        dir = VNorm(tmp);
+
         if (VSize(tmp) > 300.0f)
         {
-            shotInterval -= deltaTime;
-
-            Shot();
-
-            dir = VNorm(tmp);
-
             speed = (dir * deltaTime * 300.0f);
 
             pos += speed;
         }
-        else
-        {
-            shotInterval -= deltaTime;
-
-            dir = VNorm(tmp);
-
-            Shot();
-        }
-
-        speed = (VGet(0, -1, 0) * 10.0f);
-
-        pos += speed;
-
-        // 3Dモデルのポジション設定
-        MV1SetPosition(modelHandle, pos);
-
-        // 向きに合わせてモデルを回転
-        MATRIX rotYMat = MGetRotY(180.0f * (float)(DX_PI / 180.0f));
-
-        VECTOR negativeVec = VTransform(dir, rotYMat);
-
-        // モデルに回転をセットする
-        MV1SetRotationZYAxis(modelHandle, negativeVec, VGet(0.0f, 1.0f, 0.0f), 0.0f);
-
-        // 当たり判定モデルの位置更新
-        CollisionUpdate();
-    }
-
-    void HeavyEnemy::KnockBack(float deltaTime)
-    {
     }
 }// namespace My3dApp

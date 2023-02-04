@@ -222,12 +222,25 @@ namespace My3dApp
         return false;
     }
 
-    void BaseEnemy::Shot()
+    void BaseEnemy::Shot(float deltaTime)
     {
+        shotInterval -= deltaTime;
         if (shotInterval < 0)
         {
-            shotInterval = 1.0f;
+            shotInterval = 2.0f;
             GameObjectManager::Entry(new NormalBullet(ObjectTag::EnemyBullet, pos, dir));
         }
+    }
+
+    void BaseEnemy::KnockBack(float deltaTime)
+    {
+        // ノックバックする向きを正規化して
+        nockBackDir = VNorm(nockBackDir);
+
+        nockBackPar = damagePar * 40.0f;
+
+        speed = (nockBackDir * nockBackPar * deltaTime);
+
+        pos += speed;
     }
 }// namespace My3dApp
