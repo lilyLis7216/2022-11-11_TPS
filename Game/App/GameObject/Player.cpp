@@ -65,7 +65,7 @@ namespace My3dApp
     {
         if (isNockBack)
         {
-            KnockBack(deltaTime);
+            //KnockBack(deltaTime);
         }
 
         Move(deltaTime);
@@ -234,25 +234,25 @@ namespace My3dApp
         // “ü—Í‚ª‚ ‚Á‚½‚©‚Ç‚¤‚©
         bool input = false;
 
-        if (GamePad::GetInput(Button::UP) || 0 < GamePad::GetLeftStickY() || CheckHitKey(KEY_INPUT_W))
+        if (GamePad::GetInput(Button::UP) || 0 < GamePad::GetLeftStickY())
         {
             inputVec += UP;
             input = true;
         }
 
-        if (GamePad::GetInput(Button::DOWN) || GamePad::GetLeftStickY() < 0 || CheckHitKey(KEY_INPUT_S))
+        if (GamePad::GetInput(Button::DOWN) || GamePad::GetLeftStickY() < 0)
         {
             inputVec += DOWN;
             input = true;
         }
 
-        if (GamePad::GetInput(Button::LEFT) || GamePad::GetLeftStickX() < 0 || CheckHitKey(KEY_INPUT_A))
+        if (GamePad::GetInput(Button::LEFT) || GamePad::GetLeftStickX() < 0)
         {
             inputVec += LEFT;
             input = true;
         }
 
-        if (GamePad::GetInput(Button::RIGHT) || 0 < GamePad::GetLeftStickX() || CheckHitKey(KEY_INPUT_D))
+        if (GamePad::GetInput(Button::RIGHT) || 0 < GamePad::GetLeftStickX())
         {
             inputVec += RIGHT;
             input = true;
@@ -334,19 +334,18 @@ namespace My3dApp
 
     void Player::Shot()
     {
-        if (CheckHitKey(KEY_INPUT_J) && !CheckHitKey(KEY_INPUT_K) && shotInterval < 0)
+        if (GamePad::GetButtonState(Button::A) == 1 && shotInterval)
         {
             shotInterval = 0.25f;
             GameObjectManager::Entry(new NormalBullet(ObjectTag::PlayerBullet, pos, dir));
         }
-
-        if (CheckHitKey(KEY_INPUT_K) && !CheckHitKey(KEY_INPUT_J) && !isCharge)
+        else if (GamePad::GetButtonState(Button::B) == 1 && !isCharge)
         {
             isCharge = true;
             GameObjectManager::Entry(new ChargeBullet(ObjectTag::PlayerBullet, pos, dir));
         }
 
-        if (!CheckHitKey(KEY_INPUT_K))
+        if (GamePad::GetButtonState(Button::B) < 1)
         {
             isCharge = false;
         }
