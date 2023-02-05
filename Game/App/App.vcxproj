@@ -170,6 +170,7 @@
     <ClCompile Include="Library\DebugGrid.cpp" />
     <ClCompile Include="Library\GamePad.cpp" />
     <ClCompile Include="Library\Shadow.cpp" />
+    <ClCompile Include="Library\UserInterface.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Manager\AssetManager.cpp" />
     <ClCompile Include="Manager\EnemyManager.cpp" />
@@ -203,6 +204,7 @@
     <ClInclude Include="Library\DebugGrid.h" />
     <ClInclude Include="Library\GamePad.h" />
     <ClInclude Include="Library\Shadow.h" />
+    <ClInclude Include="Library\UserInterface.h" />
     <ClInclude Include="Manager\AssetManager.h" />
     <ClInclude Include="Manager\EnemyManager.h" />
     <ClInclude Include="Manager\GameManager.h" />

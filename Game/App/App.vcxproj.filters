@@ -115,6 +115,9 @@
     <ClCompile Include="GameObject\Effect\HitEffect.cpp">
       <Filter>ソース ファイル\GameObject\Effect</Filter>
     </ClCompile>
+    <ClCompile Include="Library\UserInterface.cpp">
+      <Filter>ソース ファイル\Library</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Scene\Play.h">
@@ -206,6 +209,9 @@
     </ClInclude>
     <ClInclude Include="GameObject\Effect\HitEffect.h">
       <Filter>ソース ファイル\GameObject\Effect</Filter>
+    </ClInclude>
+    <ClInclude Include="Library\UserInterface.h">
+      <Filter>ソース ファイル\Library</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
