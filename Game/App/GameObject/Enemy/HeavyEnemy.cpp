@@ -21,7 +21,9 @@ namespace My3dApp
         MV1SetScale(modelHandle, VGet(modelSize, modelSize, modelSize));
 
         // 当たり判定球の半径の設定
-        collisionSphere.radius = 130.0f;
+        collisionSphere.radius = 100.0f;
+
+        weight = 750.0f;
 
         // 当たり判定の更新
         CollisionUpdate();
@@ -34,11 +36,23 @@ namespace My3dApp
     }
     void HeavyEnemy::Update(float deltaTime)
     {
-        // 移動
-        Move(deltaTime);
+        if (isNockBack)
+        {
+            // ノックバック処理
+            KnockBack(deltaTime);
+        }
+        else
+        {
+            // 移動
+            Move(deltaTime);
 
-        // 3Dモデルのポジション設定
-        MV1SetPosition(modelHandle, pos);
+            // 射撃
+            Shot(deltaTime);
+        }
+
+        gravity -= weight * deltaTime;
+
+        pos.y += gravity * deltaTime;
 
         // 向きに合わせてモデルを回転
         MATRIX rotYMat = MGetRotY(180.0f * (float)(DX_PI / 180.0f));
@@ -47,6 +61,9 @@ namespace My3dApp
 
         // モデルに回転をセットする
         MV1SetRotationZYAxis(modelHandle, negativeVec, VGet(0.0f, 1.0f, 0.0f), 0.0f);
+
+        // 3Dモデルのポジション設定
+        MV1SetPosition(modelHandle, pos);
 
         // 当たり判定モデルの位置更新
         CollisionUpdate();
