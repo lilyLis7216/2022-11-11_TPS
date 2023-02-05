@@ -21,6 +21,7 @@ namespace My3dApp
         , isNockBack(false)
         , nockBackDir(VGet(0, 1, 0))
         , weight(0)
+        , nockBackPar(0)
         , gravity(10.0f)
     {
         // “–‚½‚è”»’èí—Ş‚Ìİ’è
@@ -227,7 +228,7 @@ namespace My3dApp
         shotInterval -= deltaTime;
         if (shotInterval < 0)
         {
-            shotInterval = 2.0f;
+            shotInterval = 5.0f;
             GameObjectManager::Entry(new NormalBullet(ObjectTag::EnemyBullet, pos, dir));
         }
     }

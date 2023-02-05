@@ -2,6 +2,7 @@
 #include "../../Manager/GameObjectManager.h"
 #include "../../Library/Calc3D.h"
 #include "../../Library/GamePad.h"
+#include "../Effect/HitEffect.h"
 
 namespace My3dApp
 {
@@ -12,20 +13,12 @@ namespace My3dApp
         , canMove(false)
         , isShoot(false)
     {
-        // 弾の種類をノーマル弾に設定
+        // 弾の種類をチャージ弾に設定
         bulletType = Charge;
 
-        // オブジェクトの種類がプレイヤー弾なら
-        if (tag == ObjectTag::PlayerBullet)
-        {
-            difColor = GetColor(0, 0, 255);
-            boost = 800.0f;
-        }
-        // オブジェクトの種類がエネミー弾なら
-        else if (tag == ObjectTag::EnemyBullet)
-        {
-            boost = 1000.0f;
-        }
+        difColor = GetColor(0, 0, 255);
+
+        boost = 800.0f;
 
         // 当たり判定球の半径の設定
         collisionSphere.radius = 10.0f;
@@ -54,8 +47,6 @@ namespace My3dApp
                 pos.y += 50.0f;
 
                 dir = player->GetDir();
-
-                MV1SetPosition(modelHandle, pos);
 
                 if (chargeTime > 2.0f)
                 {
@@ -113,6 +104,7 @@ namespace My3dApp
             {
                 if (CollisionPair(collisionSphere, other->GetCollisionSphere()))
                 {
+                    GameObjectManager::Entry(new HitEffect(pos));
                     isAlive = false;
                 }
             }
