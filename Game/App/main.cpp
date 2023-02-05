@@ -5,43 +5,52 @@
 #include "Manager/AssetManager.h"
 #include "Manager/GameObjectManager.h"
 #include "Library/GamePad.h"
+#include "Library/UserInterface.h"
 #include "Scene/Title.h"
 #include "Scene/Play.h"
+
+using namespace My3dApp;
 
 int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 {
     // ゲームマネージャの生成
-    My3dApp::GameManager::CreateInstance();
+    GameManager::CreateInstance();
 
-    if (My3dApp::GameManager::Init() != -1)
+    if (GameManager::Init() != -1)
     {
         // アセットマネージャの生成
-        My3dApp::AssetManager::CreateInstance();
+        AssetManager::CreateInstance();
 
         // ゲームオブジェクトマネージャの生成
-        My3dApp::GameObjectManager::CreateInstance();
+        GameObjectManager::CreateInstance();
 
         // ゲームパッドの生成
-        My3dApp::GamePad::CreateInstance();
+        GamePad::CreateInstance();
+
+        // UIマネージャの生成
+        UserInterface::CreateInstance();
 
         // 最初のシーンをセット
-        My3dApp::GameManager::SetFirstScene(new My3dApp::Play());
+        GameManager::SetFirstScene(new Play());
 
         // ゲームループ
-        My3dApp::GameManager::Loop();
+        GameManager::Loop();
 
         // ゲームパッドの削除
-        My3dApp::GamePad::DeleteInstance();
+        GamePad::DeleteInstance();
+
+        // UIマネージャの削除
+        UserInterface::DeleteInstance();
 
         // ゲームオブジェクトマネージャの削除
-        My3dApp::GameObjectManager::DeleteInstance();
+        GameObjectManager::DeleteInstance();
 
         // アセットマネージャの削除
-        My3dApp::AssetManager::DeleteInstance();
+        AssetManager::DeleteInstance();
     }
 
     // ゲームマネージャの削除
-    My3dApp::GameManager::DeleteInstance();
+    GameManager::DeleteInstance();
 
     return 0;
 }

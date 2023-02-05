@@ -9,6 +9,7 @@
 #include "../GameObject/Map.h"
 #include "../GameObject/Enemy/NormalEnemy.h"
 #include "../Library/DebugGrid.h"
+#include "../Library/UserInterface.h"
 #include "Result.h"
 
 namespace My3dApp
@@ -70,6 +71,8 @@ namespace My3dApp
         GameObjectManager::Draw();
 
         DrawEffekseer3D();
+
+        UserInterface::UIBox(170, 470, 20, 120, 10, GetColor(0, 0, 0), GetColor(0, 0, 255));
 
         CheckNowScene();
     }
