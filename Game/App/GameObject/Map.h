@@ -22,12 +22,6 @@ namespace My3dApp
         ~Map();
 
         /// <summary>
-        /// モデルの読み込み
-        /// </summary>
-        /// <param name="initPos">初期位置</param>
-        void ModelLoad(VECTOR initPos);
-
-        /// <summary>
         /// マップの更新
         /// </summary>
         /// <param name="deltaTime">1フレームの経過時間</param>

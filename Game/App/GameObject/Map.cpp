@@ -6,25 +6,13 @@
 namespace My3dApp
 {
     Map::Map(VECTOR pos)
-        : GameObject(ObjectTag::Map)
-    {
-        ModelLoad(pos);
-    }
-
-    Map::~Map()
-    {
-        AssetManager::ReleaseMesh(modelHandle);
-    }
-
-    void Map::ModelLoad(VECTOR initPos)
+        : GameObject(ObjectTag::Map, pos)
     {
         // 表示用モデルの読み込み
         modelHandle = AssetManager::GetMesh("../asset/model/stage.mv1");
 
         // 表示モデルのスケーリング
         MV1SetScale(modelHandle, VGet(1.0f, 1.0f, 1.0f));
-
-        pos = initPos;
 
         // 表示モデルの位置セット
         MV1SetPosition(modelHandle, pos);
@@ -42,6 +30,11 @@ namespace My3dApp
 
         // モデルの当たり判定情報の再構築
         MV1SetupCollInfo(collisionModel);
+    }
+
+    Map::~Map()
+    {
+        AssetManager::ReleaseMesh(modelHandle);
     }
 
     void Map::Update(float deltaTime)
