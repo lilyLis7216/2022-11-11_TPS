@@ -9,7 +9,6 @@ namespace My3dApp
     BaseBullet::BaseBullet(ObjectTag tag, VECTOR pos, VECTOR dir)
         : GameObject(tag, pos)
         , speed(VGet(0, 0, 0))
-        , bulletType(-1)
         , radius(0)
         , divNum(16)
         , difColor(-1)

@@ -13,9 +13,6 @@ namespace My3dApp
         // ‘¬“x
         VECTOR speed;
 
-        // ’e‚ÌŽí—Þ
-        int bulletType;
-
         // ’e‚Ì”¼Œa
         float radius;
 

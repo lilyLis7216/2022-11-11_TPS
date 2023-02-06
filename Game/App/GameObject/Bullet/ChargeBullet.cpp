@@ -13,9 +13,6 @@ namespace My3dApp
         , canMove(false)
         , isShoot(false)
     {
-        // ’e‚ÌŽí—Þ‚ðƒ`ƒƒ[ƒW’e‚ÉÝ’è
-        bulletType = Charge;
-
         difColor = GetColor(0, 0, 255);
 
         boost = 800.0f;
@@ -104,7 +101,6 @@ namespace My3dApp
             {
                 if (CollisionPair(collisionSphere, other->GetCollisionSphere()))
                 {
-                    GameObjectManager::Entry(new HitEffect(pos));
                     isAlive = false;
                 }
             }

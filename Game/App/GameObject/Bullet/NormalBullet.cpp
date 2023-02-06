@@ -14,9 +14,6 @@ namespace My3dApp
     NormalBullet::NormalBullet(ObjectTag tag, VECTOR pos, VECTOR dir)
         : BaseBullet(tag, pos, dir)
     {
-        // 弾の種類をノーマル弾に設定
-        bulletType = Normal;
-
         // オブジェクトの種類がプレイヤー弾なら
         if (tag == ObjectTag::PlayerBullet)
         {
@@ -88,8 +85,6 @@ namespace My3dApp
             {
                 if (CollisionPair(collisionSphere, other->GetCollisionSphere()))
                 {
-                    GameObjectManager::Entry(new HitEffect(pos));
-
                     isAlive = false;
                 }
             }
