@@ -16,6 +16,7 @@ namespace My3dApp
 {
     Play::Play()
         : timer(60.0f)
+        , prevComb(0)
     {
         text = "3.Play";
 
@@ -43,6 +44,8 @@ namespace My3dApp
     {
         timer -= deltaTime;
 
+        prevComb = GameManager::GetComb();
+
         SceneBase* retScene = this;
 
         EnemyManager::Update(deltaTime);
@@ -54,26 +57,58 @@ namespace My3dApp
 
         GameObjectManager::Collision();
 
+        GaugeUpdate(deltaTime);
+
         retScene = CheckRetScene(3);
 
-        /*if (timer < 0)
+        GameObject* player = GameObjectManager::GetFirstGameObject(ObjectTag::Player);
+
+        if (timer < 0 || player->GetPos().y < -500.0f)
         {
             retScene = new Result();
-        }*/
+        }
 
         return retScene;
     }
 
     void Play::Draw()
     {
-        //DrawGrid(3000, 30);
-
         GameObjectManager::Draw();
 
         DrawEffekseer3D();
 
-        UserInterface::UIBox(170, 470, 20, 120, 10, GetColor(0, 0, 0), GetColor(0, 0, 255));
+        SetFontSize(50);
+
+        // タイマーの表示
+        UserInterface::UIBox(760, 1140, 40, 140, 10, GetColor(0, 0, 0), GetColor(0, 0, 255));
+        UserInterface::UIText(820, 70, GetColor(255, 255, 255), "Time:%0.1f", timer);
+
+        // スコアの表示
+        UserInterface::UIBox(1460, 1860, 40, 140, 10, GetColor(0, 0, 0), GetColor(0, 0, 255));
+        UserInterface::UIText(1520, 70, GetColor(255, 255, 255), "score : %1.0f", (float)GameManager::GetScore());
+
+        // コンボの表示
+        UserInterface::UIBox(1470, 1860, 160, 260, 10, GetColor(0, 0, 0), GetColor(0, 0, 255));
+        UserInterface::UIText(1520, 180, GetColor(255, 255, 255), "comb:%1.0f", (float)GameManager::GetComb());
+
+        int gaugeFillWidth = gaugeWidth * gaugeValue / gaugeMax;
+        UserInterface::UIBox(gaugeX, gaugeX + gaugeFillWidth, gaugeY, gaugeY + gaugeHeight, 0, GetColor(255, 255, 255), 0);
 
         CheckNowScene();
+    }
+
+    void Play::GaugeUpdate(float deltaTime)
+    {
+        gaugeValue -= 1;
+        if (prevComb != GameManager::GetComb())
+        {
+            gaugeValue = gaugeMax;
+        }
+
+        if (gaugeValue < 0)
+        {
+            gaugeValue = 0;
+            GameManager::ResetComb();
+        }
     }
 }// namespace My3dApp

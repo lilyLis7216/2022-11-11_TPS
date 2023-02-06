@@ -49,6 +49,7 @@ namespace My3dApp
 
     void SceneBase::CheckNowScene()
     {
+        SetFontSize(25);
         DrawFormatString(10, 10, GetColor(255, 255, 255), "%s", text);
     }
 }// namespace My3dApp

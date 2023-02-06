@@ -8,10 +8,32 @@ namespace My3dApp
     UserInterface::UserInterface()
     {
         instance = this;
+        // フォントの読み込みが成功したら
+        if (AddFontResourceEx("../asset/font/851CHIKARA-DZUYOKU_kanaA_004.ttf", FR_PRIVATE, NULL) > 0)
+        {
+            ChangeFont("851チカラヅヨク-かなA", DX_CHARSET_DEFAULT);
+        }
+        // 失敗したら
+        else
+        {
+            // エラーメッセージを表示する
+            MessageBox(NULL, "フォント読み込み失敗", "", MB_OK);
+        }
     }
 
     UserInterface::~UserInterface()
     {
+        // フォントの削除が成功したら
+        if (RemoveFontResourceEx("../asset/font/851CHIKARA-DZUYOKU_kanaA_004.ttf", FR_PRIVATE, NULL))
+        {
+            // 処理なし
+        }
+        // 失敗したら
+        else
+        {
+            // エラーメッセージを表示する
+            MessageBox(NULL, "remove failure", "", MB_OK);
+        }
     }
 
     void UserInterface::CreateInstance()
@@ -31,7 +53,7 @@ namespace My3dApp
         }
     }
 
-    void UserInterface::UIText(int x, int y, int color, const char* str, int num)
+    void UserInterface::UIText(int x, int y, int color, const char* str, float num)
     {
         DrawFormatString(x, y, color, str, num);
     }
@@ -49,10 +71,10 @@ namespace My3dApp
         DrawBox(x1, y1, x2, y2, mainCr, TRUE);
 
         // 上辺
-        DrawLine(x1, y1 + frameSize / 2, x2, y1 + frameSize / 2, frameCr, frameSize);
+        DrawLine(x1 + frameSize, y1 + frameSize / 2, x2 - frameSize, y1 + frameSize / 2, frameCr, frameSize);
 
         // 下辺
-        DrawLine(x1, y2 - frameSize / 2, x2, y2 - frameSize / 2, frameCr, frameSize);
+        DrawLine(x1 + frameSize, y2 - frameSize / 2, x2 - frameSize, y2 - frameSize / 2, frameCr, frameSize);
 
         // 左辺
         DrawLine(x1 + frameSize / 2, y1, x1 + frameSize / 2, y2, frameCr, frameSize);

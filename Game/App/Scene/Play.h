@@ -14,6 +14,17 @@ namespace My3dApp
         // タイマー
         float timer;
 
+        const int gaugeWidth = 370;
+        const int gaugeHeight = 80;
+        const int gaugeX = 1480;
+        const int gaugeY = 170;
+
+        int gaugeValue = 0;
+        int gaugeMax = 500;
+        int prevComb;
+
+        void GaugeUpdate(float deltaTime);
+
     public:
         /// <summary>
         /// コンストラクタ

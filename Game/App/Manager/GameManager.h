@@ -39,6 +39,12 @@ namespace My3dApp
         // 全画面フラグ
         static bool fullScreen;
 
+        // スコア
+        static int score;
+
+        // コンボ
+        static int comb;
+
     public:
         /// <summary>
         /// インスタンスの生成
@@ -66,5 +72,11 @@ namespace My3dApp
         /// </summary>
         static void Loop();
 
+        static void AddScore(int set) { score += set; }
+        static void ResetScore() { score = 0; }
+        static int GetScore() { return score; }
+        static void AddComb() { comb++; }
+        static void ResetComb() { comb = 0; }
+        static int GetComb() { return comb; }
     };
 }// namespace My3dApp

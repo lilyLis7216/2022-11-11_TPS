@@ -22,6 +22,10 @@ namespace My3dApp
 
     bool GameManager::fullScreen;
 
+    int GameManager::score;
+
+    int GameManager::comb;
+
     GameManager::GameManager()
     {
         // 画面の横幅初期化
@@ -168,7 +172,11 @@ namespace My3dApp
         // 1/60 = 1.66666...
         float waitFrameTime = 16667;
 
-        SetBackgroundColor(128, 128, 128);
+        SetBackgroundColor(135 , 206, 235);
+
+        ResetScore();
+
+        ResetComb();
 
         // ループ本体
         while (gameLoop)
@@ -201,7 +209,8 @@ namespace My3dApp
             nowScene->Draw();
 
             // fps確認用（後で消す）
-            DrawFormatString(100, 100, GetColor(255, 255, 255), "fps:%f", deltaTime);
+            //SetFontSize(25);
+            //DrawFormatString(200, 10, GetColor(255, 255, 255), "fps:%f", deltaTime);
 
             // 裏画面の内容を表画面に反映させる
             ScreenFlip();
