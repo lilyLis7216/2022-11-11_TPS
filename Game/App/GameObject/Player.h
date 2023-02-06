@@ -29,7 +29,11 @@ namespace My3dApp
         bool isNockBack;
 
         // ノックバックの向き
-        VECTOR nockBackDir;
+        VECTOR knockBackDir;
+
+        float damagePar;
+
+        float knockBackPar;
 
         const float jumpForce = 200.0f;
 
@@ -59,6 +63,8 @@ namespace My3dApp
         /// <param name="deltaTime">1フレームの経過時間</param>
         void KnockBack(float deltaTime);
 
+        void DamageParView();
+
     public:
         /// <summary>
         /// コンストラクタ
@@ -86,6 +92,5 @@ namespace My3dApp
         /// </summary>
         /// <param name="other">自分とは異なるオブジェクト</param>
         void OnCollisionEnter(const GameObject* other) override;
-
     };
 }// namespace My3dApp

@@ -6,6 +6,8 @@
 #include "../Library/GamePad.h"
 #include "Bullet/NormalBullet.h"
 #include "Bullet/ChargeBullet.h"
+#include "Effect/HitEffect.h"
+#include "../Manager/GameManager.h"
 
 namespace My3dApp
 {
@@ -15,7 +17,9 @@ namespace My3dApp
         , shotInterval(0)
         , isCharge(false)
         , isNockBack(false)
-        , nockBackDir(VGet(0, 1, 0))
+        , knockBackDir(VGet(0, 1, 0))
+        , damagePar(0)
+        , knockBackPar(0)
         , gravity(-500.0f)
     {
         // 3Dモデルの読み込み
@@ -65,7 +69,7 @@ namespace My3dApp
     {
         if (isNockBack)
         {
-            //KnockBack(deltaTime);
+            KnockBack(deltaTime);
         }
 
         Move(deltaTime);
@@ -92,7 +96,9 @@ namespace My3dApp
         MV1DrawModel(modelHandle);
 
         // 当たり判定の描画
-        DrawCollider();
+        //DrawCollider();
+
+        DamageParView();
     }
 
     void Player::OnCollisionEnter(const GameObject* other)
@@ -186,11 +192,22 @@ namespace My3dApp
 
                 if (collisionSphere.radius + other->GetCollisionSphere().radius > r)
                 {
+                    damagePar += 10.0f;
+
                     isNockBack = true;
 
                     gravity = jumpForce;
 
-                    nockBackDir = other->GetDir();
+                    knockBackDir = other->GetDir();
+
+                    if (damagePar > 50)
+                    {
+                        GameObjectManager::Entry(new HitEffect(pos, 1));
+                    }
+                    else
+                    {
+                        GameObjectManager::Entry(new HitEffect(pos, 0));
+                    }
                 }
 
                 // 当たり判定の更新
@@ -354,10 +371,44 @@ namespace My3dApp
     void Player::KnockBack(float deltaTime)
     {
         // ノックバックする向きを正規化して
-        nockBackDir = VNorm(nockBackDir);
+        knockBackDir = VNorm(knockBackDir);
 
-        speed = (nockBackDir * 400.0f * deltaTime);
+        knockBackPar = damagePar * 20.0f;
+
+        speed = (knockBackDir * knockBackPar * deltaTime);
 
         pos += speed;
+    }
+
+    void Player::DamageParView()
+    {
+        VECTOR screenPos = ConvWorldPosToScreenPos(pos);
+
+        SetFontSize(25);
+
+        int cr = GetColor(255, 255, 255);
+
+        if (damagePar >= 100)
+        {
+            cr = GetColor(161, 21, 8);
+        }
+        else if (damagePar >= 80)
+        {
+            cr = GetColor(219, 78, 10);
+        }
+        else if (damagePar >= 60)
+        {
+            cr = GetColor(255, 142, 61);
+        }
+        else if (damagePar >= 40)
+        {
+            cr = GetColor(252, 167, 10);
+        }
+        else if (damagePar >= 20)
+        {
+            cr = GetColor(254, 222, 10);
+        }
+
+        DrawFormatString((int)screenPos.x - 20, (int)screenPos.y - 50, cr, "%1.0f％", damagePar);
     }
 }// namespace My3dApp
