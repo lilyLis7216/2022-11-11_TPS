@@ -7,11 +7,18 @@ namespace My3dApp
     /// コンストラクタ
     /// </summary>
     /// <param name="pos">初期位置</param>
-    HitEffect::HitEffect(VECTOR pos)
+    HitEffect::HitEffect(VECTOR pos, int efNum)
         : BaseEffect(pos)
     {
         // エフェクトの読み込み
-        effectHandle = LoadEffekseerEffect("../asset/effect/burstHit.efkefc", 75.0f);
+        if (efNum == 0)
+        {
+            effectHandle = LoadEffekseerEffect("../asset/effect/softHit.efkefc", 25.0f);
+        }
+        else if (efNum == 1)
+        {
+            effectHandle = LoadEffekseerEffect("../asset/effect/burstHit.efkefc", 75.0f);
+        }
     }
 
     /// <summary>

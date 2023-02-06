@@ -2,7 +2,9 @@
 #include "../../Manager/EnemyManager.h"
 #include "../../Library/Calc3D.h"
 #include "../../Manager/GameObjectManager.h"
+#include "../../Manager/GameManager.h"
 #include "../Bullet/NormalBullet.h"
+#include "../Effect/HitEffect.h"
 
 namespace My3dApp
 {
@@ -44,6 +46,8 @@ namespace My3dApp
     {
         // エネミーの現在数を減らす
         EnemyManager::SubNum();
+        GameManager::AddComb();
+        GameManager::AddScore(100);
     }
 
     /// <summary>
@@ -55,7 +59,7 @@ namespace My3dApp
         MV1DrawModel(modelHandle);
 
         // 当たり判定の描画
-        DrawCollider();
+        //DrawCollider();
 
         if (pos.y > 0.0f)
         {
@@ -165,6 +169,16 @@ namespace My3dApp
                     gravity = jumpForce;
 
                     nockBackDir = other->GetDir();
+
+                    if (damagePar > 50)
+                    {
+                        GameObjectManager::Entry(new HitEffect(pos, 1));
+                        
+                    }
+                    else
+                    {
+                        GameObjectManager::Entry(new HitEffect(pos, 0));
+                    }
                 }
 
                 // 当たり判定の更新
@@ -209,7 +223,32 @@ namespace My3dApp
     {
         VECTOR screenPos = ConvWorldPosToScreenPos(pos);
 
-        DrawFormatString((int)screenPos.x - 10, (int)screenPos.y - 50, GetColor(255, 255, 255), "%1.1f％", damagePar);
+        SetFontSize(25);
+
+        int cr = GetColor(255, 255, 255);
+
+        if (damagePar >= 100)
+        {
+            cr = GetColor(161, 21, 8);
+        }
+        else if (damagePar >= 80)
+        {
+            cr = GetColor(219, 78, 10);
+        }
+        else if (damagePar >= 60)
+        {
+            cr = GetColor(255, 142, 61);
+        }
+        else if (damagePar >= 40)
+        {
+            cr = GetColor(252, 167, 10);
+        }
+        else if (damagePar >= 20)
+        {
+            cr = GetColor(254, 222, 10);
+        }
+
+        DrawFormatString((int)screenPos.x - 20, (int)screenPos.y - 50, cr, "%1.0f％", damagePar);
     }
 
     bool BaseEnemy::IsDead()
@@ -238,7 +277,7 @@ namespace My3dApp
         // ノックバックする向きを正規化して
         nockBackDir = VNorm(nockBackDir);
 
-        nockBackPar = damagePar * 40.0f;
+        nockBackPar = damagePar * 20.0f;
 
         speed = (nockBackDir * nockBackPar * deltaTime);
 

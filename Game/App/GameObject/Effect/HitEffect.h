@@ -14,7 +14,7 @@ namespace My3dApp
         /// コンストラクタ
         /// </summary>
         /// <param name="pos">初期位置</param>
-        HitEffect(VECTOR pos);
+        HitEffect(VECTOR pos, int efNum);
 
         /// <summary>
         /// デストラクタ
