@@ -44,6 +44,6 @@ namespace My3dApp
         DrawSphere3D(pos, collisionSphere.radius, divNum, difColor, spcColor, isFill);
 
         // “–‚½‚è”»’è‚Ì•`‰æ
-        DrawCollider();
+        //5DrawCollider();
     }
 }// namespace My3dApp

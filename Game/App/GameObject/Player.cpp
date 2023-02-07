@@ -31,6 +31,8 @@ namespace My3dApp
         // 座標の設定
         MV1SetPosition(modelHandle, pos);
 
+        MV1SetMaterialEmiColor(modelHandle, 2, GetColorF(0.5f, 0.5f, 0.5f, 0.0f));
+
         // 大きさの設定
         MV1SetScale(modelHandle, VGet(0.5f, 0.5f, 0.5f));
 
@@ -373,7 +375,7 @@ namespace My3dApp
         // ノックバックする向きを正規化して
         knockBackDir = VNorm(knockBackDir);
 
-        knockBackPar = damagePar * 20.0f;
+        knockBackPar = damagePar * 10.0f;
 
         speed = (knockBackDir * knockBackPar * deltaTime);
 

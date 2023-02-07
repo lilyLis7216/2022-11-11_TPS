@@ -24,7 +24,7 @@ namespace My3dApp
 
     int GameManager::score;
 
-    int GameManager::comb;
+    int GameManager::combo;
 
     GameManager::GameManager()
     {
@@ -176,7 +176,7 @@ namespace My3dApp
 
         ResetScore();
 
-        ResetComb();
+        ResetCombo();
 
         // ループ本体
         while (gameLoop)
@@ -211,6 +211,7 @@ namespace My3dApp
             // fps確認用（後で消す）
             //SetFontSize(25);
             //DrawFormatString(200, 10, GetColor(255, 255, 255), "fps:%f", deltaTime);
+            //DrawFormatString(200, 10, GetColor(255, 255, 255), "lightNum:%d", GetEnableLightHandleNum());
 
             // 裏画面の内容を表画面に反映させる
             ScreenFlip();

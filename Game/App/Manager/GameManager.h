@@ -43,7 +43,7 @@ namespace My3dApp
         static int score;
 
         // ƒRƒ“ƒ{
-        static int comb;
+        static int combo;
 
     public:
         /// <summary>
@@ -75,8 +75,8 @@ namespace My3dApp
         static void AddScore(int set) { score += set; }
         static void ResetScore() { score = 0; }
         static int GetScore() { return score; }
-        static void AddComb() { comb++; }
-        static void ResetComb() { comb = 0; }
-        static int GetComb() { return comb; }
+        static void AddCombo() { combo++; }
+        static void ResetCombo() { combo = 0; }
+        static int GetCombo() { return combo; }
     };
 }// namespace My3dApp

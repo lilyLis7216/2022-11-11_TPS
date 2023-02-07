@@ -44,7 +44,7 @@ namespace My3dApp
     {
         timer -= deltaTime;
 
-        prevComb = GameManager::GetComb();
+        prevComb = GameManager::GetCombo();
 
         SceneBase* retScene = this;
 
@@ -85,22 +85,22 @@ namespace My3dApp
 
         // スコアの表示
         UserInterface::UIBox(1460, 1860, 40, 140, 10, GetColor(0, 0, 0), GetColor(0, 0, 255));
-        UserInterface::UIText(1520, 70, GetColor(255, 255, 255), "score : %1.0f", (float)GameManager::GetScore());
+        UserInterface::UIText(1480, 70, GetColor(255, 255, 255), "SCORE : %3.0f", (float)GameManager::GetScore());
 
         // コンボの表示
-        UserInterface::UIBox(1470, 1860, 160, 260, 10, GetColor(0, 0, 0), GetColor(0, 0, 255));
-        UserInterface::UIText(1520, 180, GetColor(255, 255, 255), "comb:%1.0f", (float)GameManager::GetComb());
+        UserInterface::UIBox(1460, 1860, 160, 260, 10, GetColor(0, 0, 0), GetColor(0, 0, 255));
+        UserInterface::UIText(1480, 180, GetColor(255, 255, 255), "COMBO : %3.0f", (float)GameManager::GetCombo());
 
         int gaugeFillWidth = gaugeWidth * gaugeValue / gaugeMax;
         UserInterface::UIBox(gaugeX, gaugeX + gaugeFillWidth, gaugeY, gaugeY + gaugeHeight, 0, GetColor(255, 255, 255), 0);
 
-        CheckNowScene();
+        //CheckNowScene();
     }
 
     void Play::GaugeUpdate(float deltaTime)
     {
         gaugeValue -= 1;
-        if (prevComb != GameManager::GetComb())
+        if (prevComb != GameManager::GetCombo())
         {
             gaugeValue = gaugeMax;
         }
@@ -108,7 +108,7 @@ namespace My3dApp
         if (gaugeValue < 0)
         {
             gaugeValue = 0;
-            GameManager::ResetComb();
+            GameManager::ResetCombo();
         }
     }
 }// namespace My3dApp

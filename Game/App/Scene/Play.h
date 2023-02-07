@@ -16,7 +16,7 @@ namespace My3dApp
 
         const int gaugeWidth = 370;
         const int gaugeHeight = 80;
-        const int gaugeX = 1480;
+        const int gaugeX = 1470;
         const int gaugeY = 170;
 
         int gaugeValue = 0;

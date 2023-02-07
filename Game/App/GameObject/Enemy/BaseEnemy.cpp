@@ -46,8 +46,6 @@ namespace My3dApp
     {
         // エネミーの現在数を減らす
         EnemyManager::SubNum();
-        GameManager::AddComb();
-        GameManager::AddScore(100);
     }
 
     /// <summary>
@@ -256,6 +254,8 @@ namespace My3dApp
         // 一定以上落下したら
         if (pos.y < -500.0f)
         {
+            GameManager::AddCombo();
+            GameManager::AddScore(100);
             // 死んでいる
             return true;
         }
