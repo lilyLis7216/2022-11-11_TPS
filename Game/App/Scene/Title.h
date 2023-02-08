@@ -12,9 +12,21 @@ namespace My3dApp
     private:
         int titleModel;
 
+        int startModel;
+
+        int exitModel;
+
         float rotateCount;
 
         void MoveModel(float deltaTime);
+
+        int selectState;
+
+        enum SelectState
+        {
+            START = 0,
+            EXIT,
+        };
 
     public:
         /// <summary>

@@ -31,7 +31,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
         UserInterface::CreateInstance();
 
         // 最初のシーンをセット
-        GameManager::SetFirstScene(new Play());
+        GameManager::SetFirstScene(new Title());
 
         // ゲームループ
         GameManager::Loop();
