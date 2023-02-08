@@ -31,6 +31,9 @@ namespace My3dApp
         GameObjectManager::Entry(new Map(VGet(0, 0, 0)));
 
         GameObjectManager::Entry(new NormalEnemy(VGet(0, 200, 1000)));
+
+        // ƒ‰ƒCƒg‚Ì•ûŒü‚ğİ’è
+        SetLightDirection(VGet(-1.5f, -10.5f, 0.5f));
     }
 
     Play::~Play()

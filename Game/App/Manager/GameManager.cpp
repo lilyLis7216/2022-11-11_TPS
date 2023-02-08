@@ -146,13 +146,13 @@ namespace My3dApp
         SetCameraPositionAndTarget_UpVecY(VGet(0.0f, 80.0f, -200.0f), VGet(0.0f, 80.0f, 0.0f));
 
         // ライトの方向を設定
-        SetLightDirection(VGet(-1.5f, -3.5f, 0.5f));
+        SetLightDirection(VGet(-1.5f, -10.5f, 0.5f));
 
         // シャドウマップが想定するライトの方向セット
-        SetShadowMapLightDirection(Shadow::GetShadowMap(), VGet(-1.5f, -3.5f, 0.5f));
+        SetShadowMapLightDirection(Shadow::GetShadowMap(), VGet(-1.5f, -10.5f, 0.5f));
 
         // シャドウマップに描画する範囲を設定
-        SetShadowMapDrawArea(Shadow::GetShadowMap(), VGet(-2000.0f, -1.0f, -2000.0f), VGet(2000.0f, 2000.0f, 2000.0f));
+        SetShadowMapDrawArea(Shadow::GetShadowMap(), VGet(-2000.0f, -1.0f, -2000.0f), VGet(2000.0f, 100.0f, 2000.0f));
 
         return 0;
     }
