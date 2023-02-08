@@ -9,6 +9,13 @@ namespace My3dApp
     /// </summary>
     class Title : public SceneBase
     {
+    private:
+        int titleModel;
+
+        float rotateCount;
+
+        void MoveModel(float deltaTime);
+
     public:
         /// <summary>
         /// コンストラクタ
