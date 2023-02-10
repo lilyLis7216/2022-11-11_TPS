@@ -14,9 +14,13 @@ namespace My3dApp
 
         int startModel;
 
+        int ctrlModel;
+
         int exitModel;
 
         float rotateCount;
+
+        const float defaultSize = 1.0f;
 
         void MoveModel(float deltaTime);
 
@@ -25,6 +29,7 @@ namespace My3dApp
         enum SelectState
         {
             START = 0,
+            CONTROLS,
             EXIT,
         };
 

@@ -2,43 +2,44 @@
 #include "DxLib.h"
 #include "../Manager/AssetManager.h"
 #include "../Library/GamePad.h"
+#include "Explanation.h"
+#include "Play.h"
 
 namespace My3dApp
 {
     Title::Title()
         : rotateCount(0)
-        , selectState(0)
+        , selectState(START)
     {
         text = "1.Title";
 
-        bgImage = LoadGraph("../asset/image/title.pn");
-
         titleModel = AssetManager::GetMesh("../asset/model/title.mv1");
 
-        MV1SetPosition(titleModel, VGet(0, 0, 0));
+        MV1SetPosition(titleModel, VGet(-50.0f, 200.0f, 0));
 
-        MV1SetRotationXYZ(titleModel, VGet(0.75f, 0.0f, 0.0f));
+        MV1SetScale(titleModel, VGet(2.0f, 2.0f, 2.0f));
 
-        MV1SetScale(titleModel, VGet(1.0f, 1.0f, 1.0f));
+        MV1SetRotationXYZ(titleModel, VGet(0.0f, 0.0f, 0.0f));
+
+        float x = -200.0f;
 
         startModel = AssetManager::GetMesh("../asset/model/start.mv1");
 
-        MV1SetPosition(startModel, VGet(0, -250.0f, 0));
+        MV1SetPosition(startModel, VGet(x, -150.0f, 0));
 
-        MV1SetScale(startModel, VGet(1.0f, 1.0f, 1.0f));
+        ctrlModel = AssetManager::GetMesh("../asset/model/controls.mv1");
 
-        MV1SetRotationXYZ(startModel, VGet(0.1f, 0, 0));
+        MV1SetPosition(ctrlModel, VGet(x, -300.0f, 0));
 
         exitModel = AssetManager::GetMesh("../asset/model/exit.mv1");
 
-        MV1SetPosition(exitModel, VGet(0, -400.0f, 0));
-
-        MV1SetScale(exitModel, VGet(1.0f, 1.0f, 1.0f));
-
-        MV1SetRotationXYZ(exitModel, VGet(0.3f, 0, 0));
+        MV1SetPosition(exitModel, VGet(x, -450.0f, 0));
 
         // カメラの位置と向きを設定
         SetCameraPositionAndTarget_UpVecY(VGet(0.0f, 0.0f, -1000.0f), VGet(0.0f, 0.0f, 0.0f));
+
+        // 正射影カメラに切り替え
+        SetupCamera_Ortho(1000.0f);
 
         // ライトの方向を設定
         SetLightDirection(VGet(0.0f, 0.0f, 100.0f));
@@ -52,6 +53,8 @@ namespace My3dApp
 
         AssetManager::ReleaseMesh(startModel);
 
+        AssetManager::ReleaseMesh(ctrlModel);
+
         AssetManager::ReleaseMesh(exitModel);
     }
 
@@ -61,20 +64,78 @@ namespace My3dApp
 
         MoveModel(deltaTime);
 
-        retScene = CheckRetScene(1);
+        if (selectState == START)
+        {
+            if (GamePad::GetButtonState(Button::B) == 1)
+            {
+                retScene = new Play();
+            }
+
+            if (GamePad::GetButtonState(Button::DOWN) == 1 || GamePad::GetLeftStickY() < -10000.0f)
+            {
+                selectState = CONTROLS;
+            }
+        }
+        else if (selectState == CONTROLS)
+        {
+            if (GamePad::GetButtonState(Button::B) == 1)
+            {
+                retScene = new Explanation();
+            }
+
+            if (GamePad::GetButtonState(Button::UP) == 1 || GamePad::GetLeftStickY() > 30000.0f)
+            {
+                selectState = START;
+            }
+
+            if (GamePad::GetButtonState(Button::DOWN) == 1 || GamePad::GetLeftStickY() < -30000.0f)
+            {
+                selectState = EXIT;
+            }
+        }
+        else if (selectState == EXIT)
+        {
+            if (GamePad::GetButtonState(Button::B) == 1)
+            {
+                retScene = nullptr;
+            }
+
+            if (GamePad::GetButtonState(Button::UP) == 1 || GamePad::GetLeftStickY() > 10000.0f)
+            {
+                selectState = CONTROLS;
+            }
+        }
 
         return retScene;
     }
 
     void Title::Draw()
     {
-        DrawGraph(0, 0, bgImage, FALSE);
-
         MV1DrawModel(titleModel);
 
         MV1DrawModel(startModel);
 
+        MV1DrawModel(ctrlModel);
+
         MV1DrawModel(exitModel);
+
+        float sphereY = 0.0f;
+
+        if (selectState == START)
+        {
+            sphereY = -120.0f;
+        }
+        else if (selectState == CONTROLS)
+        {
+            sphereY = -270.0f;
+        }
+        else if (selectState == EXIT)
+
+        {
+            sphereY = -420.0f;
+        }
+
+        DrawSphere3D(VGet(-250.0f, sphereY, 0.0f), 20.0f, 16, GetColor(255, 0, 0), GetColor(0, 0, 0), true);
 
         CheckNowScene();
     }
