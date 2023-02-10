@@ -120,6 +120,8 @@ namespace My3dApp
         /// </summary>
         /// <returns></returns>
         static const short GetRightStickY() { return inputState.ThumbRY; }
+
+        static void Vibration();
     };
 
 #define Button GamePad::ButtonNum

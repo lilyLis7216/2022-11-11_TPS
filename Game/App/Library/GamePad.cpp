@@ -103,4 +103,9 @@ namespace My3dApp
     {
         return buttonState[buttonNumber];
     }
+
+    void GamePad::Vibration()
+    {
+        StartJoypadVibration(DX_INPUT_PAD1, 250, 1000, -1);
+    }
 }/** namespace My3dApp*/

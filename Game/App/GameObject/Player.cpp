@@ -202,6 +202,8 @@ namespace My3dApp
 
                     knockBackDir = other->GetDir();
 
+                    GamePad::Vibration();
+
                     if (damagePar > 50)
                     {
                         GameObjectManager::Entry(new HitEffect(pos, 1));
