@@ -1,7 +1,7 @@
 #include "SceneBase.h"
 #include "DxLib.h"
 #include "Title.h"
-#include "StageSelect.h"
+#include "Explanation.h"
 #include "Play.h"
 #include "Result.h"
 
@@ -31,7 +31,7 @@ namespace My3dApp
 
         if (CheckHitKey(KEY_INPUT_2) && sceneNum != 2)
         {
-            return new StageSelect();
+            return new Explanation();
         }
 
         if (CheckHitKey(KEY_INPUT_3) && sceneNum != 3)

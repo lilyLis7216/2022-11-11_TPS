@@ -179,7 +179,7 @@
     <ClCompile Include="Scene\Play.cpp" />
     <ClCompile Include="Scene\Result.cpp" />
     <ClCompile Include="Scene\SceneBase.cpp" />
-    <ClCompile Include="Scene\StageSelect.cpp" />
+    <ClCompile Include="Scene\Explanation.cpp" />
     <ClCompile Include="Scene\Title.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -212,7 +212,7 @@
     <ClInclude Include="Scene\Play.h" />
     <ClInclude Include="Scene\Result.h" />
     <ClInclude Include="Scene\SceneBase.h" />
-    <ClInclude Include="Scene\StageSelect.h" />
+    <ClInclude Include="Scene\Explanation.h" />
     <ClInclude Include="Scene\Title.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

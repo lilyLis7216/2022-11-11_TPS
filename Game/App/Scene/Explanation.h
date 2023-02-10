@@ -7,18 +7,18 @@ namespace My3dApp
     /// <summary>
     /// ステージセレクトシーン（派生クラス、継承元：シーンベース）
     /// </summary>
-    class StageSelect : public SceneBase
+    class Explanation : public SceneBase
     {
     public:
         /// <summary>
         /// コンストラクタ
         /// </summary>
-        StageSelect();
+        Explanation();
 
         /// <summary>
         /// デストラクタ
         /// </summary>
-        ~StageSelect();
+        ~Explanation();
 
         /** ステージセレクトの更新*/
 

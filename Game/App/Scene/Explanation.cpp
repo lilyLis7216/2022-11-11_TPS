@@ -1,21 +1,21 @@
-#include "StageSelect.h"
+#include "Explanation.h"
 #include "DxLib.h"
 
 namespace My3dApp
 {
-    StageSelect::StageSelect()
+    Explanation::Explanation()
     {
         text = "2.explanation";
 
         bgImage = LoadGraph("../asset/image/explanation.png");
     }
 
-    StageSelect::~StageSelect()
+    Explanation::~Explanation()
     {
         DeleteGraph(bgImage);
     }
 
-    SceneBase* StageSelect::Update(float deltaTime)
+    SceneBase* Explanation::Update(float deltaTime)
     {
         SceneBase* retScene = this;
 
@@ -24,7 +24,7 @@ namespace My3dApp
         return retScene;
     }
 
-    void StageSelect::Draw()
+    void Explanation::Draw()
     {
         DrawGraph(0, 0, bgImage, FALSE);
 

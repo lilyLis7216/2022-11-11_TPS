@@ -3,7 +3,7 @@
 #include "EffekseerForDXLib.h"
 #include "../Scene/SceneBase.h"
 #include "../Scene/Title.h"
-#include "../Scene/StageSelect.h"
+#include "../Scene/Explanation.h"
 #include "../Scene/Play.h"
 #include "../Scene/Result.h"
 #include "../Library/GamePad.h"
@@ -224,6 +224,11 @@ namespace My3dApp
 
                 // 新しいシーンを入れる
                 nowScene = tmpScene;
+            }
+
+            if (!tmpScene)
+            {
+                break;
             }
 
             // 60fps制御用ループ

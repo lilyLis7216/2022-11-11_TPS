@@ -40,7 +40,7 @@
     <ClCompile Include="Scene\SceneBase.cpp">
       <Filter>ソース ファイル\Scene</Filter>
     </ClCompile>
-    <ClCompile Include="Scene\StageSelect.cpp">
+    <ClCompile Include="Scene\Explanation.cpp">
       <Filter>ソース ファイル\Scene</Filter>
     </ClCompile>
     <ClCompile Include="Scene\Title.cpp">
@@ -129,7 +129,7 @@
     <ClInclude Include="Scene\SceneBase.h">
       <Filter>ソース ファイル\Scene</Filter>
     </ClInclude>
-    <ClInclude Include="Scene\StageSelect.h">
+    <ClInclude Include="Scene\Explanation.h">
       <Filter>ソース ファイル\Scene</Filter>
     </ClInclude>
     <ClInclude Include="Scene\Title.h">
