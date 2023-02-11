@@ -9,6 +9,33 @@ namespace My3dApp
     /// </summary>
     class Result : public SceneBase
     {
+    private:
+        int resultModel;
+
+        int backModel;
+
+        int exitModel;
+
+        int middleStar;
+
+        int leftStar;
+
+        int rightStar;
+
+        const float selectSize = 1.0f;
+
+        const float notSelectSize = 0.75f;
+
+        int selectState;
+
+        enum SelectState
+        {
+            BACK = 0,
+            EXIT,
+        };
+
+        float nextStar;
+
     public:
         /// <summary>
         /// コンストラクタ
