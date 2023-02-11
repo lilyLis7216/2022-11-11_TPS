@@ -14,14 +14,12 @@
 
 namespace My3dApp
 {
+    int Play::gaugeValue = 0;
+
     Play::Play()
         : timer(60.0f)
         , prevComb(0)
     {
-        text = "3.Play";
-
-        bgImage = -1;
-
         EnemyManager::CreateInstance();
 
         GameObjectManager::Entry(new Player());
@@ -34,6 +32,13 @@ namespace My3dApp
 
         // ライトの方向を設定
         SetLightDirection(VGet(-1.5f, -10.5f, 0.5f));
+
+        SetLightPosition(VGet(100.0f, -10.5f, -50.0f));
+
+        // 遠近法カメラへ切り替え
+        SetupCamera_Perspective(1000.0f);
+
+        gaugeValue = 0;
     }
 
     Play::~Play()
@@ -87,17 +92,14 @@ namespace My3dApp
         UserInterface::UIText(820, 70, GetColor(255, 255, 255), "Time:%0.1f", timer);
 
         // スコアの表示
-        UserInterface::UIBox(1460, 1860, 40, 140, 10, GetColor(0, 0, 0), GetColor(0, 0, 255));
-        UserInterface::UIText(1480, 70, GetColor(255, 255, 255), "SCORE : %3.0f", (float)GameManager::GetScore());
+        UserInterface::UIBox(1400, 1860, 40, 140, 10, GetColor(0, 0, 0), GetColor(0, 0, 255));
+        UserInterface::UIText(1440, 70, GetColor(255, 255, 255), "SCORE : %4.0f", (float)GameManager::GetScore());
 
         // コンボの表示
-        UserInterface::UIBox(1460, 1860, 160, 260, 10, GetColor(0, 0, 0), GetColor(0, 0, 255));
-        UserInterface::UIText(1480, 180, GetColor(255, 255, 255), "COMBO : %3.0f", (float)GameManager::GetCombo());
-
+        UserInterface::UIBox(1400, 1860, 160, 260, 10, GetColor(0, 0, 0), GetColor(0, 0, 255));
         int gaugeFillWidth = gaugeWidth * gaugeValue / gaugeMax;
-        UserInterface::UIBox(gaugeX, gaugeX + gaugeFillWidth, gaugeY, gaugeY + gaugeHeight, 0, GetColor(255, 255, 255), 0);
-
-        //CheckNowScene();
+        UserInterface::UIBox(gaugeX, gaugeX + gaugeFillWidth, gaugeY, gaugeY + gaugeHeight, 0, GetColor(255, 140, 0), 0);
+        UserInterface::UIText(1440, 190, GetColor(255, 255, 255), "COMBO : %4.0f", (float)GameManager::GetCombo());
     }
 
     void Play::GaugeUpdate(float deltaTime)
@@ -112,6 +114,11 @@ namespace My3dApp
         {
             gaugeValue = 0;
             GameManager::ResetCombo();
+        }
+
+        if (gaugeValue > gaugeMax)
+        {
+            gaugeValue = gaugeMax;
         }
     }
 }// namespace My3dApp

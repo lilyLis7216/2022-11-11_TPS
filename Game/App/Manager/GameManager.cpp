@@ -174,10 +174,6 @@ namespace My3dApp
 
         SetBackgroundColor(135 , 206, 235);
 
-        ResetScore();
-
-        ResetCombo();
-
         // ÉãÅ[Évñ{ëÃ
         while (gameLoop)
         {

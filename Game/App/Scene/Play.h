@@ -14,12 +14,12 @@ namespace My3dApp
         // タイマー
         float timer;
 
-        const int gaugeWidth = 370;
+        const int gaugeWidth = 440;
         const int gaugeHeight = 80;
-        const int gaugeX = 1470;
+        const int gaugeX = 1410;
         const int gaugeY = 170;
 
-        int gaugeValue = 0;
+        static int gaugeValue;
         int gaugeMax = 500;
         int prevComb;
 
@@ -47,6 +47,8 @@ namespace My3dApp
         /// プレイシーンの描画
         /// </summary>
         void Draw() override;
+
+        static void AddGauge(int set) { gaugeValue += set; }
 
     };
 }// namespace My3dApp

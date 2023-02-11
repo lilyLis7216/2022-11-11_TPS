@@ -5,6 +5,7 @@
 #include "../../Manager/GameManager.h"
 #include "../Bullet/NormalBullet.h"
 #include "../Effect/HitEffect.h"
+#include "../../Scene/Play.h"
 
 namespace My3dApp
 {
@@ -167,6 +168,10 @@ namespace My3dApp
                     gravity = jumpForce;
 
                     nockBackDir = other->GetDir();
+
+                    GameManager::AddScore(10);
+
+                    Play::AddGauge(20);
 
                     if (damagePar > 50)
                     {
