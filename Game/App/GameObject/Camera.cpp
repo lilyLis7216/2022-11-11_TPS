@@ -27,8 +27,6 @@ namespace My3dApp
         cameraOffset.x = 0;
         cameraOffset.y = height;
         cameraOffset.z = z;
-
-        SetupCamera_Perspective(1000.0f);
     }
 
     /// <summary>
