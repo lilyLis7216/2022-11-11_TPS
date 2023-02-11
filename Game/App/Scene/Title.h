@@ -20,7 +20,9 @@ namespace My3dApp
 
         float rotateCount;
 
-        const float defaultSize = 1.0f;
+        const float selectSize = 1.0f;
+
+        const float notSelectSize = 0.75f;
 
         void MoveModel(float deltaTime);
 

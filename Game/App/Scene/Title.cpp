@@ -1,6 +1,7 @@
 #include "Title.h"
 #include "DxLib.h"
 #include "../Manager/AssetManager.h"
+#include "../Manager/GameManager.h"
 #include "../Library/GamePad.h"
 #include "Explanation.h"
 #include "Play.h"
@@ -11,8 +12,6 @@ namespace My3dApp
         : rotateCount(0)
         , selectState(START)
     {
-        text = "1.Title";
-
         titleModel = AssetManager::GetMesh("../asset/model/title.mv1");
 
         MV1SetPosition(titleModel, VGet(-50.0f, 200.0f, 0));
@@ -27,13 +26,19 @@ namespace My3dApp
 
         MV1SetPosition(startModel, VGet(x, -150.0f, 0));
 
+        MV1SetScale(startModel, VGet(notSelectSize, notSelectSize, notSelectSize));
+
         ctrlModel = AssetManager::GetMesh("../asset/model/controls.mv1");
 
         MV1SetPosition(ctrlModel, VGet(x, -300.0f, 0));
 
-        exitModel = AssetManager::GetMesh("../asset/model/exit.mv1");
+        MV1SetScale(ctrlModel, VGet(notSelectSize, notSelectSize, notSelectSize));
+
+        exitModel = AssetManager::GetMesh("../asset/model/quit.mv1");
 
         MV1SetPosition(exitModel, VGet(x, -450.0f, 0));
+
+        MV1SetScale(exitModel, VGet(notSelectSize, notSelectSize, notSelectSize));
 
         // カメラの位置と向きを設定
         SetCameraPositionAndTarget_UpVecY(VGet(0.0f, 0.0f, -1000.0f), VGet(0.0f, 0.0f, 0.0f));
@@ -43,12 +48,14 @@ namespace My3dApp
 
         // ライトの方向を設定
         SetLightDirection(VGet(0.0f, 0.0f, 100.0f));
+
+        GameManager::ResetScore();
+
+        GameManager::ResetCombo();
     }
 
     Title::~Title()
     {
-        DeleteGraph(bgImage);
-
         AssetManager::ReleaseMesh(titleModel);
 
         AssetManager::ReleaseMesh(startModel);
@@ -64,43 +71,57 @@ namespace My3dApp
 
         MoveModel(deltaTime);
 
+        retScene = CheckRetScene(1);
+
         if (selectState == START)
         {
+            /*MV1SetScale(startModel, VGet(selectSize, selectSize, selectSize));
+            MV1SetScale(ctrlModel, VGet(notSelectSize, notSelectSize, notSelectSize));
+            MV1SetScale(exitModel, VGet(notSelectSize, notSelectSize, notSelectSize));*/
+
             if (GamePad::GetButtonState(Button::B) == 1)
             {
                 retScene = new Play();
             }
 
-            if (GamePad::GetButtonState(Button::DOWN) == 1 || GamePad::GetLeftStickY() < -10000.0f)
+            if (GamePad::GetButtonState(Button::DOWN) == 1)
             {
                 selectState = CONTROLS;
             }
         }
         else if (selectState == CONTROLS)
         {
+            /*MV1SetScale(startModel, VGet(notSelectSize, notSelectSize, notSelectSize));
+            MV1SetScale(ctrlModel, VGet(selectSize, selectSize, selectSize));
+            MV1SetScale(exitModel, VGet(notSelectSize, notSelectSize, notSelectSize));*/
+
             if (GamePad::GetButtonState(Button::B) == 1)
             {
                 retScene = new Explanation();
             }
 
-            if (GamePad::GetButtonState(Button::UP) == 1 || GamePad::GetLeftStickY() > 30000.0f)
+            if (GamePad::GetButtonState(Button::UP) == 1)
             {
                 selectState = START;
             }
 
-            if (GamePad::GetButtonState(Button::DOWN) == 1 || GamePad::GetLeftStickY() < -30000.0f)
+            if (GamePad::GetButtonState(Button::DOWN) == 1)
             {
                 selectState = EXIT;
             }
         }
         else if (selectState == EXIT)
         {
+            /*MV1SetScale(startModel, VGet(notSelectSize, notSelectSize, notSelectSize));
+            MV1SetScale(ctrlModel, VGet(notSelectSize, notSelectSize, notSelectSize));
+            MV1SetScale(exitModel, VGet(selectSize, selectSize, selectSize));*/
+
             if (GamePad::GetButtonState(Button::B) == 1)
             {
                 retScene = nullptr;
             }
 
-            if (GamePad::GetButtonState(Button::UP) == 1 || GamePad::GetLeftStickY() > 10000.0f)
+            if (GamePad::GetButtonState(Button::UP) == 1)
             {
                 selectState = CONTROLS;
             }
@@ -136,8 +157,6 @@ namespace My3dApp
         }
 
         DrawSphere3D(VGet(-250.0f, sphereY, 0.0f), 20.0f, 16, GetColor(255, 0, 0), GetColor(0, 0, 0), true);
-
-        CheckNowScene();
     }
 
     void Title::MoveModel(float deltaTime)
