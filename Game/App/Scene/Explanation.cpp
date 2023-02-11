@@ -1,5 +1,7 @@
 #include "Explanation.h"
 #include "DxLib.h"
+#include "../Library/GamePad.h"
+#include "Title.h"
 
 namespace My3dApp
 {
@@ -20,6 +22,11 @@ namespace My3dApp
         SceneBase* retScene = this;
 
         retScene = CheckRetScene(2);
+
+        if (GamePad::GetButtonState(Button::BACK) == 1)
+        {
+            retScene = new Title();
+        }
 
         return retScene;
     }
