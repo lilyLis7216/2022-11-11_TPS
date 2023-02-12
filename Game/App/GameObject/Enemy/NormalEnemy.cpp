@@ -2,12 +2,15 @@
 #include "../../Manager/AssetManager.h"
 #include "../../Manager/GameObjectManager.h"
 #include "../../Library/Calc3D.h"
+#include "../Bullet/NormalBullet.h"
 
 namespace My3dApp
 {
     NormalEnemy::NormalEnemy(VECTOR pos)
         : BaseEnemy(pos)
     {
+        enemyType = 0;
+
         // ƒ‚ƒfƒ‹‚Ì“Ç‚Ýž‚Ý
         modelHandle = AssetManager::GetMesh("../asset/model/enemy.mv1");
 
@@ -23,7 +26,7 @@ namespace My3dApp
         // “–‚½‚è”»’è‹…‚Ì”¼Œa‚ÌÝ’è
         collisionSphere.radius = 65.0f;
 
-        weight = 500.0f;
+        weight = 750.0f;
 
         // “–‚½‚è”»’è‚ÌXV
         CollisionUpdate();
@@ -47,8 +50,11 @@ namespace My3dApp
             // ˆÚ“®
             Move(deltaTime);
 
-            // ŽËŒ‚
-            Shot(deltaTime);
+            if (canShot)
+            {
+                // ŽËŒ‚
+                Shot(deltaTime);
+            }
         }
 
         gravity -= weight * deltaTime;
@@ -88,11 +94,31 @@ namespace My3dApp
 
         dir = VNorm(tmp);
 
-        if (VSize(tmp) > 300.0f)
+        if (VSize(tmp) > 1000.0f)
         {
-            speed = (dir * deltaTime * 300.0f);
+            speed = (dir * deltaTime * 200.0f);
 
             pos += speed;
+
+            canShot = false;
+        }
+        else if (VSize(tmp) > 300.0f)
+        {
+            speed = (dir * deltaTime * 200.0f);
+
+            pos += speed;
+
+            canShot = true;
+        }
+    }
+
+    void NormalEnemy::Shot(float deltaTime)
+    {
+        shotInterval -= deltaTime;
+        if (shotInterval < 0)
+        {
+            shotInterval = 5.0f;
+            GameObjectManager::Entry(new NormalBullet(ObjectTag::EnemyBulletM, pos, dir));
         }
     }
 }// namespace My3dApp

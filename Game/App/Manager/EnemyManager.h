@@ -15,7 +15,7 @@ namespace My3dApp
 
         static EnemyManager* instance;
 
-        static const int enemyNumMax = 10;
+        static const int enemyNumMax = 7;
 
         static int enemyNum;
 
@@ -37,6 +37,6 @@ namespace My3dApp
 
         static bool IsCreateEnemy(float deltaTime);
 
-        static void Update(float deltaTime);
+        static void Update(float deltaTime, float timer);
     };
 }// namespace My3dApp

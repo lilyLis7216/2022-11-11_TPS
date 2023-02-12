@@ -42,9 +42,6 @@ namespace My3dApp
         // スコア
         static int score;
 
-        // コンボ
-        static int combo;
-
     public:
         /// <summary>
         /// インスタンスの生成
@@ -75,8 +72,5 @@ namespace My3dApp
         static void AddScore(int set) { score += set; }
         static void ResetScore() { score = 0; }
         static int GetScore() { return score; }
-        static void AddCombo() { combo++; }
-        static void ResetCombo() { combo = 0; }
-        static int GetCombo() { return combo; }
     };
 }// namespace My3dApp

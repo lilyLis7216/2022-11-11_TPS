@@ -45,6 +45,10 @@ namespace My3dApp
         // 重力
         float gravity;
 
+        bool canShot;
+
+        int enemyType;
+
         /// <summary>
         /// エネミーの移動
         /// </summary>
@@ -70,7 +74,7 @@ namespace My3dApp
         /// <summary>
         /// エネミーの射撃処理
         /// </summary>
-        void Shot(float deltaTime);
+        virtual void Shot(float deltaTime);
 
         /// <summary>
         /// エネミーのノックバック処理

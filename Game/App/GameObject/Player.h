@@ -37,7 +37,7 @@ namespace My3dApp
 
         const float jumpForce = 200.0f;
 
-        const float GRAVITY = 500.0f;
+        const float GRAVITY = 750.0f;
 
         float gravity;
 

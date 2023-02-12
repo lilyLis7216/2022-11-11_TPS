@@ -201,10 +201,43 @@ namespace My3dApp
             {
                 instance->objects[mainTag][playerNum]->OnCollisionEnter(instance->objects[pairTag][eBulletNum]);
             }
+
+            // エネミー弾との当たり判定
+            pairTag = ObjectTag::EnemyBulletS;
+            for (int eBulletNum = 0; eBulletNum < instance->objects[pairTag].size(); ++eBulletNum)
+            {
+                instance->objects[mainTag][playerNum]->OnCollisionEnter(instance->objects[pairTag][eBulletNum]);
+            }
+
+            // エネミー弾との当たり判定
+            pairTag = ObjectTag::EnemyBulletM;
+            for (int eBulletNum = 0; eBulletNum < instance->objects[pairTag].size(); ++eBulletNum)
+            {
+                instance->objects[mainTag][playerNum]->OnCollisionEnter(instance->objects[pairTag][eBulletNum]);
+            }
+
+            // エネミー弾との当たり判定
+            pairTag = ObjectTag::EnemyBulletL;
+            for (int eBulletNum = 0; eBulletNum < instance->objects[pairTag].size(); ++eBulletNum)
+            {
+                instance->objects[mainTag][playerNum]->OnCollisionEnter(instance->objects[pairTag][eBulletNum]);
+            }
         }
 
         // プレイヤー弾の当たり判定
         mainTag = ObjectTag::PlayerBullet;
+        for (int pBulletNum = 0; pBulletNum < instance->objects[mainTag].size(); ++pBulletNum)
+        {
+            // 敵との当たり判定
+            pairTag = ObjectTag::Enemy;
+            for (int enemyNum = 0; enemyNum < instance->objects[pairTag].size(); ++enemyNum)
+            {
+                instance->objects[mainTag][pBulletNum]->OnCollisionEnter(instance->objects[pairTag][enemyNum]);
+            }
+        }
+
+        // プレイヤー弾の当たり判定
+        mainTag = ObjectTag::PlayerBulletCharge;
         for (int pBulletNum = 0; pBulletNum < instance->objects[mainTag].size(); ++pBulletNum)
         {
             // 敵との当たり判定
@@ -241,10 +274,52 @@ namespace My3dApp
             {
                 instance->objects[mainTag][enemyNum]->OnCollisionEnter(instance->objects[pairTag][pBulletNum]);
             }
+
+            pairTag = ObjectTag::PlayerBulletCharge;
+            for (int pBulletNum = 0; pBulletNum < instance->objects[pairTag].size(); ++pBulletNum)
+            {
+                instance->objects[mainTag][enemyNum]->OnCollisionEnter(instance->objects[pairTag][pBulletNum]);
+            }
         }
 
         // エネミー弾の当たり判定
         mainTag = ObjectTag::EnemyBullet;
+        for (int eBulletNum = 0; eBulletNum < instance->objects[mainTag].size(); ++eBulletNum)
+        {
+            // プレイヤーとの当たり判定
+            pairTag = ObjectTag::Player;
+            for (int playerNum = 0; playerNum < instance->objects[pairTag].size(); ++playerNum)
+            {
+                instance->objects[mainTag][eBulletNum]->OnCollisionEnter(instance->objects[pairTag][playerNum]);
+            }
+        }
+
+        // エネミー弾の当たり判定
+        mainTag = ObjectTag::EnemyBulletS;
+        for (int eBulletNum = 0; eBulletNum < instance->objects[mainTag].size(); ++eBulletNum)
+        {
+            // プレイヤーとの当たり判定
+            pairTag = ObjectTag::Player;
+            for (int playerNum = 0; playerNum < instance->objects[pairTag].size(); ++playerNum)
+            {
+                instance->objects[mainTag][eBulletNum]->OnCollisionEnter(instance->objects[pairTag][playerNum]);
+            }
+        }
+
+        // エネミー弾の当たり判定
+        mainTag = ObjectTag::EnemyBulletM;
+        for (int eBulletNum = 0; eBulletNum < instance->objects[mainTag].size(); ++eBulletNum)
+        {
+            // プレイヤーとの当たり判定
+            pairTag = ObjectTag::Player;
+            for (int playerNum = 0; playerNum < instance->objects[pairTag].size(); ++playerNum)
+            {
+                instance->objects[mainTag][eBulletNum]->OnCollisionEnter(instance->objects[pairTag][playerNum]);
+            }
+        }
+
+        // エネミー弾の当たり判定
+        mainTag = ObjectTag::EnemyBulletL;
         for (int eBulletNum = 0; eBulletNum < instance->objects[mainTag].size(); ++eBulletNum)
         {
             // プレイヤーとの当たり判定

@@ -19,16 +19,31 @@ namespace My3dApp
         {
             difColor = GetColor(0, 0, 255);
             boost = 800.0f;
+            // 弾の半径の設定
+            radius = 25.0f;
         }
         // オブジェクトの種類がエネミー弾なら
-        else if (tag == ObjectTag::EnemyBullet)
+        else if (tag == ObjectTag::EnemyBulletS)
         {
             difColor = GetColor(255, 0, 0);
             boost = 1000.0f;
+            // 弾の半径の設定
+            radius = 15.0f;
         }
-
-        // 弾の半径の設定
-        radius = 25.0f;
+        else if (tag == ObjectTag::EnemyBulletM)
+        {
+            difColor = GetColor(255, 0, 0);
+            boost = 1000.0f;
+            // 弾の半径の設定
+            radius = 20.0f;
+        }
+        else if (tag == ObjectTag::EnemyBulletL)
+        {
+            difColor = GetColor(255, 0, 0);
+            boost = 1000.0f;
+            // 弾の半径の設定
+            radius = 30.0f;
+        }
 
         // 当たり判定球の半径の設定
         collisionSphere.radius = radius;
@@ -91,7 +106,7 @@ namespace My3dApp
         }
 
         // 自身がエネミー弾であれば
-        if (tag == ObjectTag::EnemyBullet)
+        if (tag == ObjectTag::EnemyBulletS || tag == ObjectTag::EnemyBulletM || tag == ObjectTag::EnemyBulletL)
         {
             // プレイヤーとの当たり判定
             if (searchTag == ObjectTag::Player)

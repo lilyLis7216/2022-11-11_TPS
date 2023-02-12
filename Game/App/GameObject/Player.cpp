@@ -184,7 +184,7 @@ namespace My3dApp
             }
         }
 
-        if (tag == ObjectTag::EnemyBullet)
+        if (tag == ObjectTag::EnemyBulletS || tag == ObjectTag::EnemyBulletM || tag == ObjectTag::EnemyBulletL)
         {
             if (CollisionPair(collisionSphere, other->GetCollisionSphere()))
             {
@@ -194,7 +194,18 @@ namespace My3dApp
 
                 if (collisionSphere.radius + other->GetCollisionSphere().radius > r)
                 {
-                    damagePar += 10.0f;
+                    if (tag == ObjectTag::EnemyBulletS)
+                    {
+                        damagePar += 3.0f;
+                    }
+                    else if (tag == ObjectTag::EnemyBulletM)
+                    {
+                        damagePar += 7.0f;
+                    }
+                    else if (tag == ObjectTag::EnemyBulletL)
+                    {
+                        damagePar += 12.0f;
+                    }
 
                     isNockBack = true;
 
@@ -363,7 +374,7 @@ namespace My3dApp
         else if (GamePad::GetButtonState(Button::B) == 1 && !isCharge)
         {
             isCharge = true;
-            GameObjectManager::Entry(new ChargeBullet(ObjectTag::PlayerBullet, pos, dir));
+            GameObjectManager::Entry(new ChargeBullet(ObjectTag::PlayerBulletCharge, pos, dir));
         }
 
         if (GamePad::GetButtonState(Button::B) < 1)

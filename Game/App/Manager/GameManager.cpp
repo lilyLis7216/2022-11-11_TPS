@@ -24,8 +24,6 @@ namespace My3dApp
 
     int GameManager::score;
 
-    int GameManager::combo;
-
     GameManager::GameManager()
     {
         // 画面の横幅初期化
@@ -207,7 +205,6 @@ namespace My3dApp
             // fps確認用（後で消す）
             //SetFontSize(25);
             //DrawFormatString(200, 10, GetColor(255, 255, 255), "fps:%f", deltaTime);
-            //DrawFormatString(200, 10, GetColor(255, 255, 255), "lightNum:%d", GetEnableLightHandleNum());
 
             // 裏画面の内容を表画面に反映させる
             ScreenFlip();

@@ -52,19 +52,17 @@ namespace My3dApp
 
         if (enemyNum < enemyNumMax && createInterval < 0)
         {
-            createInterval = 3.0f;
+            createInterval = 5.0f;
             return true;
         }
         return false;
     }
 
-    void EnemyManager::Update(float deltaTime)
+    void EnemyManager::Update(float deltaTime, float timer)
     {
         if (EnemyManager::IsCreateEnemy(deltaTime))
         {
             count++;
-
-            //GameObjectManager::Entry(new NormalEnemy(VGet((float)(rand() % 10 * 100), 1000.0f, (float)(rand() % 10 * 100))));
 
             if (count == 1)
             {
@@ -72,11 +70,25 @@ namespace My3dApp
             }
             else if (count == 2)
             {
-                GameObjectManager::Entry(new LightEnemy(VGet((float)(rand() % 10 * 100), 1000.0f, (float)(rand() % 10 * 100))));
+                if (timer < 40)
+                {
+                    GameObjectManager::Entry(new LightEnemy(VGet((float)(rand() % 10 * 100), 1000.0f, (float)(rand() % 10 * 100))));
+                }
+                else
+                {
+                    GameObjectManager::Entry(new NormalEnemy(VGet((float)(rand() % 10 * 100), 1000.0f, (float)(rand() % 10 * 100))));
+                }
             }
             else if (count == 3)
             {
-                GameObjectManager::Entry(new HeavyEnemy(VGet((float)(rand() % 10 * 100), 1000.0f, (float)(rand() % 10 * 100))));
+                if (timer < 20)
+                {
+                    GameObjectManager::Entry(new HeavyEnemy(VGet((float)(rand() % 10 * 100), 1000.0f, (float)(rand() % 10 * 100))));
+                }
+                else
+                {
+                    GameObjectManager::Entry(new NormalEnemy(VGet((float)(rand() % 10 * 100), 1000.0f, (float)(rand() % 10 * 100))));
+                }
                 count = 0;
             }
         }

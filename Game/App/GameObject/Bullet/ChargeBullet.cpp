@@ -93,29 +93,12 @@ namespace My3dApp
         // 調べるオブジェクトの種類を取得
         ObjectTag searchTag = other->GetTag();
 
-        // 自身がプレイヤー弾であれば
-        if (tag == ObjectTag::PlayerBullet)
+        // エネミーとの当たり判定
+        if (searchTag == ObjectTag::Enemy)
         {
-            // エネミーとの当たり判定
-            if (searchTag == ObjectTag::Enemy)
+            if (CollisionPair(collisionSphere, other->GetCollisionSphere()))
             {
-                if (CollisionPair(collisionSphere, other->GetCollisionSphere()))
-                {
-                    isAlive = false;
-                }
-            }
-        }
-
-        // 自身がエネミー弾であれば
-        if (tag == ObjectTag::EnemyBullet)
-        {
-            // プレイヤーとの当たり判定
-            if (searchTag == ObjectTag::Player)
-            {
-                if (CollisionPair(collisionSphere, other->GetCollisionSphere()))
-                {
-                    isAlive = false;
-                }
+                isAlive = false;
             }
         }
     }

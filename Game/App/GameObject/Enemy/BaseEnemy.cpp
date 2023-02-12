@@ -26,6 +26,8 @@ namespace My3dApp
         , weight(0)
         , nockBackPar(0)
         , gravity(10.0f)
+        , canShot(false)
+        , enemyType(-1)
     {
         // “–‚½‚è”»’èí—Ş‚Ìİ’è
         collisionType = CollisionType::Sphere;
@@ -188,6 +190,44 @@ namespace My3dApp
                 CollisionUpdate();
             }
         }
+
+        if (tag == ObjectTag::PlayerBulletCharge)
+        {
+            if (CollisionPair(collisionSphere, other->GetCollisionSphere()))
+            {
+                float vx = collisionSphere.worldCenter.x - other->GetCollisionSphere().worldCenter.x;
+                float vz = collisionSphere.worldCenter.z - other->GetCollisionSphere().worldCenter.z;
+                float r = sqrtf(pow(vx, 2.0f) + pow(vz, 2.0f));
+
+                if (collisionSphere.radius + other->GetCollisionSphere().radius > r)
+                {
+                    damagePar += 30.0f;
+
+                    isNockBack = true;
+
+                    gravity = 500.0f;
+
+                    nockBackDir = other->GetDir();
+
+                    GameManager::AddScore(10);
+
+                    Play::AddGauge(20);
+
+                    if (damagePar > 50)
+                    {
+                        GameObjectManager::Entry(new HitEffect(pos, 1));
+
+                    }
+                    else
+                    {
+                        GameObjectManager::Entry(new HitEffect(pos, 0));
+                    }
+                }
+
+                // “–‚½‚è”»’è‚ÌXV
+                CollisionUpdate();
+            }
+        }
     }
 
     void BaseEnemy::RotateCheck()
@@ -259,8 +299,32 @@ namespace My3dApp
         // ˆê’èˆÈã—‰º‚µ‚½‚ç
         if (pos.y < -500.0f)
         {
-            GameManager::AddCombo();
-            GameManager::AddScore(100);
+            int score = 0;
+            // •’Ê‚Ì“G
+            if (enemyType == 0)
+            {
+                score = 200;
+            }
+            // Œy‚¢“G
+            else if (enemyType == 1)
+            {
+                score = 300;
+            }
+            // d‚¢“G
+            else if (enemyType == 2)
+            {
+                score = 100;
+            }
+
+            if (Play::GetGauge() > 0)
+            {
+                GameManager::AddScore(score * 2);
+            }
+            else
+            {
+                GameManager::AddScore(score);
+            }
+            Play::SetMaxGauge();
             // €‚ñ‚Å‚¢‚é
             return true;
         }
