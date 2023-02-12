@@ -20,8 +20,6 @@ namespace My3dApp
         /// </summary>
         ~Explanation();
 
-        /** ステージセレクトの更新*/
-
         /// <summary>
         /// ステージセレクトシーンの更新
         /// </summary>
@@ -33,6 +31,5 @@ namespace My3dApp
         /// ステージセレクトシーンの描画
         /// </summary>
         void Draw() override;
-
     };
 }// namespace My3dApp
