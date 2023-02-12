@@ -10,7 +10,7 @@ namespace My3dApp
 {
     Result::Result()
         : selectState(BACK)
-        , nextStar(0)
+        , nextStar(500)
     {
         bgImage = LoadGraph("../asset/image/sky.png");
 
@@ -39,22 +39,6 @@ namespace My3dApp
         string starA = "../asset/model/star1.mv1";
 
         string starB = "../asset/model/star2.mv1";
-
-        // スコアが1500を超えていたら
-        if (GameManager::GetScore() >= 1500)
-        {
-            // 星を読み込む
-            middleStar = AssetManager::GetMesh(starA);
-            MV1SetMaterialAmbColor(middleStar, 0, GetColorF(1.0f, 1.0f, 1.0f, 0.0f));
-            nextStar = 0;
-        }
-        // 超えていなかったら
-        else
-        {
-            // 中抜きの星を読み込む
-            middleStar = AssetManager::GetMesh(starB);
-            MV1SetMaterialAmbColor(middleStar, 0, GetColorF(0.3f, 0.3f, 0.3f, 0.0f));
-        }
 
         // スコアが500を超えていたら
         if (GameManager::GetScore() >= 500)
@@ -86,6 +70,22 @@ namespace My3dApp
             // 中抜きの星を読み込む
             rightStar = AssetManager::GetMesh(starB);
             MV1SetMaterialAmbColor(rightStar, 0, GetColorF(0.3f, 0.3f, 0.3f, 0.0f));
+        }
+
+        // スコアが1500を超えていたら
+        if (GameManager::GetScore() >= 1500)
+        {
+            // 星を読み込む
+            middleStar = AssetManager::GetMesh(starA);
+            MV1SetMaterialAmbColor(middleStar, 0, GetColorF(1.0f, 1.0f, 1.0f, 0.0f));
+            nextStar = 0;
+        }
+        // 超えていなかったら
+        else
+        {
+            // 中抜きの星を読み込む
+            middleStar = AssetManager::GetMesh(starB);
+            MV1SetMaterialAmbColor(middleStar, 0, GetColorF(0.3f, 0.3f, 0.3f, 0.0f));
         }
 
         MV1SetScale(middleStar, starSize);
@@ -127,10 +127,14 @@ namespace My3dApp
 
         retScene = CheckRetScene(4);
 
+        COLOR_F selectColor = GetColorF(0.0f, 0.0f, 0.0f, 0.0f);
+
+        COLOR_F notSelectColor = GetColorF(1.0f, 1.0f, 1.0f, 0.0f);
+
         if (selectState == BACK)
         {
-            /*MV1SetScale(backModel, VGet(selectSize, selectSize, selectSize));
-            MV1SetScale(exitModel, VGet(notSelectSize, notSelectSize, notSelectSize));*/
+            MV1SetMaterialAmbColor(backModel, 0, selectColor);
+            MV1SetMaterialAmbColor(exitModel, 0, notSelectColor);
 
             if (GamePad::GetButtonState(Button::B) == 1)
             {
@@ -144,8 +148,8 @@ namespace My3dApp
         }
         else if (selectState == EXIT)
         {
-            /*MV1SetScale(backModel, VGet(0.5f, 0.5f, 0.5f));
-            MV1SetScale(exitModel, VGet(selectSize, selectSize, selectSize));*/
+            MV1SetMaterialAmbColor(backModel, 0, notSelectColor);
+            MV1SetMaterialAmbColor(exitModel, 0, selectColor);
 
             if (GamePad::GetButtonState(Button::B) == 1)
             {
@@ -183,7 +187,14 @@ namespace My3dApp
 
         UserInterface::UIText(450, 600, GetColor(255, 255, 255), "SCORE : %4.0f", (float)GameManager::GetScore());
 
-        UserInterface::UIText(1000, 600, GetColor(255, 255, 255), "NEXT STAR : %4.0f", nextStar - (float)GameManager::GetScore());
+        if (nextStar > 0)
+        {
+            UserInterface::UIText(1000, 600, GetColor(255, 255, 255), "NEXT STAR : %4.0f", nextStar - (float)GameManager::GetScore());
+        }
+        else
+        {
+            UserInterface::UIText(1000, 600, GetColor(255, 255, 255), "NEXT STAR : %4.0f", 0);
+        }
 
         float sphereY = 0.0f;
 

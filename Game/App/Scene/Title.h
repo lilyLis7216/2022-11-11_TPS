@@ -1,6 +1,7 @@
 #pragma once
 
 #include "SceneBase.h"
+#include "DxLib.h"
 
 namespace My3dApp
 {

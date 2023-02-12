@@ -1,5 +1,4 @@
 #include "Title.h"
-#include "DxLib.h"
 #include "../Manager/AssetManager.h"
 #include "../Manager/GameManager.h"
 #include "../Library/GamePad.h"
@@ -50,8 +49,6 @@ namespace My3dApp
         SetLightDirection(VGet(0.0f, 0.0f, 100.0f));
 
         GameManager::ResetScore();
-
-        GameManager::ResetCombo();
     }
 
     Title::~Title()
@@ -73,11 +70,15 @@ namespace My3dApp
 
         retScene = CheckRetScene(1);
 
+        COLOR_F selectColor = GetColorF(0.0f, 0.0f, 0.0f, 0.0f);
+
+        COLOR_F notSelectColor = GetColorF(1.0f, 1.0f, 1.0f, 0.0f);
+
         if (selectState == START)
         {
-            /*MV1SetScale(startModel, VGet(selectSize, selectSize, selectSize));
-            MV1SetScale(ctrlModel, VGet(notSelectSize, notSelectSize, notSelectSize));
-            MV1SetScale(exitModel, VGet(notSelectSize, notSelectSize, notSelectSize));*/
+            MV1SetMaterialAmbColor(startModel, 0, selectColor);
+            MV1SetMaterialAmbColor(ctrlModel, 0, notSelectColor);
+            MV1SetMaterialAmbColor(exitModel, 0, notSelectColor);
 
             if (GamePad::GetButtonState(Button::B) == 1)
             {
@@ -91,9 +92,9 @@ namespace My3dApp
         }
         else if (selectState == CONTROLS)
         {
-            /*MV1SetScale(startModel, VGet(notSelectSize, notSelectSize, notSelectSize));
-            MV1SetScale(ctrlModel, VGet(selectSize, selectSize, selectSize));
-            MV1SetScale(exitModel, VGet(notSelectSize, notSelectSize, notSelectSize));*/
+            MV1SetMaterialAmbColor(startModel, 0, notSelectColor);
+            MV1SetMaterialAmbColor(ctrlModel, 0, selectColor);
+            MV1SetMaterialAmbColor(exitModel, 0, notSelectColor);
 
             if (GamePad::GetButtonState(Button::B) == 1)
             {
@@ -112,9 +113,9 @@ namespace My3dApp
         }
         else if (selectState == EXIT)
         {
-            /*MV1SetScale(startModel, VGet(notSelectSize, notSelectSize, notSelectSize));
-            MV1SetScale(ctrlModel, VGet(notSelectSize, notSelectSize, notSelectSize));
-            MV1SetScale(exitModel, VGet(selectSize, selectSize, selectSize));*/
+            MV1SetMaterialAmbColor(startModel, 0, notSelectColor);
+            MV1SetMaterialAmbColor(ctrlModel, 0, notSelectColor);
+            MV1SetMaterialAmbColor(exitModel, 0, selectColor);
 
             if (GamePad::GetButtonState(Button::B) == 1)
             {

@@ -30,6 +30,8 @@ namespace My3dApp
 
         GameObjectManager::Entry(new NormalEnemy(VGet(0, 200, 1000)));
 
+        LoadDivGraph("../asset/image/num.png", 12, 6, 2, 64, 64, countImage);
+
         // ライトの方向を設定
         SetLightDirection(VGet(-1.5f, -10.5f, 0.5f));
 
@@ -52,11 +54,9 @@ namespace My3dApp
     {
         timer -= deltaTime;
 
-        prevComb = GameManager::GetCombo();
-
         SceneBase* retScene = this;
 
-        EnemyManager::Update(deltaTime);
+        EnemyManager::Update(deltaTime, timer);
 
         GameObjectManager::Update(deltaTime);
 
@@ -71,7 +71,7 @@ namespace My3dApp
 
         GameObject* player = GameObjectManager::GetFirstGameObject(ObjectTag::Player);
 
-        if (timer < 0 || player->GetPos().y < -500.0f)
+        if (timer <= 0.1 || player->GetPos().y < -500.0f)
         {
             retScene = new Result();
         }
@@ -88,32 +88,45 @@ namespace My3dApp
         SetFontSize(50);
 
         // タイマーの表示
-        UserInterface::UIBox(760, 1140, 40, 140, 10, GetColor(0, 0, 0), GetColor(0, 0, 255));
-        UserInterface::UIText(820, 70, GetColor(255, 255, 255), "Time:%0.1f", timer);
+        UserInterface::UIBox(740, 1140, 40, 140, 10, GetColor(0, 0, 0), GetColor(0, 0, 255));
+        UserInterface::UIText(800, 70, GetColor(255, 255, 255), "Time:%0.1f", timer);
 
         // スコアの表示
-        UserInterface::UIBox(1400, 1860, 40, 140, 10, GetColor(0, 0, 0), GetColor(0, 0, 255));
-        UserInterface::UIText(1440, 70, GetColor(255, 255, 255), "SCORE : %4.0f", (float)GameManager::GetScore());
+        UserInterface::UIBox(1200, 1660, 40, 140, 10, GetColor(0, 0, 0), GetColor(0, 0, 255));
+        UserInterface::UIText(1240, 70, GetColor(255, 255, 255), "SCORE : %4.0f", (float)GameManager::GetScore());
 
         // コンボの表示
-        UserInterface::UIBox(1400, 1860, 160, 260, 10, GetColor(0, 0, 0), GetColor(0, 0, 255));
+        /*UserInterface::UIBox(1400, 1860, 160, 260, 10, GetColor(0, 0, 0), GetColor(0, 0, 255));
         int gaugeFillWidth = gaugeWidth * gaugeValue / gaugeMax;
         UserInterface::UIBox(gaugeX, gaugeX + gaugeFillWidth, gaugeY, gaugeY + gaugeHeight, 0, GetColor(255, 140, 0), 0);
-        UserInterface::UIText(1440, 190, GetColor(255, 255, 255), "COMBO : %4.0f", (float)GameManager::GetCombo());
+        UserInterface::UIText(1440, 190, GetColor(255, 255, 255), "COMBO : %4.0f", (float)GameManager::GetCombo());*/
+
+        // コンボの表示
+        UserInterface::UIBox(200, 660, 40, 140, 10, GetColor(0, 0, 0), GetColor(0, 0, 255));
+        int gaugeFillWidth = gaugeWidth * gaugeValue / gaugeMax;
+        UserInterface::UIBox(gaugeX, gaugeX + gaugeFillWidth, gaugeY, gaugeY + gaugeHeight, 0, GetColor(255, 140, 0), 0);
+        if (gaugeValue > 0)
+        {
+            UserInterface::UIText(220, 70, GetColor(255, 255, 255), "SCORE BONUS");
+        }
+
+        if (timer < 11 && timer >= 0)
+        {
+            SetDrawBlendMode(DX_BLENDMODE_ALPHA, 150);
+            SetDrawMode(DX_DRAWMODE_BILINEAR);
+            DrawRotaGraph(960, 540, 10.0f, 0, countImage[(int)timer], TRUE);
+            SetDrawMode(DX_DRAWMODE_NEAREST);
+            SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
+        }
     }
 
     void Play::GaugeUpdate(float deltaTime)
     {
         gaugeValue -= 1;
-        if (prevComb != GameManager::GetCombo())
-        {
-            gaugeValue = gaugeMax;
-        }
 
         if (gaugeValue < 0)
         {
             gaugeValue = 0;
-            GameManager::ResetCombo();
         }
 
         if (gaugeValue > gaugeMax)
