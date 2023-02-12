@@ -173,7 +173,7 @@ namespace My3dApp
 
                     GameManager::AddScore(10);
 
-                    Play::AddGauge(20);
+                    Play::AddGauge(30);
 
                     if (damagePar > 50)
                     {

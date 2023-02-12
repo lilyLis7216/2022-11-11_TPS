@@ -1,13 +1,13 @@
 #include "Player.h"
+#include "EffekseerForDXLib.h"
 #include "../Manager/AssetManager.h"
 #include "../Manager/GameObjectManager.h"
-#include "EffekseerForDXLib.h"
-#include "../Library/Calc3D.h"
+#include "../Manager/GameManager.h"
 #include "../Library/GamePad.h"
+#include "../Library/Calc3D.h"
 #include "Bullet/NormalBullet.h"
 #include "Bullet/ChargeBullet.h"
 #include "Effect/HitEffect.h"
-#include "../Manager/GameManager.h"
 
 namespace My3dApp
 {
@@ -266,25 +266,25 @@ namespace My3dApp
         // “ü—Í‚ª‚ ‚Á‚½‚©‚Ç‚¤‚©
         bool input = false;
 
-        if (GamePad::GetInput(Button::UP) || 0 < GamePad::GetLeftStickY())
+        if (GamePad::GetInput(Button::UP) || 20000 < GamePad::GetLeftStickY())
         {
             inputVec += UP;
             input = true;
         }
 
-        if (GamePad::GetInput(Button::DOWN) || GamePad::GetLeftStickY() < 0)
+        if (GamePad::GetInput(Button::DOWN) || GamePad::GetLeftStickY() < -20000)
         {
             inputVec += DOWN;
             input = true;
         }
 
-        if (GamePad::GetInput(Button::LEFT) || GamePad::GetLeftStickX() < 0)
+        if (GamePad::GetInput(Button::LEFT) || GamePad::GetLeftStickX() < -20000)
         {
             inputVec += LEFT;
             input = true;
         }
 
-        if (GamePad::GetInput(Button::RIGHT) || 0 < GamePad::GetLeftStickX())
+        if (GamePad::GetInput(Button::RIGHT) || 20000 < GamePad::GetLeftStickX())
         {
             inputVec += RIGHT;
             input = true;

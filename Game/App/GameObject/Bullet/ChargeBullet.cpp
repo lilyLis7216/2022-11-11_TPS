@@ -41,7 +41,7 @@ namespace My3dApp
 
                 pos = player->GetPos() + player->GetDir() * 150.0f;
 
-                pos.y += 50.0f;
+                pos.y += 25.0f;
 
                 dir = player->GetDir();
 
