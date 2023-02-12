@@ -39,6 +39,8 @@ namespace My3dApp
 
         MV1SetScale(exitModel, VGet(notSelectSize, notSelectSize, notSelectSize));
 
+        movie = LoadGraph("../asset/image/titleVideo.mp4");
+
         // ÉJÉÅÉâÇÃà íuÇ∆å¸Ç´Çê›íË
         SetCameraPositionAndTarget_UpVecY(VGet(0.0f, 0.0f, -1000.0f), VGet(0.0f, 0.0f, 0.0f));
 
@@ -53,6 +55,10 @@ namespace My3dApp
 
     Title::~Title()
     {
+        PauseMovieToGraph(movie);
+
+        DeleteGraph(movie);
+
         AssetManager::ReleaseMesh(titleModel);
 
         AssetManager::ReleaseMesh(startModel);
@@ -65,6 +71,13 @@ namespace My3dApp
     SceneBase* Title::Update(float deltaTime)
     {
         SceneBase* retScene = this;
+
+        if (!GetMovieStateToGraph(movie))
+        {
+            PauseMovieToGraph(movie);
+            SeekMovieToGraph(movie, 0);
+            PlayMovieToGraph(movie);
+        }
 
         MoveModel(deltaTime);
 
@@ -133,6 +146,10 @@ namespace My3dApp
 
     void Title::Draw()
     {
+        //DrawGraph(0, 0, movie, FALSE);
+
+        DrawRotaGraph(960, 540, 1.5f, 0, movie, FALSE);
+
         MV1DrawModel(titleModel);
 
         MV1DrawModel(startModel);

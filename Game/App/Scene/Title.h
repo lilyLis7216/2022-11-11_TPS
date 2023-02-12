@@ -36,6 +36,8 @@ namespace My3dApp
             EXIT,
         };
 
+        int movie;
+
     public:
         /// <summary>
         /// コンストラクタ
