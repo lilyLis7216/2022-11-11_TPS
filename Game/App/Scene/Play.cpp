@@ -105,6 +105,7 @@ namespace My3dApp
         UserInterface::UIBox(200, 660, 40, 140, 10, GetColor(0, 0, 0), GetColor(0, 0, 255));
         int gaugeFillWidth = gaugeWidth * gaugeValue / gaugeMax;
         UserInterface::UIBox(gaugeX, gaugeX + gaugeFillWidth, gaugeY, gaugeY + gaugeHeight, 0, GetColor(255, 140, 0), 0);
+
         if (gaugeValue > 0)
         {
             UserInterface::UIText(220, 70, GetColor(255, 255, 255), "SCORE BONUS");

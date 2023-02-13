@@ -13,6 +13,37 @@ namespace My3dApp
 
         int bgImage;
 
+        bool isFade;
+
+        int nextScene;
+
+        int alpha;
+
+        const int fadeSpeed = 2;
+
+        enum NextScene
+        {
+            TITLE = 0,
+            CONTROLS,
+            PLAY,
+            QUIT,
+        };
+
+        int fadeState;
+
+        enum FadeState
+        {
+            FADE_NONE = 0,
+            FADE_OUT,
+            FADE_IN,
+        };
+
+        void FadeIn();
+
+        void FadeOut();
+
+        void SetAlpha(int set) { alpha = set; }
+
     public:
         /// <summary>
         /// コンストラクタ

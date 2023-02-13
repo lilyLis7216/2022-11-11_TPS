@@ -51,6 +51,8 @@ namespace My3dApp
         SetLightDirection(VGet(0.0f, 0.0f, 100.0f));
 
         GameManager::ResetScore();
+
+        SetAlpha(0);
     }
 
     Title::~Title()
@@ -72,14 +74,14 @@ namespace My3dApp
     {
         SceneBase* retScene = this;
 
+        MoveModel(deltaTime);
+
         if (!GetMovieStateToGraph(movie))
         {
             PauseMovieToGraph(movie);
             SeekMovieToGraph(movie, 0);
             PlayMovieToGraph(movie);
         }
-
-        MoveModel(deltaTime);
 
         retScene = CheckRetScene(1);
 
@@ -95,7 +97,8 @@ namespace My3dApp
 
             if (GamePad::GetButtonState(Button::B) == 1)
             {
-                retScene = new Play();
+                nextScene = PLAY;
+                isFade = true;
             }
 
             if (GamePad::GetButtonState(Button::DOWN) == 1)
@@ -111,7 +114,8 @@ namespace My3dApp
 
             if (GamePad::GetButtonState(Button::B) == 1)
             {
-                retScene = new Explanation();
+                nextScene = CONTROLS;
+                isFade = true;
             }
 
             if (GamePad::GetButtonState(Button::UP) == 1)
@@ -132,7 +136,8 @@ namespace My3dApp
 
             if (GamePad::GetButtonState(Button::B) == 1)
             {
-                retScene = nullptr;
+                nextScene = QUIT;
+                isFade = true;
             }
 
             if (GamePad::GetButtonState(Button::UP) == 1)
@@ -141,13 +146,31 @@ namespace My3dApp
             }
         }
 
+        if (isFade)
+        {
+            FadeOut();
+            if (alpha >= 255)
+            {
+                if (nextScene == PLAY)
+                {
+                    retScene = new Play();
+                }
+                else if (nextScene == CONTROLS)
+                {
+                    retScene = new Explanation();
+                }
+                else if (nextScene == QUIT)
+                {
+                    retScene = nullptr;
+                }
+            }
+        }
+
         return retScene;
     }
 
     void Title::Draw()
     {
-        //DrawGraph(0, 0, movie, FALSE);
-
         DrawRotaGraph(960, 540, 1.5f, 0, movie, FALSE);
 
         MV1DrawModel(titleModel);
@@ -175,6 +198,14 @@ namespace My3dApp
         }
 
         DrawSphere3D(VGet(-250.0f, sphereY, 0.0f), 20.0f, 16, GetColor(255, 0, 0), GetColor(0, 0, 0), true);
+
+        if (isFade)
+        {
+            SetDrawBlendMode(DX_BLENDMODE_ALPHA, alpha);
+            DrawBox(0, 0, 1920, 1080, GetColor(0, 0, 0), true);
+            SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
+        }
+
     }
 
     void Title::MoveModel(float deltaTime)

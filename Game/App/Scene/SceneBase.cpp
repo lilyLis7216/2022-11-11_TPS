@@ -10,6 +10,10 @@ namespace My3dApp
     SceneBase::SceneBase()
         : text(nullptr)
         , bgImage(-1)
+        , isFade(false)
+        , nextScene(-1)
+        , alpha(0)
+        , fadeState(FADE_NONE)
     {
         // èàóùÇ»Çµ
     }
@@ -51,5 +55,17 @@ namespace My3dApp
     {
         SetFontSize(25);
         DrawFormatString(10, 10, GetColor(255, 255, 255), "%s", text);
+    }
+
+    void SceneBase::FadeIn()
+    {
+        alpha -= fadeSpeed;
+        if (alpha <= 0)alpha = 0;
+    }
+
+    void SceneBase::FadeOut()
+    {
+        alpha += fadeSpeed;
+        if (alpha >= 255)alpha = 255;
     }
 }// namespace My3dApp
