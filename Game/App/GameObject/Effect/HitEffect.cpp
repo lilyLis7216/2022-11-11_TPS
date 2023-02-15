@@ -26,8 +26,13 @@ namespace My3dApp
     /// </summary>
     HitEffect::~HitEffect()
     {
+        StopEffekseer3DEffect(playEffect);
+
         // エフェクトの後始末
         DeleteEffekseerEffect(effectHandle);
+
+        DeleteEffekseerEffect(playEffect);
+
     }
 
     /// <summary>

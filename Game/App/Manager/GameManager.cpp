@@ -153,23 +153,31 @@ namespace My3dApp
         // シャドウマップに描画する範囲を設定
         SetShadowMapDrawArea(Shadow::GetShadowMap(), VGet(-2000.0f, -1.0f, -2000.0f), VGet(2000.0f, 100.0f, 2000.0f));
 
-        AssetManager::AddSoundEffect("../asset/sound/ctrl1.mp3", "ctrl1", 255);
+        int volume = 200;
 
-        AssetManager::AddSoundEffect("../asset/sound/ctrl2.mp3", "ctrl2", 255);
+        int bgmVolume = 175;
 
-        AssetManager::AddSoundEffect("../asset/sound/title.mp3", "title", 255);
+        AssetManager::AddSoundEffect("../asset/sound/ctrl1.mp3", "ctrl1", volume);
 
-        AssetManager::AddSoundEffect("../asset/sound/shot.mp3", "shot", 200);
+        AssetManager::AddSoundEffect("../asset/sound/ctrl2.mp3", "ctrl2", volume);
 
-        AssetManager::AddSoundEffect("../asset/sound/charge.mp3", "charge", 255);
+        AssetManager::AddSoundEffect("../asset/sound/title.mp3", "title", bgmVolume);
 
-        AssetManager::AddSoundEffect("../asset/sound/chargeShot.mp3", "chargeShot", 255);
+        AssetManager::AddSoundEffect("../asset/sound/shot.mp3", "shot", volume);
 
-        AssetManager::AddSoundEffect("../asset/sound/hit.mp3", "hit", 200);
+        AssetManager::AddSoundEffect("../asset/sound/charge.mp3", "charge", volume);
 
-        AssetManager::AddSoundEffect("../asset/sound/game.mp3", "game", 175);
+        AssetManager::AddSoundEffect("../asset/sound/chargeShot.mp3", "chargeShot", volume);
 
-        AssetManager::AddSoundEffect("../asset/sound/result.mp3", "result",255);
+        AssetManager::AddSoundEffect("../asset/sound/hit.mp3", "hit", volume);
+
+        AssetManager::AddSoundEffect("../asset/sound/count1_1.mp3", "count1_1", 255);
+
+        AssetManager::AddSoundEffect("../asset/sound/count1_2.mp3", "count1_2", volume);
+
+        AssetManager::AddSoundEffect("../asset/sound/game.mp3", "game", bgmVolume);
+
+        AssetManager::AddSoundEffect("../asset/sound/result.mp3", "result", bgmVolume);
 
         return 0;
     }
@@ -214,6 +222,9 @@ namespace My3dApp
 
             // シーンの更新と現在のシーンの保存
             tmpScene = nowScene->Update(deltaTime);
+
+            // エフェクトの更新
+            UpdateEffekseer3D();
 
             // 画面の初期化
             ClearDrawScreen();

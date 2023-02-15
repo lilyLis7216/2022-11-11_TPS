@@ -1,11 +1,14 @@
 #include "Explanation.h"
 #include "DxLib.h"
+#include "EffekseerForDXLib.h"
 #include "../Library/GamePad.h"
 #include "Title.h"
 #include "../GameObject/Player.h"
 #include "../GameObject/Map.h"
 #include "../GameObject/Camera.h"
 #include "../Manager/GameObjectManager.h"
+#include "../Manager/EnemyManager.h"
+#include "../Library/UserInterface.h"
 
 namespace My3dApp
 {
@@ -17,9 +20,12 @@ namespace My3dApp
 
         GameObjectManager::Entry(new Map(VGet(0, 0, 0)));
 
+        EnemyManager::CreateInstance();
+
         // ライトの方向を設定
         SetLightDirection(VGet(-1.5f, -10.5f, 0.5f));
 
+        // ライトの座標を設定
         SetLightPosition(VGet(100.0f, -10.5f, -50.0f));
 
         // 遠近法カメラへ切り替え
@@ -27,47 +33,35 @@ namespace My3dApp
 
         SetAlpha(255);
 
-        isFade = true;
-
         fadeState = FADE_IN;
     }
 
     Explanation::~Explanation()
     {
+        EnemyManager::DeleteInstance();
+
         GameObjectManager::ReleaseAllObject();
-
-        //// カメラの位置と向きを設定
-        //SetCameraPositionAndTarget_UpVecY(VGet(0.0f, 0.0f, -1000.0f), VGet(0.0f, 0.0f, 0.0f));
-
-        //// 正射影カメラに切り替え
-        //SetupCamera_Ortho(1000.0f);
     }
 
     SceneBase* Explanation::Update(float deltaTime)
     {
         SceneBase* retScene = this;
 
-        GameObjectManager::Update(deltaTime);
-
-        GameObjectManager::Collision();
-
-        //retScene = CheckRetScene(2);
-
-        GameObject* player = GameObjectManager::GetFirstGameObject(ObjectTag::Player);
-
-        if (!isFade)
-        {
-            if (GamePad::GetButtonState(Button::BACK) == 1 /*|| player->GetPos().y < -500.0f*/)
-            {
-                nextScene = TITLE;
-                isFade = true;
-                fadeState = FADE_OUT;
-            }
-        }
-
         if (fadeState == FADE_NONE)
         {
+            GameObjectManager::Update(deltaTime);
 
+            EnemyManager::Update(deltaTime, 0, 1);
+
+            GameObjectManager::Collision();
+
+            GameObject* player = GameObjectManager::GetFirstGameObject(ObjectTag::Player);
+
+            if (GamePad::GetButtonState(Button::BACK) == 1 || player->GetPos().y < -500.0f)
+            {
+                nextScene = TITLE;
+                fadeState = FADE_OUT;
+            }
         }
         else if (fadeState == FADE_OUT)
         {
@@ -85,12 +79,14 @@ namespace My3dApp
         }
         else if (fadeState == FADE_IN)
         {
+            GameObjectManager::Update(deltaTime);
+
+            GameObjectManager::Collision();
             if (alpha > 0)
             {
                 FadeIn();
                 if (alpha <= 0)
                 {
-                    isFade = false;
                     fadeState = FADE_NONE;
                 }
             }
@@ -103,7 +99,13 @@ namespace My3dApp
     {
         GameObjectManager::Draw();
 
-        if (isFade)
+        DrawEffekseer3D();
+
+        SetFontSize(50);
+        UserInterface::UIBox(40, 610, 40, 130, 10, GetColor(0, 0, 0), GetColor(0, 0, 255));
+        UserInterface::UIText(60, 60, GetColor(255, 255, 255), "Back Button to Title");
+
+        if (fadeState != FADE_NONE)
         {
             SetDrawBlendMode(DX_BLENDMODE_ALPHA, alpha);
             DrawBox(0, 0, 1920, 1080, GetColor(0, 0, 0), true);
