@@ -2,7 +2,6 @@
 #include "../Manager/AssetManager.h"
 #include "../Manager/GameManager.h"
 #include "../Library/GamePad.h"
-#include "Explanation.h"
 #include "Play.h"
 
 namespace My3dApp

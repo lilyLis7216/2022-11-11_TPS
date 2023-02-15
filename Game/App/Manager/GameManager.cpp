@@ -4,7 +4,6 @@
 #include "AssetManager.h"
 #include "../Scene/SceneBase.h"
 #include "../Scene/Title.h"
-#include "../Scene/Explanation.h"
 #include "../Scene/Play.h"
 #include "../Scene/Result.h"
 #include "../Library/GamePad.h"

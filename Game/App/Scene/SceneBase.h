@@ -22,7 +22,6 @@ namespace My3dApp
         enum NextScene
         {
             TITLE = 0,
-            CONTROLS,
             PLAY,
             RESULT,
             QUIT,
