@@ -48,18 +48,14 @@ namespace My3dApp
 
                 dir = player->GetDir();
 
-                if (chargeTime > 2.0f)
-                {
-                    collisionSphere.radius = 100.0f;
-                }
-                else if (chargeTime > 1.0f)
+                if (chargeTime > 1.0f)
                 {
                     if (!se1)
                     {
                         AssetManager::PlaySoundEffect("charge", false);
                         se1 = true;
                     }
-                    collisionSphere.radius = 50.0f;
+                    collisionSphere.radius = 75.0f;
                 }
             }
         }
