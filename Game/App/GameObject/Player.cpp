@@ -18,7 +18,6 @@ namespace My3dApp
         , isCharge(false)
         , isNockBack(false)
         , knockBackDir(VGet(0, 1, 0))
-        , damagePar(0)
         , knockBackPar(0)
         , gravity(-500.0f)
     {
@@ -99,8 +98,6 @@ namespace My3dApp
 
         // ìñÇΩÇËîªíËÇÃï`âÊ
         //DrawCollider();
-
-        DamageParView();
     }
 
     void Player::OnCollisionEnter(const GameObject* other)
@@ -397,37 +394,5 @@ namespace My3dApp
         speed = (knockBackDir * knockBackPar * deltaTime);
 
         pos += speed;
-    }
-
-    void Player::DamageParView()
-    {
-        VECTOR screenPos = ConvWorldPosToScreenPos(pos);
-
-        SetFontSize(25);
-
-        int cr = GetColor(255, 255, 255);
-
-        if (damagePar >= 100)
-        {
-            cr = GetColor(161, 21, 8);
-        }
-        else if (damagePar >= 80)
-        {
-            cr = GetColor(219, 78, 10);
-        }
-        else if (damagePar >= 60)
-        {
-            cr = GetColor(255, 142, 61);
-        }
-        else if (damagePar >= 40)
-        {
-            cr = GetColor(252, 167, 10);
-        }
-        else if (damagePar >= 20)
-        {
-            cr = GetColor(254, 222, 10);
-        }
-
-        DrawFormatString((int)screenPos.x - 20, (int)screenPos.y - 50, cr, "%1.0fÅì", damagePar);
     }
 }// namespace My3dApp

@@ -31,8 +31,6 @@ namespace My3dApp
         // ノックバックの向き
         VECTOR knockBackDir;
 
-        float damagePar;
-
         float knockBackPar;
 
         const float jumpForce = 200.0f;
@@ -62,8 +60,6 @@ namespace My3dApp
         /// </summary>
         /// <param name="deltaTime">1フレームの経過時間</param>
         void KnockBack(float deltaTime);
-
-        void DamageParView();
 
     public:
         /// <summary>

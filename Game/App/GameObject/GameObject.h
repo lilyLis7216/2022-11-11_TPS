@@ -55,6 +55,8 @@ namespace My3dApp
         // 当たり判定位置の更新
         void CollisionUpdate();
 
+        float damagePar;
+
     public:
         /// <summary>
         /// コンストラクタ
@@ -172,6 +174,8 @@ namespace My3dApp
         /// </summary>
         /// <returns>モデルの当たり判定</returns>
         int GetCollisionModel() const { return collisionModel; }
+
+        void DamageParView();
 
     };
 }// namespace My3dApp

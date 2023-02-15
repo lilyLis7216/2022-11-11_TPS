@@ -25,9 +25,6 @@ namespace My3dApp
         // 発射の間隔
         float shotInterval;
 
-        // 蓄積ダメージ
-        float damagePar;
-
         // ノックバック中か
         bool isNockBack;
 
@@ -59,11 +56,6 @@ namespace My3dApp
         /// 回転の確認
         /// </summary>
         void RotateCheck();
-
-        /// <summary>
-        /// 蓄積ダメージの表示
-        /// </summary>
-        void DamageParView();
 
         /// <summary>
         /// 死んでいるかどうかの確認

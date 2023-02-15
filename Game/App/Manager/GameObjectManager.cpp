@@ -122,6 +122,24 @@ namespace My3dApp
         // 描画に使用するシャドウマップの設定を解除
         SetUseShadowMap(0, -1);
         SetUseShadowMap(1, -1);
+
+        auto tag = ObjectTag::Player;
+        for (int i = 0; i < instance->objects[tag].size(); ++i)
+        {
+            if (instance->objects[tag][i]->GetVisible())
+            {
+                instance->objects[tag][i]->DamageParView();
+            }
+        }
+
+        tag = ObjectTag::Enemy;
+        for (int i = 0; i < instance->objects[tag].size(); ++i)
+        {
+            if (instance->objects[tag][i]->GetVisible())
+            {
+                instance->objects[tag][i]->DamageParView();
+            }
+        }
     }
 
     void GameObjectManager::Entry(GameObject* newObject)
