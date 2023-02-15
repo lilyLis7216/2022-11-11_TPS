@@ -10,7 +10,7 @@ namespace My3dApp
 {
     Result::Result()
         : selectState(BACK)
-        , nextStar(500)
+        , nextStar(1000)
     {
         bgImage = LoadGraph("../asset/image/sky.png");
 
