@@ -15,8 +15,6 @@ namespace My3dApp
 
         int startModel;
 
-        int ctrlModel;
-
         int exitModel;
 
         float rotateCount;

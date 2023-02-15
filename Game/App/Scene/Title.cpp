@@ -23,19 +23,13 @@ namespace My3dApp
 
         startModel = AssetManager::GetMesh("../asset/model/start.mv1");
 
-        MV1SetPosition(startModel, VGet(x, -150.0f, 0));
+        MV1SetPosition(startModel, VGet(x, -200.0f, 0));
 
         MV1SetScale(startModel, VGet(notSelectSize, notSelectSize, notSelectSize));
 
-        ctrlModel = AssetManager::GetMesh("../asset/model/controls.mv1");
-
-        MV1SetPosition(ctrlModel, VGet(x, -300.0f, 0));
-
-        MV1SetScale(ctrlModel, VGet(notSelectSize, notSelectSize, notSelectSize));
-
         exitModel = AssetManager::GetMesh("../asset/model/quit.mv1");
 
-        MV1SetPosition(exitModel, VGet(x, -450.0f, 0));
+        MV1SetPosition(exitModel, VGet(x, -350.0f, 0));
 
         MV1SetScale(exitModel, VGet(notSelectSize, notSelectSize, notSelectSize));
 
@@ -67,8 +61,6 @@ namespace My3dApp
 
         AssetManager::ReleaseMesh(startModel);
 
-        AssetManager::ReleaseMesh(ctrlModel);
-
         AssetManager::ReleaseMesh(exitModel);
     }
 
@@ -96,7 +88,6 @@ namespace My3dApp
             if (selectState == START)
             {
                 MV1SetMaterialAmbColor(startModel, 0, selectColor);
-                MV1SetMaterialAmbColor(ctrlModel, 0, notSelectColor);
                 MV1SetMaterialAmbColor(exitModel, 0, notSelectColor);
 
                 if (GamePad::GetButtonState(Button::B) == 1)
@@ -109,38 +100,12 @@ namespace My3dApp
                 if (GamePad::GetButtonState(Button::DOWN) == 1)
                 {
                     AssetManager::PlaySoundEffect("ctrl1", false);
-                    selectState = CONTROLS;
-                }
-            }
-            else if (selectState == CONTROLS)
-            {
-                MV1SetMaterialAmbColor(startModel, 0, notSelectColor);
-                MV1SetMaterialAmbColor(ctrlModel, 0, selectColor);
-                MV1SetMaterialAmbColor(exitModel, 0, notSelectColor);
-
-                if (GamePad::GetButtonState(Button::B) == 1)
-                {
-                    AssetManager::PlaySoundEffect("ctrl2", false);
-                    nextScene = CONTROLS;
-                    fadeState = FADE_OUT;
-                }
-
-                if (GamePad::GetButtonState(Button::UP) == 1)
-                {
-                    AssetManager::PlaySoundEffect("ctrl1", false);
-                    selectState = START;
-                }
-
-                if (GamePad::GetButtonState(Button::DOWN) == 1)
-                {
-                    AssetManager::PlaySoundEffect("ctrl1", false);
                     selectState = EXIT;
                 }
             }
             else if (selectState == EXIT)
             {
                 MV1SetMaterialAmbColor(startModel, 0, notSelectColor);
-                MV1SetMaterialAmbColor(ctrlModel, 0, notSelectColor);
                 MV1SetMaterialAmbColor(exitModel, 0, selectColor);
 
                 if (GamePad::GetButtonState(Button::B) == 1)
@@ -153,7 +118,7 @@ namespace My3dApp
                 if (GamePad::GetButtonState(Button::UP) == 1)
                 {
                     AssetManager::PlaySoundEffect("ctrl1", false);
-                    selectState = CONTROLS;
+                    selectState = START;
                 }
             }
         }
@@ -171,10 +136,6 @@ namespace My3dApp
                 if (nextScene == PLAY)
                 {
                     retScene = new Play();
-                }
-                else if (nextScene == CONTROLS)
-                {
-                    retScene = new Explanation();
                 }
                 else if (nextScene == QUIT)
                 {
@@ -203,24 +164,18 @@ namespace My3dApp
 
         MV1DrawModel(startModel);
 
-        MV1DrawModel(ctrlModel);
-
         MV1DrawModel(exitModel);
 
         float sphereY = 0.0f;
 
         if (selectState == START)
         {
-            sphereY = -120.0f;
-        }
-        else if (selectState == CONTROLS)
-        {
-            sphereY = -270.0f;
+            sphereY = -170.0f;
         }
         else if (selectState == EXIT)
 
         {
-            sphereY = -420.0f;
+            sphereY = -320.0f;
         }
 
         DrawSphere3D(VGet(-250.0f, sphereY, 0.0f), 20.0f, 16, GetColor(255, 0, 0), GetColor(0, 0, 0), true);
