@@ -40,13 +40,13 @@ namespace My3dApp
 
         string starB = "../asset/model/star2.mv1";
 
-        // スコアが500を超えていたら
-        if (GameManager::GetScore() >= 500)
+        // スコアが1000を超えていたら
+        if (GameManager::GetScore() >= 1000)
         {
             // 星を読み込む
             leftStar = AssetManager::GetMesh(starA);
             MV1SetMaterialAmbColor(leftStar, 0, GetColorF(1.0f, 1.0f, 1.0f, 0.0f));
-            nextStar = 1000;
+            nextStar = 3000;
         }
         // 超えていなかったら
         else
@@ -56,13 +56,13 @@ namespace My3dApp
             MV1SetMaterialAmbColor(leftStar, 0, GetColorF(0.4f, 0.4f, 0.4f, 0.0f));
         }
 
-        // スコアが1000を超えていたら
-        if (GameManager::GetScore() >= 1000)
+        // スコアが3000を超えていたら
+        if (GameManager::GetScore() >= 3000)
         {
             // 星を読み込む
             rightStar = AssetManager::GetMesh(starA);
             MV1SetMaterialAmbColor(rightStar, 0, GetColorF(1.0f, 1.0f, 1.0f, 0.0f));
-            nextStar = 1500;
+            nextStar = 5000;
         }
         // 超えていなかったら
         else
@@ -72,8 +72,8 @@ namespace My3dApp
             MV1SetMaterialAmbColor(rightStar, 0, GetColorF(0.3f, 0.3f, 0.3f, 0.0f));
         }
 
-        // スコアが1500を超えていたら
-        if (GameManager::GetScore() >= 1500)
+        // スコアが5000を超えていたら
+        if (GameManager::GetScore() >= 5000)
         {
             // 星を読み込む
             middleStar = AssetManager::GetMesh(starA);
@@ -104,6 +104,10 @@ namespace My3dApp
 
         // ライトの方向を設定
         SetLightDirection(VGet(-10.0f, -20.0f, 100.0f));
+
+        SetAlpha(255);
+
+        fadeState = FADE_IN;
     }
 
     Result::~Result()
@@ -131,34 +135,79 @@ namespace My3dApp
 
         COLOR_F notSelectColor = GetColorF(1.0f, 1.0f, 1.0f, 0.0f);
 
-        if (selectState == BACK)
+        if (fadeState != FADE_OUT)
         {
-            MV1SetMaterialAmbColor(backModel, 0, selectColor);
-            MV1SetMaterialAmbColor(exitModel, 0, notSelectColor);
-
-            if (GamePad::GetButtonState(Button::B) == 1)
+            if (selectState == BACK)
             {
-                retScene = new Title();
+                MV1SetMaterialAmbColor(backModel, 0, selectColor);
+                MV1SetMaterialAmbColor(exitModel, 0, notSelectColor);
+
+                if (GamePad::GetButtonState(Button::B) == 1)
+                {
+                    AssetManager::PlaySoundEffect("ctrl2", false);
+                    nextScene = TITLE;
+                    fadeState = FADE_OUT;
+                }
+
+                if (GamePad::GetButtonState(Button::DOWN) == 1)
+                {
+                    AssetManager::PlaySoundEffect("ctrl1", false);
+                    selectState = EXIT;
+                }
             }
-
-            if (GamePad::GetButtonState(Button::DOWN) == 1)
+            else if (selectState == EXIT)
             {
-                selectState = EXIT;
+                MV1SetMaterialAmbColor(backModel, 0, notSelectColor);
+                MV1SetMaterialAmbColor(exitModel, 0, selectColor);
+
+                if (GamePad::GetButtonState(Button::B) == 1)
+                {
+                    AssetManager::PlaySoundEffect("ctrl2", false);
+                    nextScene = QUIT;
+                    fadeState = FADE_OUT;
+                }
+
+                if (GamePad::GetButtonState(Button::UP) == 1)
+                {
+                    AssetManager::PlaySoundEffect("ctrl1", false);
+                    selectState = BACK;
+                }
             }
         }
-        else if (selectState == EXIT)
+
+        if (fadeState == FADE_NONE)
         {
-            MV1SetMaterialAmbColor(backModel, 0, notSelectColor);
-            MV1SetMaterialAmbColor(exitModel, 0, selectColor);
-
-            if (GamePad::GetButtonState(Button::B) == 1)
+            
+        }
+        else if (fadeState == FADE_OUT)
+        {
+            if (alpha <= 255)
             {
-                retScene = nullptr;
+                FadeOut();
+                if (alpha >= 255)
+                {
+                    if (nextScene == TITLE)
+                    {
+                        retScene = new Title();
+                    }
+                    else if (nextScene == QUIT)
+                    {
+                        retScene = nullptr;
+                    }
+                    AssetManager::StopAllSE();
+                }
             }
-
-            if (GamePad::GetButtonState(Button::UP) == 1)
+        }
+        else if (fadeState == FADE_IN)
+        {
+            AssetManager::PlaySoundEffect("result", true);
+            if (alpha > 0)
             {
-                selectState = BACK;
+                FadeIn();
+                if (alpha <= 0)
+                {
+                    fadeState = FADE_NONE;
+                }
             }
         }
 
@@ -208,5 +257,12 @@ namespace My3dApp
         }
 
         DrawSphere3D(VGet(-350.0f, sphereY, 0.0f), 20.0f, 16, GetColor(255, 0, 0), GetColor(0, 0, 0), true);
+
+        if (fadeState != FADE_NONE)
+        {
+            SetDrawBlendMode(DX_BLENDMODE_ALPHA, alpha);
+            DrawBox(0, 0, 1920, 1080, GetColor(0, 0, 0), true);
+            SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
+        }
     }
 }// namespace My3dApp

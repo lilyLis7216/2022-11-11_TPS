@@ -46,11 +46,11 @@ namespace My3dApp
         }
     }
 
-    bool EnemyManager::IsCreateEnemy(float deltaTime)
+    bool EnemyManager::IsCreateEnemy(float deltaTime, int enemyMaxNum)
     {
         createInterval -= deltaTime;
 
-        if (enemyNum < enemyNumMax && createInterval < 0)
+        if (enemyNum < enemyMaxNum && createInterval < 0)
         {
             createInterval = 5.0f;
             return true;
@@ -58,9 +58,9 @@ namespace My3dApp
         return false;
     }
 
-    void EnemyManager::Update(float deltaTime, float timer)
+    void EnemyManager::Update(float deltaTime, float timer, int enemyMaxNum)
     {
-        if (EnemyManager::IsCreateEnemy(deltaTime))
+        if (EnemyManager::IsCreateEnemy(deltaTime, enemyMaxNum))
         {
             count++;
 

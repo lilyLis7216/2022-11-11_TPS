@@ -35,8 +35,8 @@ namespace My3dApp
 
         static void ResetNum() { enemyNum = 0; }
 
-        static bool IsCreateEnemy(float deltaTime);
+        static bool IsCreateEnemy(float deltaTime, int enemyMaxNum);
 
-        static void Update(float deltaTime, float timer);
+        static void Update(float deltaTime, float timer, int enemyMaxNum);
     };
 }// namespace My3dApp
