@@ -76,7 +76,7 @@ namespace My3dApp
             PlayMovieToGraph(movie);
         }
 
-        retScene = CheckRetScene(1);
+        //retScene = CheckRetScene(1);
 
         COLOR_F selectColor = GetColorF(0.0f, 0.0f, 0.0f, 0.0f);
 
@@ -124,6 +124,7 @@ namespace My3dApp
 
         if (fadeState == FADE_NONE)
         {
+            GamePad::SetPadUse(true);
             MoveModel(deltaTime);
         }
         else if (fadeState == FADE_OUT)
@@ -145,6 +146,7 @@ namespace My3dApp
         }
         else if (fadeState == FADE_IN)
         {
+            GamePad::SetPadUse(false);
             FadeIn();
             if (alpha <= 0)
             {

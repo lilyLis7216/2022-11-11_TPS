@@ -3,6 +3,7 @@
 #include "Title.h"
 #include "Play.h"
 #include "Result.h"
+#include "../Manager/AssetManager.h"
 
 namespace My3dApp
 {
@@ -22,6 +23,8 @@ namespace My3dApp
         {
             bgImage = -1;
         }
+
+        AssetManager::StopAllSE();
     }
 
     SceneBase* SceneBase::CheckRetScene(int sceneNum)
