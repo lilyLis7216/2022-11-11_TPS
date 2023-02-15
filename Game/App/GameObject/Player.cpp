@@ -215,6 +215,8 @@ namespace My3dApp
 
                     GamePad::Vibration();
 
+                    AssetManager::PlaySoundEffect("hit", false);
+
                     if (damagePar > 50)
                     {
                         GameObjectManager::Entry(new HitEffect(pos, 1));
@@ -366,9 +368,10 @@ namespace My3dApp
 
     void Player::Shot()
     {
-        if (GamePad::GetButtonState(Button::A) == 1 && shotInterval)
+        if (GamePad::GetButtonState(Button::A) == 1 && shotInterval < 0)
         {
-            shotInterval = 0.25f;
+            AssetManager::PlaySoundEffect("shot", false);
+            shotInterval = 0.4f;
             GameObjectManager::Entry(new NormalBullet(ObjectTag::PlayerBullet, pos, dir));
         }
         else if (GamePad::GetButtonState(Button::B) == 1 && !isCharge)

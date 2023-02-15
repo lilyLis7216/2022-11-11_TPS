@@ -54,13 +54,13 @@ namespace My3dApp
         /// </summary>
         /// <param name="fileName"></param>
         /// <param name="key"></param>
-        static void AddSoundEffect(string fileName, string key);
+        static void AddSoundEffect(string fileName, string key, int volume);
 
         /// <summary>
         /// SEÇÃçƒê∂
         /// </summary>
         /// <param name="key"></param>
-        static void PlaySoundEffect(string key);
+        static void PlaySoundEffect(string key, bool isContinue);
 
         /// <summary>
         /// SEÇÃí‚é~

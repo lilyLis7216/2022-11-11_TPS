@@ -52,7 +52,9 @@ namespace My3dApp
 
         GameManager::ResetScore();
 
-        SetAlpha(0);
+        SetAlpha(255);
+
+        fadeState = FADE_IN;
     }
 
     Title::~Title()
@@ -74,7 +76,7 @@ namespace My3dApp
     {
         SceneBase* retScene = this;
 
-        MoveModel(deltaTime);
+        AssetManager::PlaySoundEffect("title", true);
 
         if (!GetMovieStateToGraph(movie))
         {
@@ -89,65 +91,80 @@ namespace My3dApp
 
         COLOR_F notSelectColor = GetColorF(1.0f, 1.0f, 1.0f, 0.0f);
 
-        if (selectState == START)
+        if (fadeState != FADE_OUT)
         {
-            MV1SetMaterialAmbColor(startModel, 0, selectColor);
-            MV1SetMaterialAmbColor(ctrlModel, 0, notSelectColor);
-            MV1SetMaterialAmbColor(exitModel, 0, notSelectColor);
-
-            if (GamePad::GetButtonState(Button::B) == 1)
+            if (selectState == START)
             {
-                nextScene = PLAY;
-                isFade = true;
+                MV1SetMaterialAmbColor(startModel, 0, selectColor);
+                MV1SetMaterialAmbColor(ctrlModel, 0, notSelectColor);
+                MV1SetMaterialAmbColor(exitModel, 0, notSelectColor);
+
+                if (GamePad::GetButtonState(Button::B) == 1)
+                {
+                    AssetManager::PlaySoundEffect("ctrl2", false);
+                    nextScene = PLAY;
+                    fadeState = FADE_OUT;
+                }
+
+                if (GamePad::GetButtonState(Button::DOWN) == 1)
+                {
+                    AssetManager::PlaySoundEffect("ctrl1", false);
+                    selectState = CONTROLS;
+                }
             }
-
-            if (GamePad::GetButtonState(Button::DOWN) == 1)
+            else if (selectState == CONTROLS)
             {
-                selectState = CONTROLS;
+                MV1SetMaterialAmbColor(startModel, 0, notSelectColor);
+                MV1SetMaterialAmbColor(ctrlModel, 0, selectColor);
+                MV1SetMaterialAmbColor(exitModel, 0, notSelectColor);
+
+                if (GamePad::GetButtonState(Button::B) == 1)
+                {
+                    AssetManager::PlaySoundEffect("ctrl2", false);
+                    nextScene = CONTROLS;
+                    fadeState = FADE_OUT;
+                }
+
+                if (GamePad::GetButtonState(Button::UP) == 1)
+                {
+                    AssetManager::PlaySoundEffect("ctrl1", false);
+                    selectState = START;
+                }
+
+                if (GamePad::GetButtonState(Button::DOWN) == 1)
+                {
+                    AssetManager::PlaySoundEffect("ctrl1", false);
+                    selectState = EXIT;
+                }
+            }
+            else if (selectState == EXIT)
+            {
+                MV1SetMaterialAmbColor(startModel, 0, notSelectColor);
+                MV1SetMaterialAmbColor(ctrlModel, 0, notSelectColor);
+                MV1SetMaterialAmbColor(exitModel, 0, selectColor);
+
+                if (GamePad::GetButtonState(Button::B) == 1)
+                {
+                    AssetManager::PlaySoundEffect("ctrl2", false);
+                    nextScene = QUIT;
+                    fadeState = FADE_OUT;
+                }
+
+                if (GamePad::GetButtonState(Button::UP) == 1)
+                {
+                    AssetManager::PlaySoundEffect("ctrl1", false);
+                    selectState = CONTROLS;
+                }
             }
         }
-        else if (selectState == CONTROLS)
+
+        if (fadeState == FADE_NONE)
         {
-            MV1SetMaterialAmbColor(startModel, 0, notSelectColor);
-            MV1SetMaterialAmbColor(ctrlModel, 0, selectColor);
-            MV1SetMaterialAmbColor(exitModel, 0, notSelectColor);
-
-            if (GamePad::GetButtonState(Button::B) == 1)
-            {
-                nextScene = CONTROLS;
-                isFade = true;
-            }
-
-            if (GamePad::GetButtonState(Button::UP) == 1)
-            {
-                selectState = START;
-            }
-
-            if (GamePad::GetButtonState(Button::DOWN) == 1)
-            {
-                selectState = EXIT;
-            }
+            MoveModel(deltaTime);
         }
-        else if (selectState == EXIT)
+        else if (fadeState == FADE_OUT)
         {
-            MV1SetMaterialAmbColor(startModel, 0, notSelectColor);
-            MV1SetMaterialAmbColor(ctrlModel, 0, notSelectColor);
-            MV1SetMaterialAmbColor(exitModel, 0, selectColor);
-
-            if (GamePad::GetButtonState(Button::B) == 1)
-            {
-                nextScene = QUIT;
-                isFade = true;
-            }
-
-            if (GamePad::GetButtonState(Button::UP) == 1)
-            {
-                selectState = CONTROLS;
-            }
-        }
-
-        if (isFade)
-        {
+            MoveModel(deltaTime);
             FadeOut();
             if (alpha >= 255)
             {
@@ -163,6 +180,15 @@ namespace My3dApp
                 {
                     retScene = nullptr;
                 }
+                AssetManager::StopAllSE();
+            }
+        }
+        else if (fadeState == FADE_IN)
+        {
+            FadeIn();
+            if (alpha <= 0)
+            {
+                fadeState = FADE_NONE;
             }
         }
 
@@ -199,13 +225,12 @@ namespace My3dApp
 
         DrawSphere3D(VGet(-250.0f, sphereY, 0.0f), 20.0f, 16, GetColor(255, 0, 0), GetColor(0, 0, 0), true);
 
-        if (isFade)
+        if (fadeState != FADE_NONE)
         {
             SetDrawBlendMode(DX_BLENDMODE_ALPHA, alpha);
             DrawBox(0, 0, 1920, 1080, GetColor(0, 0, 0), true);
             SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
         }
-
     }
 
     void Title::MoveModel(float deltaTime)

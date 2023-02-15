@@ -1,6 +1,7 @@
 #include "GameManager.h"
 #include "DxLib.h"
 #include "EffekseerForDXLib.h"
+#include "AssetManager.h"
 #include "../Scene/SceneBase.h"
 #include "../Scene/Title.h"
 #include "../Scene/Explanation.h"
@@ -151,6 +152,24 @@ namespace My3dApp
 
         // シャドウマップに描画する範囲を設定
         SetShadowMapDrawArea(Shadow::GetShadowMap(), VGet(-2000.0f, -1.0f, -2000.0f), VGet(2000.0f, 100.0f, 2000.0f));
+
+        AssetManager::AddSoundEffect("../asset/sound/ctrl1.mp3", "ctrl1", 255);
+
+        AssetManager::AddSoundEffect("../asset/sound/ctrl2.mp3", "ctrl2", 255);
+
+        AssetManager::AddSoundEffect("../asset/sound/title.mp3", "title", 255);
+
+        AssetManager::AddSoundEffect("../asset/sound/shot.mp3", "shot", 200);
+
+        AssetManager::AddSoundEffect("../asset/sound/charge.mp3", "charge", 255);
+
+        AssetManager::AddSoundEffect("../asset/sound/chargeShot.mp3", "chargeShot", 255);
+
+        AssetManager::AddSoundEffect("../asset/sound/hit.mp3", "hit", 200);
+
+        AssetManager::AddSoundEffect("../asset/sound/game.mp3", "game", 175);
+
+        AssetManager::AddSoundEffect("../asset/sound/result.mp3", "result",255);
 
         return 0;
     }

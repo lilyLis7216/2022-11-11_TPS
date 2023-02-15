@@ -33,23 +33,33 @@ namespace My3dApp
         }
     }
 
-    void AssetManager::AddSoundEffect(string fileName, string key)
+    void AssetManager::AddSoundEffect(string fileName, string key, int volume)
     {
         // キーとサウンドを記録する
-        instance->soundEffectMap.emplace(key, LoadSoundMem(fileName.c_str()));
+        int sound = LoadSoundMem(fileName.c_str());
+        ChangeVolumeSoundMem(volume, sound);
+        instance->soundEffectMap.emplace(key, sound);
     }
 
-    void AssetManager::PlaySoundEffect(string key)
+    void AssetManager::PlaySoundEffect(string key, bool isContinue)
     {
         // キーを用いたサウンドの検索
         auto sound = instance->soundEffectMap[key];
 
-        // 再生されていなければ
-        if (!CheckSoundMem(sound))
+        if (isContinue)
         {
-            // 再生する
+            // 再生されていなければ
+            if (!CheckSoundMem(sound))
+            {
+                // 再生する
+                PlaySoundMem(sound, DX_PLAYTYPE_BACK);
+            }
+        }
+        else
+        {
             PlaySoundMem(sound, DX_PLAYTYPE_BACK);
         }
+        
     }
 
     void AssetManager::StopSoundEffect(string key)
@@ -67,9 +77,11 @@ namespace My3dApp
 
     void AssetManager::StopAllSE()
     {
-       
-        //! のちに修正
-        //StopSoundEffect("title");
+        StopSoundEffect("ctrl1");
+        StopSoundEffect("ctrl2");
+        StopSoundEffect("title");
+        StopSoundEffect("game");
+        StopSoundEffect("result");
     }
 
     int AssetManager::GetMesh(string fileName)

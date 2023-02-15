@@ -22,6 +22,10 @@ namespace My3dApp
         // 撃ったか
         bool isShoot;
 
+        bool se1;
+
+        bool se2;
+
     public:
         /// <summary>
         /// コンストラクタ

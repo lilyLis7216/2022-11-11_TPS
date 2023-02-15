@@ -1,5 +1,6 @@
 #include "ChargeBullet.h"
 #include "../../Manager/GameObjectManager.h"
+#include "../../Manager/AssetManager.h"
 #include "../../Library/Calc3D.h"
 #include "../../Library/GamePad.h"
 #include "../Effect/HitEffect.h"
@@ -12,6 +13,8 @@ namespace My3dApp
         , chargeTime(0)
         , canMove(false)
         , isShoot(false)
+        , se1(false)
+        , se2(false)
     {
         difColor = GetColor(0, 0, 255);
 
@@ -51,6 +54,11 @@ namespace My3dApp
                 }
                 else if (chargeTime > 1.0f)
                 {
+                    if (!se1)
+                    {
+                        AssetManager::PlaySoundEffect("charge", false);
+                        se1 = true;
+                    }
                     collisionSphere.radius = 50.0f;
                 }
             }
@@ -60,6 +68,11 @@ namespace My3dApp
             isShoot = true;
             if (chargeTime > 1.0f)
             {
+                if (!se2)
+                {
+                    AssetManager::PlaySoundEffect("chargeShot", false);
+                    se2 = true;
+                }
                 canMove = true;
             }
             else

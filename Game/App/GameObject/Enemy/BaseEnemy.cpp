@@ -1,8 +1,9 @@
 #include "BaseEnemy.h"
-#include "../../Manager/EnemyManager.h"
 #include "../../Library/Calc3D.h"
+#include "../../Manager/EnemyManager.h"
 #include "../../Manager/GameObjectManager.h"
 #include "../../Manager/GameManager.h"
+#include "../../Manager/AssetManager.h"
 #include "../Bullet/NormalBullet.h"
 #include "../Effect/HitEffect.h"
 #include "../../Scene/Play.h"
@@ -175,6 +176,8 @@ namespace My3dApp
 
                     Play::AddGauge(30);
 
+                    AssetManager::PlaySoundEffect("hit", false);
+
                     if (damagePar > 50)
                     {
                         GameObjectManager::Entry(new HitEffect(pos, 1));
@@ -212,6 +215,8 @@ namespace My3dApp
                     GameManager::AddScore(10);
 
                     Play::AddGauge(20);
+
+                    AssetManager::PlaySoundEffect("hit", false);
 
                     if (damagePar > 50)
                     {
@@ -336,6 +341,7 @@ namespace My3dApp
         shotInterval -= deltaTime;
         if (shotInterval < 0)
         {
+            AssetManager::PlaySoundEffect("shot", false);
             shotInterval = 5.0f;
             GameObjectManager::Entry(new NormalBullet(ObjectTag::EnemyBullet, pos, dir));
         }
