@@ -10,7 +10,6 @@ namespace My3dApp
     SceneBase::SceneBase()
         : text(nullptr)
         , bgImage(-1)
-        , isFade(false)
         , nextScene(-1)
         , alpha(0)
         , fadeState(FADE_NONE)

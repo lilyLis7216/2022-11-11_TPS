@@ -13,8 +13,6 @@ namespace My3dApp
 
         int bgImage;
 
-        bool isFade;
-
         int nextScene;
 
         int alpha;
@@ -26,6 +24,7 @@ namespace My3dApp
             TITLE = 0,
             CONTROLS,
             PLAY,
+            RESULT,
             QUIT,
         };
 
