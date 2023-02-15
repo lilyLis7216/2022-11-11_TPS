@@ -16,17 +16,27 @@ namespace My3dApp
 
         int exitModel;
 
-        int middleStar;
-
-        int leftStar;
-
-        int rightStar;
-
         const float selectSize = 1.0f;
 
         const float notSelectSize = 0.75f;
 
         int selectState;
+
+        struct Star
+        {
+            int model;
+            bool valid = false;
+            float rotate = 0.0f;
+            bool canRotate = true;
+        };
+
+        Star leftStar;
+
+        Star middleStar;
+
+        Star rightStar;
+
+        Star aster;
 
         enum SelectState
         {
@@ -35,6 +45,12 @@ namespace My3dApp
         };
 
         float nextStar;
+
+        void StarUpdate(float deltaTime);
+
+        float rotateCount;
+
+        void MoveModel(float deltaTime);
 
     public:
         /// <summary>

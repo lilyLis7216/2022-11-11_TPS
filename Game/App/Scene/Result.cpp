@@ -40,61 +40,79 @@ namespace My3dApp
 
         string starB = "../asset/model/star2.mv1";
 
-        // スコアが1000を超えていたら
-        if (GameManager::GetScore() >= 1000)
+        string starC = "../asset/model/aster.mv1";
+
+        if (GameManager::GetScore() < 5000)
         {
-            // 星を読み込む
-            leftStar = AssetManager::GetMesh(starA);
-            MV1SetMaterialAmbColor(leftStar, 0, GetColorF(1.0f, 1.0f, 1.0f, 0.0f));
-            nextStar = 3000;
+            // スコアが1000を超えていたら
+            if (GameManager::GetScore() >= 1000)
+            {
+                // 星を読み込む
+                leftStar.model = AssetManager::GetMesh(starA);
+                nextStar = 2000;
+                leftStar.valid = true;
+            }
+            // 超えていなかったら
+            else
+            {
+                // 中抜きの星を読み込む
+                leftStar.model = AssetManager::GetMesh(starB);
+                leftStar.valid = false;
+            }
+
+            // スコアが2000を超えていたら
+            if (GameManager::GetScore() >= 2000)
+            {
+                // 星を読み込む
+                rightStar.model = AssetManager::GetMesh(starA);
+                nextStar = 3000;
+                rightStar.valid = true;
+            }
+            // 超えていなかったら
+            else
+            {
+                // 中抜きの星を読み込む
+                rightStar.model = AssetManager::GetMesh(starB);
+                rightStar.valid = false;
+            }
+
+            // スコアが3000を超えていたら
+            if (GameManager::GetScore() >= 3000)
+            {
+                // 星を読み込む
+                middleStar.model = AssetManager::GetMesh(starA);
+                nextStar = 0;
+                middleStar.valid = true;
+            }
+            // 超えていなかったら
+            else
+            {
+                // 中抜きの星を読み込む
+                middleStar.model = AssetManager::GetMesh(starB);
+                middleStar.valid = false;
+            }
+
+            
         }
-        // 超えていなかったら
         else
         {
-            // 中抜きの星を読み込む
-            leftStar = AssetManager::GetMesh(starB);
-            MV1SetMaterialAmbColor(leftStar, 0, GetColorF(0.4f, 0.4f, 0.4f, 0.0f));
+            leftStar.model = AssetManager::GetMesh(starC);
+            middleStar.model = AssetManager::GetMesh(starC);
+            rightStar.model = AssetManager::GetMesh(starC);
+            leftStar.valid = true;
+            rightStar.valid = true;
+            middleStar.valid = true;
+            nextStar = -1;
         }
 
-        // スコアが3000を超えていたら
-        if (GameManager::GetScore() >= 3000)
-        {
-            // 星を読み込む
-            rightStar = AssetManager::GetMesh(starA);
-            MV1SetMaterialAmbColor(rightStar, 0, GetColorF(1.0f, 1.0f, 1.0f, 0.0f));
-            nextStar = 5000;
-        }
-        // 超えていなかったら
-        else
-        {
-            // 中抜きの星を読み込む
-            rightStar = AssetManager::GetMesh(starB);
-            MV1SetMaterialAmbColor(rightStar, 0, GetColorF(0.3f, 0.3f, 0.3f, 0.0f));
-        }
+        MV1SetScale(leftStar.model, starSize);
+        MV1SetScale(rightStar.model, starSize);
+        MV1SetScale(middleStar.model, starSize);
 
-        // スコアが5000を超えていたら
-        if (GameManager::GetScore() >= 5000)
-        {
-            // 星を読み込む
-            middleStar = AssetManager::GetMesh(starA);
-            MV1SetMaterialAmbColor(middleStar, 0, GetColorF(1.0f, 1.0f, 1.0f, 0.0f));
-            nextStar = 0;
-        }
-        // 超えていなかったら
-        else
-        {
-            // 中抜きの星を読み込む
-            middleStar = AssetManager::GetMesh(starB);
-            MV1SetMaterialAmbColor(middleStar, 0, GetColorF(0.3f, 0.3f, 0.3f, 0.0f));
-        }
+        MV1SetPosition(leftStar.model, VGet(-300, starY, 0));
+        MV1SetPosition(rightStar.model, VGet(300, starY, 0));
+        MV1SetPosition(middleStar.model, VGet(0, starY, 0)); 
 
-        MV1SetScale(middleStar, starSize);
-        MV1SetScale(leftStar, starSize);
-        MV1SetScale(rightStar, starSize);
-
-        MV1SetPosition(middleStar, VGet(0, starY, 0));
-        MV1SetPosition(leftStar, VGet(-300, starY, 0));
-        MV1SetPosition(rightStar, VGet(300, starY, 0));
 
         // カメラの位置と向きを設定
         SetCameraPositionAndTarget_UpVecY(VGet(0.0f, 0.0f, -1000.0f), VGet(0.0f, 0.0f, 0.0f));
@@ -118,22 +136,24 @@ namespace My3dApp
 
         AssetManager::ReleaseMesh(exitModel);
 
-        AssetManager::ReleaseMesh(middleStar);
+        AssetManager::ReleaseMesh(middleStar.model);
 
-        AssetManager::ReleaseMesh(rightStar);
+        AssetManager::ReleaseMesh(rightStar.model);
 
-        AssetManager::ReleaseMesh(leftStar);
+        AssetManager::ReleaseMesh(leftStar.model);
     }
 
     SceneBase* Result::Update(float deltaTime)
     {
         SceneBase* retScene = this;
 
-        retScene = CheckRetScene(4);
-
         COLOR_F selectColor = GetColorF(0.0f, 0.0f, 0.0f, 0.0f);
 
         COLOR_F notSelectColor = GetColorF(1.0f, 1.0f, 1.0f, 0.0f);
+
+        MoveModel(deltaTime);
+
+        StarUpdate(deltaTime);
 
         if (fadeState != FADE_OUT)
         {
@@ -177,7 +197,7 @@ namespace My3dApp
 
         if (fadeState == FADE_NONE)
         {
-            
+            GamePad::SetPadUse(true);
         }
         else if (fadeState == FADE_OUT)
         {
@@ -200,6 +220,7 @@ namespace My3dApp
         }
         else if (fadeState == FADE_IN)
         {
+            GamePad::SetPadUse(false);
             AssetManager::PlaySoundEffect("result", true);
             if (alpha > 0)
             {
@@ -226,11 +247,11 @@ namespace My3dApp
 
         MV1DrawModel(exitModel);
 
-        MV1DrawModel(middleStar);
+        MV1DrawModel(middleStar.model);
 
-        MV1DrawModel(leftStar);
+        MV1DrawModel(leftStar.model);
 
-        MV1DrawModel(rightStar);
+        MV1DrawModel(rightStar.model);
 
         SetFontSize(50);
 
@@ -240,9 +261,13 @@ namespace My3dApp
         {
             UserInterface::UIText(1000, 600, GetColor(255, 255, 255), "NEXT STAR : %4.0f", nextStar - (float)GameManager::GetScore());
         }
-        else
+        else if (nextStar == 0)
         {
-            UserInterface::UIText(1000, 600, GetColor(255, 255, 255), "NEXT STAR : %4.0f", 0);
+            UserInterface::UIText(1000, 600, GetColor(255, 255, 255), "NEXT STAR : ????");
+        }
+        else if (nextStar == -1)
+        {
+            UserInterface::UIText(1000, 600, GetColor(255, 255, 255), "Congratulation!");
         }
 
         float sphereY = 0.0f;
@@ -264,5 +289,65 @@ namespace My3dApp
             DrawBox(0, 0, 1920, 1080, GetColor(0, 0, 0), true);
             SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
         }
+    }
+
+    void Result::StarUpdate(float deltaTime)
+    {
+        if (leftStar.canRotate)
+        {
+            leftStar.rotate += 360.0f * deltaTime * 0.01f;
+        }
+
+        if (leftStar.rotate >= 360.0f)
+        {
+            leftStar.rotate = 0.0f;
+        }
+
+        if (rightStar.canRotate)
+        {
+            rightStar.rotate += 360.0f * deltaTime * 0.01f;
+        }
+
+        if (rightStar.rotate >= 360.0f)
+        {
+            rightStar.rotate = 0.0f;
+        }
+
+        if (middleStar.canRotate)
+        {
+            middleStar.rotate += 360.0f * deltaTime * 0.01f;
+        }
+
+        if (middleStar.rotate >= 360.0f)
+        {
+            middleStar.rotate = 0.0f;
+        }
+
+        if (leftStar.valid)
+        {
+            MV1SetRotationXYZ(leftStar.model, VGet(0, leftStar.rotate, 0));
+        }
+
+        if (rightStar.valid)
+        {
+            MV1SetRotationXYZ(rightStar.model, VGet(0, rightStar.rotate, 0));
+        }
+
+        if (middleStar.valid)
+        {
+            MV1SetRotationXYZ(middleStar.model, VGet(0, middleStar.rotate, 0));
+        }
+    }
+
+    void Result::MoveModel(float deltaTime)
+    {
+        rotateCount += deltaTime;
+
+        if (rotateCount > 1.6f)
+        {
+            rotateCount = -1.5f;
+        }
+
+        MV1SetRotationXYZ(resultModel, VGet(0.0f, rotateCount, 0.0f));
     }
 }// namespace My3dApp
