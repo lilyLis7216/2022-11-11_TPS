@@ -4,12 +4,15 @@
 #include "../Manager/GameManager.h"
 #include "../Manager/GameObjectManager.h"
 #include "../Manager/EnemyManager.h"
+#include "../Manager/AssetManager.h"
 #include "../GameObject/Player.h"
 #include "../GameObject/Camera.h"
 #include "../GameObject/Map.h"
 #include "../GameObject/Enemy/NormalEnemy.h"
 #include "../Library/DebugGrid.h"
 #include "../Library/UserInterface.h"
+#include "../Library/GamePad.h"
+#include "Title.h"
 #include "Result.h"
 
 namespace My3dApp
@@ -35,10 +38,15 @@ namespace My3dApp
         // ライトの方向を設定
         SetLightDirection(VGet(-1.5f, -10.5f, 0.5f));
 
+        // ライトの座標を設定
         SetLightPosition(VGet(100.0f, -10.5f, -50.0f));
 
         // 遠近法カメラへ切り替え
         SetupCamera_Perspective(1000.0f);
+
+        SetAlpha(255);
+
+        fadeState = FADE_IN;
 
         gaugeValue = 0;
     }
@@ -52,28 +60,73 @@ namespace My3dApp
 
     SceneBase* Play::Update(float deltaTime)
     {
-        timer -= deltaTime;
-
         SceneBase* retScene = this;
 
-        EnemyManager::Update(deltaTime, timer);
-
-        GameObjectManager::Update(deltaTime);
-
-        // エフェクシアの更新
-        UpdateEffekseer3D();
-
-        GameObjectManager::Collision();
-
-        GaugeUpdate(deltaTime);
-
-        retScene = CheckRetScene(3);
-
-        GameObject* player = GameObjectManager::GetFirstGameObject(ObjectTag::Player);
-
-        if (timer <= 0.1 || player->GetPos().y < -500.0f)
+        if (fadeState == FADE_NONE)
         {
-            retScene = new Result();
+            timer -= deltaTime;
+
+            AssetManager::PlaySoundEffect("game", true);
+
+            GameObjectManager::Update(deltaTime);
+
+            GameObjectManager::Collision();
+
+            // エフェクシアの更新
+            UpdateEffekseer3D();
+
+            EnemyManager::Update(deltaTime, timer, 7);
+
+            GaugeUpdate(deltaTime);
+
+            GameObject* player = GameObjectManager::GetFirstGameObject(ObjectTag::Player);
+
+            if (timer < 0.1 || player->GetPos().y < -500.0f)
+            {
+                nextScene = RESULT;
+                fadeState= FADE_OUT;
+            }
+
+            if (GamePad::GetButtonState(Button::BACK) == 1)
+            {
+                nextScene = TITLE;
+                fadeState = FADE_OUT;
+            }
+        }
+        else if (fadeState == FADE_OUT)
+        {
+            //timer = 0;
+            if (alpha <= 255)
+            {
+                AssetManager::StopAllSE();
+                FadeOut();
+                if (alpha >= 255)
+                {
+                    if (nextScene == RESULT)
+                    {
+                        retScene = new Result();
+                    }
+                    else if (nextScene == TITLE)
+                    {
+                        retScene = new Title();
+                    }
+                }
+            }
+        }
+        else if (fadeState == FADE_IN)
+        {
+            GameObjectManager::Update(deltaTime);
+
+            GameObjectManager::Collision();
+
+            if (alpha > 0)
+            {
+                FadeIn();
+                if (alpha <= 0)
+                {
+                    fadeState = FADE_NONE;
+                }
+            }
         }
 
         return retScene;
@@ -111,12 +164,19 @@ namespace My3dApp
             UserInterface::UIText(220, 70, GetColor(255, 255, 255), "SCORE BONUS");
         }
 
-        if (timer < 11 && timer >= 0)
+        if (timer < 11 && timer > 0)
         {
             SetDrawBlendMode(DX_BLENDMODE_ALPHA, 150);
             SetDrawMode(DX_DRAWMODE_BILINEAR);
             DrawRotaGraph(960, 540, 10.0f, 0, countImage[(int)timer], TRUE);
             SetDrawMode(DX_DRAWMODE_NEAREST);
+            SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
+        }
+
+        if (fadeState != FADE_NONE)
+        {
+            SetDrawBlendMode(DX_BLENDMODE_ALPHA, alpha);
+            DrawBox(0, 0, 1920, 1080, GetColor(0, 0, 0), true);
             SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
         }
     }
