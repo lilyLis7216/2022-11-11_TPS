@@ -37,6 +37,10 @@ namespace My3dApp
         bool countSE1;
         int endCount;
 
+        int playerBar;
+
+        class GameObject* player;
+
     public:
         /// <summary>
         /// コンストラクタ

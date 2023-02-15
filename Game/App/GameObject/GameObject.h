@@ -175,7 +175,7 @@ namespace My3dApp
         /// <returns>ƒ‚ƒfƒ‹‚Ì“–‚½‚è”»’è</returns>
         int GetCollisionModel() const { return collisionModel; }
 
-        void DamageParView();
+        void DamageParView(int obj);
 
     };
 }// namespace My3dApp

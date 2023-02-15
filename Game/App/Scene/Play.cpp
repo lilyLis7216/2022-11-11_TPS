@@ -26,6 +26,7 @@ namespace My3dApp
         , startCountTimer(4.0f)
         , countSE1(false)
         , endCount(11)
+        , player(nullptr)
     {
         EnemyManager::CreateInstance();
 
@@ -38,6 +39,8 @@ namespace My3dApp
         //GameObjectManager::Entry(new NormalEnemy(VGet(0, 200, 1000)));
 
         LoadDivGraph("../asset/image/num.png", 12, 6, 2, 64, 64, countImage);
+
+        playerBar = LoadGraph("../asset/image/playerBar.png");
 
         // ライトの方向を設定
         SetLightDirection(VGet(-1.5f, -10.5f, 0.5f));
@@ -65,6 +68,8 @@ namespace My3dApp
     SceneBase* Play::Update(float deltaTime)
     {
         SceneBase* retScene = this;
+
+        player = GameObjectManager::GetFirstGameObject(ObjectTag::Player);
 
         if (fadeState == FADE_NONE && startCount > 0)
         {
@@ -116,8 +121,6 @@ namespace My3dApp
             EnemyManager::Update(deltaTime, timer, 7);
 
             GaugeUpdate(deltaTime);
-
-            GameObject* player = GameObjectManager::GetFirstGameObject(ObjectTag::Player);
 
             if (timer < 1)
             {
@@ -196,12 +199,6 @@ namespace My3dApp
         UserInterface::UIText(1240, 70, GetColor(255, 255, 255), "SCORE : %4.0f", (float)GameManager::GetScore());
 
         // コンボの表示
-        /*UserInterface::UIBox(1400, 1860, 160, 260, 10, GetColor(0, 0, 0), GetColor(0, 0, 255));
-        int gaugeFillWidth = gaugeWidth * gaugeValue / gaugeMax;
-        UserInterface::UIBox(gaugeX, gaugeX + gaugeFillWidth, gaugeY, gaugeY + gaugeHeight, 0, GetColor(255, 140, 0), 0);
-        UserInterface::UIText(1440, 190, GetColor(255, 255, 255), "COMBO : %4.0f", (float)GameManager::GetCombo());*/
-
-        // コンボの表示
         UserInterface::UIBox(200, 660, 40, 140, 10, GetColor(0, 0, 0), GetColor(0, 0, 255));
         int gaugeFillWidth = gaugeWidth * gaugeValue / gaugeMax;
         UserInterface::UIBox(gaugeX, gaugeX + gaugeFillWidth, gaugeY, gaugeY + gaugeHeight, 0, GetColor(255, 140, 0), 0);
@@ -209,6 +206,13 @@ namespace My3dApp
         if (gaugeValue > 0)
         {
             UserInterface::UIText(220, 70, GetColor(255, 255, 255), "SCORE BONUS");
+        }
+
+        UserInterface::UIBox(768, 1152 , 880, 1010, 0, GetColor(0, 0, 0), 0);
+        DrawRotaGraph(960, 950, 1.0f, 0, playerBar, TRUE);
+        if (fadeState != FADE_IN && timer < 60.0f)
+        {
+            player->DamageParView(0);
         }
 
         if (startCount < 4 && startCount >= 1 && fadeState == FADE_NONE)

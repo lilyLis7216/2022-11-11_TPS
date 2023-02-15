@@ -76,12 +76,8 @@ namespace My3dApp
             MV1SetupCollInfo(collisionModel);
         }
     }
-    void GameObject::DamageParView()
+    void GameObject::DamageParView(int obj)
     {
-        VECTOR screenPos = ConvWorldPosToScreenPos(pos);
-
-        SetFontSize(25);
-
         int cr = GetColor(255, 255, 255);
 
         if (damagePar >= 100)
@@ -105,6 +101,18 @@ namespace My3dApp
             cr = GetColor(254, 222, 10);
         }
 
-        DrawFormatString((int)screenPos.x - 20, (int)screenPos.y - 50, cr, "%1.0fÅì", damagePar);
+        if (obj == 0)
+        {
+            SetFontSize(85);
+            DrawFormatString(890, 900, cr, "%3.0fÅì", damagePar);
+        }
+        else if (obj == 1)
+        {
+            VECTOR screenPos = ConvWorldPosToScreenPos(pos);
+
+            SetFontSize(25);
+
+            DrawFormatString((int)screenPos.x - 20, (int)screenPos.y - 50, cr, "%1.0fÅì", damagePar);
+        }
     }
 }// namespace My3dApp

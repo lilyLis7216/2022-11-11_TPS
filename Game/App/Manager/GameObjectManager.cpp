@@ -123,21 +123,12 @@ namespace My3dApp
         SetUseShadowMap(0, -1);
         SetUseShadowMap(1, -1);
 
-        auto tag = ObjectTag::Player;
+        auto tag = ObjectTag::Enemy;
         for (int i = 0; i < instance->objects[tag].size(); ++i)
         {
             if (instance->objects[tag][i]->GetVisible())
             {
-                instance->objects[tag][i]->DamageParView();
-            }
-        }
-
-        tag = ObjectTag::Enemy;
-        for (int i = 0; i < instance->objects[tag].size(); ++i)
-        {
-            if (instance->objects[tag][i]->GetVisible())
-            {
-                instance->objects[tag][i]->DamageParView();
+                instance->objects[tag][i]->DamageParView(1);
             }
         }
     }
