@@ -122,7 +122,6 @@ namespace My3dApp
         // 描画に使用するシャドウマップの設定を解除
         SetUseShadowMap(0, -1);
         SetUseShadowMap(1, -1);
-        //SetUseShadowMap(2, -1);
     }
 
     void GameObjectManager::Entry(GameObject* newObject)
@@ -157,6 +156,7 @@ namespace My3dApp
         while (!instance->pendingObjects.empty())
         {
             delete instance->pendingObjects.back();
+            instance->pendingObjects.pop_back();
         }
 
         for (auto& tag : ObjectTagAll)
