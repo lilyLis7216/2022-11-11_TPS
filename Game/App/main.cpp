@@ -1,8 +1,8 @@
 #pragma warning(disable:28251)
 #include <windows.h>
 #include "Dxlib.h"
-#include "Manager/GameManager.h"
 #include "Manager/AssetManager.h"
+#include "Manager/GameManager.h"
 #include "Manager/GameObjectManager.h"
 #include "Library/GamePad.h"
 #include "Library/UserInterface.h"
@@ -13,14 +13,14 @@ using namespace My3dApp;
 
 int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 {
+    // アセットマネージャの生成
+    AssetManager::CreateInstance();
+
     // ゲームマネージャの生成
     GameManager::CreateInstance();
 
     if (GameManager::Init() != -1)
     {
-        // アセットマネージャの生成
-        AssetManager::CreateInstance();
-
         // ゲームオブジェクトマネージャの生成
         GameObjectManager::CreateInstance();
 
@@ -44,13 +44,13 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 
         // ゲームオブジェクトマネージャの削除
         GameObjectManager::DeleteInstance();
-
-        // アセットマネージャの削除
-        AssetManager::DeleteInstance();
     }
 
     // ゲームマネージャの削除
     GameManager::DeleteInstance();
+
+    // アセットマネージャの削除
+    AssetManager::DeleteInstance();
 
     return 0;
 }
