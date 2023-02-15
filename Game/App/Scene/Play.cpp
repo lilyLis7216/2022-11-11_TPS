@@ -22,6 +22,10 @@ namespace My3dApp
     Play::Play()
         : timer(60.0f)
         , prevComb(0)
+        , startCount(4)
+        , startCountTimer(4.0f)
+        , countSE1(false)
+        , endCount(11)
     {
         EnemyManager::CreateInstance();
 
@@ -31,7 +35,7 @@ namespace My3dApp
 
         GameObjectManager::Entry(new Map(VGet(0, 0, 0)));
 
-        GameObjectManager::Entry(new NormalEnemy(VGet(0, 200, 1000)));
+        //GameObjectManager::Entry(new NormalEnemy(VGet(0, 200, 1000)));
 
         LoadDivGraph("../asset/image/num.png", 12, 6, 2, 64, 64, countImage);
 
@@ -62,8 +66,45 @@ namespace My3dApp
     {
         SceneBase* retScene = this;
 
-        if (fadeState == FADE_NONE)
+        if (fadeState == FADE_NONE && startCount > 0)
         {
+            startCountTimer -= deltaTime;
+            int prevStartCount = startCount;
+            startCount = (int)startCountTimer;
+            if (prevStartCount != startCount)
+            {
+                countSE1 = false;
+            }
+            if (!countSE1)
+            {
+                AssetManager::PlaySoundEffect("count1_1", false);
+                countSE1 = true;
+            }
+        }
+        else if (fadeState == FADE_NONE && startCount <= 0)
+        {
+            if (startCount == 0 && timer < 59.0f)
+            {
+                startCount = -1;
+            }
+
+            if (timer < 11.0f)
+            {
+                int prevEndCount = endCount;
+                endCount = (int)timer;
+                if (prevEndCount != endCount)
+                {
+                    countSE1 = false;
+                }
+                if (!countSE1)
+                {
+                    AssetManager::PlaySoundEffect("count1_1", false);
+                    countSE1 = true;
+                }
+            }
+
+            GamePad::SetPadUse(true);
+
             timer -= deltaTime;
 
             AssetManager::PlaySoundEffect("game", true);
@@ -72,19 +113,24 @@ namespace My3dApp
 
             GameObjectManager::Collision();
 
-            // エフェクシアの更新
-            UpdateEffekseer3D();
-
             EnemyManager::Update(deltaTime, timer, 7);
 
             GaugeUpdate(deltaTime);
 
             GameObject* player = GameObjectManager::GetFirstGameObject(ObjectTag::Player);
 
-            if (timer < 0.1 || player->GetPos().y < -500.0f)
+            if (timer < 1)
             {
+                timer = 0;
+                endCount = 0;
                 nextScene = RESULT;
                 fadeState= FADE_OUT;
+            }
+
+            if (player->GetPos().y < -500.0f)
+            {
+                nextScene = RESULT;
+                fadeState = FADE_OUT;
             }
 
             if (GamePad::GetButtonState(Button::BACK) == 1)
@@ -95,7 +141,6 @@ namespace My3dApp
         }
         else if (fadeState == FADE_OUT)
         {
-            //timer = 0;
             if (alpha <= 255)
             {
                 AssetManager::StopAllSE();
@@ -115,6 +160,8 @@ namespace My3dApp
         }
         else if (fadeState == FADE_IN)
         {
+            GamePad::SetPadUse(false);
+
             GameObjectManager::Update(deltaTime);
 
             GameObjectManager::Collision();
@@ -164,13 +211,34 @@ namespace My3dApp
             UserInterface::UIText(220, 70, GetColor(255, 255, 255), "SCORE BONUS");
         }
 
-        if (timer < 11 && timer > 0)
+        if (startCount < 4 && startCount >= 1 && fadeState == FADE_NONE)
+        {
+            SetDrawBlendMode(DX_BLENDMODE_ALPHA, 100);
+            SetDrawMode(DX_DRAWMODE_BILINEAR);
+            DrawRotaGraph(960, 540, 10.0f, 0, countImage[startCount], TRUE);
+            SetDrawMode(DX_DRAWMODE_NEAREST);
+            SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
+        }
+
+        if (startCount == 0)
+        {
+            SetFontSize(200);
+            UserInterface::UIText(600, 500, GetColor(255, 255, 255), "Start!");
+        }
+
+        if (endCount < 11 && endCount >= 1)
         {
             SetDrawBlendMode(DX_BLENDMODE_ALPHA, 150);
             SetDrawMode(DX_DRAWMODE_BILINEAR);
-            DrawRotaGraph(960, 540, 10.0f, 0, countImage[(int)timer], TRUE);
+            DrawRotaGraph(960, 540, 10.0f, 0, countImage[endCount], TRUE);
             SetDrawMode(DX_DRAWMODE_NEAREST);
             SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
+        }
+
+        if (endCount == 0)
+        {
+            SetFontSize(200);
+            UserInterface::UIText(600, 500, GetColor(255, 255, 255), "Finish!");
         }
 
         if (fadeState != FADE_NONE)

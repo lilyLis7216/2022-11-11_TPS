@@ -10,6 +10,8 @@ namespace My3dApp
 
     int GamePad::buttonState[16] = { 0 };
 
+    bool GamePad::canUse;
+
     const unsigned int BIT_FLAG[] =
     {
         (1 << 0),   // デジタル方向ボタン上
@@ -34,6 +36,7 @@ namespace My3dApp
     {
         instance = this;
         inputState = { 0 };
+        canUse = true;
     }
 
     GamePad::~GamePad()
@@ -59,34 +62,51 @@ namespace My3dApp
 
     void GamePad::Update()
     {
-        GetJoypadXInputState(DX_INPUT_KEY_PAD1, &inputState);
-
-        // 全ボタンの入力確認
-        for (int i = 0; i < 16; i++)
+        if (canUse)
         {
-            if (inputState.Buttons[i])
+            GetJoypadXInputState(DX_INPUT_KEY_PAD1, &inputState);
+
+            // 全ボタンの入力確認
+            for (int i = 0; i < 16; i++)
             {
-                if (buttonBit & BIT_FLAG[i])
+                if (inputState.Buttons[i])
                 {
-                    buttonState[i]++;
+                    if (buttonBit & BIT_FLAG[i])
+                    {
+                        buttonState[i]++;
+                    }
+                    else
+                    {
+                        buttonBit |= BIT_FLAG[i];
+                    }
                 }
                 else
                 {
-                    buttonBit |= BIT_FLAG[i];
+                    if (buttonBit & BIT_FLAG[i])
+                    {
+                        buttonBit &= ~BIT_FLAG[i];
+                        buttonState[i] = -1;
+                    }
+                    else
+                    {
+                        buttonState[i] = 0;
+                    }
                 }
             }
-            else
+        }
+        else
+        {
+            for (int i = 0; i < 16; i++)
             {
-                if (buttonBit & BIT_FLAG[i])
-                {
-                    buttonBit &= ~BIT_FLAG[i];
-                    buttonState[i] = -1;
-                }
-                else
-                {
-                    buttonState[i] = 0;
-                }
+                buttonState[i] = 0;
+                inputState.Buttons[i] = 0;
             }
+            inputState.LeftTrigger = 0;
+            inputState.RightTrigger = 0;
+            inputState.ThumbLX = 0;
+            inputState.ThumbLY = 0;
+            inputState.ThumbRX = 0;
+            inputState.ThumbRY = 0;
         }
     }
 

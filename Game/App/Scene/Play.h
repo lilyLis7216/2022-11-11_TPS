@@ -32,6 +32,11 @@ namespace My3dApp
 
         void GaugeUpdate(float deltaTime);
 
+        int startCount;
+        float startCountTimer;
+        bool countSE1;
+        int endCount;
+
     public:
         /// <summary>
         /// コンストラクタ

@@ -34,6 +34,8 @@ namespace My3dApp
         // 
         static int buttonState[16];
 
+        static bool canUse;
+
     public:
         /// <summary>
         /// インスタンスの生成
@@ -122,6 +124,8 @@ namespace My3dApp
         static const short GetRightStickY() { return inputState.ThumbRY; }
 
         static void Vibration();
+
+        static void SetPadUse(bool set) { canUse = set; }
     };
 
 #define Button GamePad::ButtonNum

@@ -174,7 +174,7 @@ namespace My3dApp
 
                     GameManager::AddScore(10);
 
-                    Play::AddGauge(30);
+                    Play::AddGauge(40);
 
                     AssetManager::PlaySoundEffect("hit", false);
 
@@ -214,7 +214,7 @@ namespace My3dApp
 
                     GameManager::AddScore(10);
 
-                    Play::AddGauge(20);
+                    Play::AddGauge(40);
 
                     AssetManager::PlaySoundEffect("hit", false);
 

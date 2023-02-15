@@ -374,9 +374,10 @@ namespace My3dApp
             shotInterval = 0.4f;
             GameObjectManager::Entry(new NormalBullet(ObjectTag::PlayerBullet, pos, dir));
         }
-        else if (GamePad::GetButtonState(Button::B) == 1 && !isCharge)
+        else if (GamePad::GetButtonState(Button::B) == 1 && !isCharge && shotInterval < 0)
         {
             isCharge = true;
+            shotInterval = 1.0f;
             GameObjectManager::Entry(new ChargeBullet(ObjectTag::PlayerBulletCharge, pos, dir));
         }
 
