@@ -213,7 +213,7 @@ namespace My3dApp
 
         if (startCount < 4 && startCount >= 1 && fadeState == FADE_NONE)
         {
-            SetDrawBlendMode(DX_BLENDMODE_ALPHA, 100);
+            SetDrawBlendMode(DX_BLENDMODE_ALPHA, 200);
             SetDrawMode(DX_DRAWMODE_BILINEAR);
             DrawRotaGraph(960, 540, 10.0f, 0, countImage[startCount], TRUE);
             SetDrawMode(DX_DRAWMODE_NEAREST);
@@ -228,7 +228,7 @@ namespace My3dApp
 
         if (endCount < 11 && endCount >= 1)
         {
-            SetDrawBlendMode(DX_BLENDMODE_ALPHA, 150);
+            SetDrawBlendMode(DX_BLENDMODE_ALPHA, 200);
             SetDrawMode(DX_DRAWMODE_BILINEAR);
             DrawRotaGraph(960, 540, 10.0f, 0, countImage[endCount], TRUE);
             SetDrawMode(DX_DRAWMODE_NEAREST);
